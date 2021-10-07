@@ -66,7 +66,7 @@
             <button class="btn btn-primary" id="FormButton2" type="button">Submit</button>
         </div>
         <div class="d-grid gap-2 p-2 d-md-block">
-            <button class="btn btn-primary" id="FormButton2" type="button">Back</button>
+            <button class="btn btn-primary" id="FormButton3" type="button">Back</button>
         </div>
     </form>
 
@@ -147,12 +147,18 @@
         $("#FormWindow1").hide();
         $("#FormWindow2").show();
       });
-      
+        //Back Button hides the personal details form and shows the calender
+        $("#FormButton3").click(function () {
+            $("#FormWindow1").show();
+            $("#FormWindow2").hide();
+        });
        //When submit button for personal details is clicked, hides the personal details form and shows summary form
        $("#FormButton2").click(function() {
          $("#FormWindow2").hide();
          $("#FormWindow3").show();
        });
+
+     
     });
     </script>
 
