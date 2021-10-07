@@ -24,24 +24,28 @@
     <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow1">
         <div id="ReserveCalender">
         </div>
-            <div class="mb-3">
-                <label for="inputSitting" class="form-label">Sitting Type</label>
-                <select id="inputSitting" class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="breakfastOption">Breakfast</option>
-                    <option value="lunchOption">Lunch</option>
-                    <option value="dinnerOption">Dinner</option>
-                    <option value="eventsOption">Events</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Booking time</label>
-                <input type="text" class="form-control" placeholder="Booking time" aria-label="Booking time">
-            </div>
-            <div class="d-grid gap-2 p-2 d-md-block">
-                <button class="btn btn-primary" id="FormButton1" type="button">Submit</button>
-            </div>
-        </form>
+        <div class="mb-3">
+            <label for="inputSitting" class="form-label">Sitting Type</label>
+            <select id="inputSitting" class="form-select">
+                <option selected>Choose...</option>
+                <option value="breakfastOption">Breakfast</option>
+                <option value="lunchOption">Lunch</option>
+                <option value="dinnerOption">Dinner</option>
+                <option value="eventsOption">Events</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Booking time</label>
+            <input type="text" class="form-control" placeholder="Booking time" aria-label="Booking time">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Number of Guest</label>
+            <input type="text" class="form-control" placeholder="Guest" aria-label="Guest">
+        </div>
+        <div class="d-grid gap-2 p-2 d-md-block">
+            <button class="btn btn-primary" id="FormButton1" type="button">Submit</button>
+        </div>
+    </form>
     <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow2">
         <h3 class="text-center fw-bold">
             Enter Your Details
@@ -60,6 +64,9 @@
         </div>
         <div class="d-grid gap-2 p-2 d-md-block">
             <button class="btn btn-primary" id="FormButton2" type="button">Submit</button>
+        </div>
+        <div class="d-grid gap-2 p-2 d-md-block">
+            <button class="btn btn-primary" id="FormButton2" type="button">Back</button>
         </div>
     </form>
 
