@@ -63,17 +63,18 @@
         </div>
         <div class="d-grid gap-2 p-2 d-md-block">
             <button class="btn btn-primary" id="FormButton2" type="button">Submit</button>
-        </div>
-        <div class="d-grid gap-2 p-2 d-md-block">
             <button class="btn btn-primary" id="FormButton3" type="button">Back</button>
         </div>
     </form>
-
     <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow3">
         <div>
             <h3 class="text-center fw-bold">
                 Summary
             </h3>
+        </div>
+        <div class="d-grid gap-2 p-2 d-md-block">
+            <button class="btn btn-primary" id="FormButton4" type="button">Submit</button>
+            <button class="btn btn-primary" id="FormButton5" type="button">Back</button>
         </div>
     </form>
 </div>
@@ -109,6 +110,7 @@
         //Calls the summary form when submit button on personal details is clicked with animation
         let formButton2 = $("#FormButton2");
         let formWindow3 = $("#FormWindow3");
+        
         formButton2.on("click", function() {
         $(formWindow3).removeClass('aos-animate');
         setTimeout(function() {
@@ -146,17 +148,24 @@
         $("#FormWindow1").hide();
         $("#FormWindow2").show();
       });
-        //Back Button hides the personal details form and shows the calender
-        $("#FormButton3").click(function () {
-            $("#FormWindow1").show();
-            $("#FormWindow2").hide();
-        });
+      
+      //Back Button hides the personal details form and takes you back to the calendar form
+      $("#FormButton3").click(function () {
+          $("#FormWindow1").show();
+          $("#FormWindow2").hide();
+      });
+        
        //When submit button for personal details is clicked, hides the personal details form and shows summary form
        $("#FormButton2").click(function() {
          $("#FormWindow2").hide();
          $("#FormWindow3").show();
        });
 
+       //Back Button hides the summary form and takes you back to the personal details form
+     $("#FormButton5").click(function () {
+         $("#FormWindow2").show();
+         $("#FormWindow3").hide();
+     });
      
     });
     </script>
