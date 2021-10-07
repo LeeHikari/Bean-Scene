@@ -21,13 +21,34 @@
 </div>
 <br />
 <div class="row ms-5 me-5">
-    <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" id="FormWindow1">
+    <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow1">
+        <div id="ReserveCalender">
+        </div>
+            <div class="mb-3">
+                <label for="inputSitting" class="form-label">Sitting Type</label>
+                <select id="inputSitting" class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="breakfastOption">Breakfast</option>
+                    <option value="lunchOption">Lunch</option>
+                    <option value="dinnerOption">Dinner</option>
+                    <option value="eventsOption">Events</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Booking time</label>
+                <input type="text" class="form-control" placeholder="Booking time" aria-label="Booking time">
+            </div>
+            <div class="d-grid gap-2 p-2 d-md-block">
+                <button class="btn btn-primary" id="FormButton1" type="button">Submit</button>
+            </div>
+        </form>
+    <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow2">
         <h3 class="text-center fw-bold">
             Enter Your Details
         </h3>
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" placeholder="Name" aria-label="Name">
+            <input type="text" class="form-control" placeholder="Name" id="NameForm" aria-label="Name">
         </div>
         <div class="mb-3">
             <label class="form-label">Phone Number</label>
@@ -37,33 +58,12 @@
             <label for="InputEmail1" class="form-label">Email address</label>
             <input type="email" class="form-control" placeholder="Email Address" id="InputEmail1" aria-describedby="emailHelp">
         </div>
-        <div class="mb-3">
-            <label for="inputSitting" class="form-label">Sitting Type</label>
-            <select id="inputSitting" class="form-select">
-                <option selected>Choose...</option>
-                <option value="breakfastOption">Breakfast</option>
-                <option value="lunchOption">Lunch</option>
-                <option value="dinnerOption">Dinner</option>
-                <option value="eventsOption">Events</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Booking time</label>
-            <input type="text" class="form-control" placeholder="Booking time" aria-label="Booking time">
-        </div>
-        <div class="d-grid gap-2 p-2 d-md-block">
-            <button class="btn btn-primary" id="FormButton1" type="button">Submit</button>
-        </div>
-    </form>
-    <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow2">
-        <div id="ReserveCalender">
-            
-        </div>
         <div class="d-grid gap-2 p-2 d-md-block">
             <button class="btn btn-primary" id="FormButton2" type="button">Submit</button>
         </div>
     </form>
-    <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" id="FormWindow3">
+
+    <form class="col-sm-10 shadow p-3 ps-5 mb-5 ms-5 bg-body rounded" data-aos-duration="500" data-aos="fade-left" id="FormWindow3">
         <div>
             <h3 class="text-center fw-bold">
                 Summary
@@ -90,15 +90,25 @@
   		easing: 'ease-in-out'
     });
     
-    //Calls the 2nd form when submit button is clicked with animation
+    //Calls the personal details form when submit button on calender form is clicked with animation
         let formWindow2 = $("#FormWindow2");
         let formButton1 = $("#FormButton1");
+        
 	    formButton1.on("click", function() {
 		$(formWindow2).removeClass('aos-animate');
 		setTimeout(function() {
 			$(formWindow2).addClass('aos-animate');
 		}, 400);
-	});
+        
+        //Calls the summary form when submit button on personal details is clicked with animation
+        let formButton2 = $("#FormButton2");
+        let formWindow3 = $("#FormWindow3");
+        formButton2.on("click", function() {
+        $(formWindow3).removeClass('aos-animate');
+        setTimeout(function() {
+            $(formWindow3).addClass('aos-animate');
+        }, 400);
+	})});
     </script>
 
     <script type="text/javascript" src="js/jquery.simple-calendar.js"></script>
@@ -125,16 +135,17 @@
        $('#FormWindow2').hide();
        $('#FormWindow3').hide();
        
-       //When booking button is clicked, it becomes hidden
-       $('#BookingButton').click(function() {
-           $("#BookingButton").hide();
-       });
-       
-       //When submit button is clicked, hides the first form and shows the second
+      //When submit button is clicked, hides the calender form and shows personal details form
       $("#FormButton1").click(function() {
         $("#FormWindow1").hide();
         $("#FormWindow2").show();
       });
+      
+       //When submit button for personal details is clicked, hides the personal details form and shows summary form
+       $("#FormButton2").click(function() {
+         $("#FormWindow2").hide();
+         $("#FormWindow3").show();
+       });
     });
     </script>
 

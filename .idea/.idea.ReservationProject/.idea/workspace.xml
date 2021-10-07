@@ -5,11 +5,19 @@
     <projectFile profileName="ReservationProject">ReservationProject/ReservationProject.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8cffaee1-eeb2-4717-9fa1-48ac83a84c36" name="Changes" comment="" />
+    <list default="true" id="8cffaee1-eeb2-4717-9fa1-48ac83a84c36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ReservationProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ReservationProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationProject/ReservationProject.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationProject/ReservationProject.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationProject/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationProject/Views/Home/Index.cshtml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -98,14 +106,29 @@
       <workItem from="1633397569235" duration="379000" />
       <workItem from="1633407258231" duration="1399000" />
       <workItem from="1633566474795" duration="1162000" />
+      <workItem from="1633578255978" duration="5922000" />
+      <workItem from="1633603606638" duration="5111000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
@@ -114,7 +137,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ReservationProject/Views/Home/Index.cshtml</url>
-          <line>80</line>
+          <line>81</line>
           <properties documentPath="C:\Users\LiamI\Downloads\16-Sept-ModelBuilt\ProgProj\ReservationProject\ReservationProject\Views\Home\Index.cshtml" initialLine="58" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
             <startOffsets>
