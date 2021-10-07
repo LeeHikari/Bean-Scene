@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "wwwroot/scss/simple-calendar.css",
+    "inputFile": "wwwroot/scss/simple-calendar.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/aos.css",
+    "inputFile": "wwwroot/scss/aos.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/aos/aos.css",
+    "inputFile": "wwwroot/scss/aos/aos.scss"
+  }
+]
