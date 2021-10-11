@@ -33,12 +33,13 @@ namespace ReservationProject
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -62,10 +63,33 @@ namespace ReservationProject
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "MyArea",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            createRoles(serviceProvider); 
+        }
+
+
+
+        private void createRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = { "Admin", "Member", "Employee", "Manager" };
+            foreach (string roleName in roleNames)
+            {
+                Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
+                roleExists.Wait();
+                if (!roleExists.Result)
+                {
+                    Task<IdentityResult> result = roleManager.CreateAsync(new IdentityRole(roleName));
+                    result.Wait();
+                }
+            }
         }
     }
 }
