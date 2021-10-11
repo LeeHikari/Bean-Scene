@@ -7,9 +7,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8cffaee1-eeb2-4717-9fa1-48ac83a84c36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ReservationProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ReservationProject/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReservationProject/ReservationProject.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationProject/ReservationProject.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReservationProject/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationProject/Views/Home/Index.cshtml" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
