@@ -5,36 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ReservationProject</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/mod-bootstrap.css" rel="stylesheet" />
+
     @await RenderSectionAsync("Styles", required: false)
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
-                    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                        <img class="img-fluid img w-5" src="~/img/Bean-Scene-Logo.png" alt="Bean Scene Logo" />
-                    </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+        <div class="row">
+            <div class="col card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
+                <img class="card-img" src="/img/bean-scene-header.png" alt="Bean Scene Cafe Interior" data-image-dimensions="1920x960" data-image-focal-point="0.5,0.5" />
+                <div class="card-img-overlay p-0">
+                    <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 bg-dark bg-opacity-100">
+                        <div class="container p-3" id="nav-font">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="container-fluid">
+                                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Reservations</a>
+                                        </li>
+                                    </ul>
+
+                                    <a class="navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4" asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
+                                    <partial name="_LoginPartial" />
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="card-img-bottom d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
+                        <p class="text-light align-self-center">Welcome to Bean Scene</p>
+                        <a href="#Reservation-Form" class="btn btn-light btn-lg align-self-center" style="width: 200px;" id="BookingButton">Make Reservation</a>
+                        <img class="align-self-center" />
+                    </div>
+
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
-    <div class="container-fluid">
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -42,9 +57,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Bean Scene - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - ReservationProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy<br /></a>
         </div>
     </footer>
+    <script src="~/js/calendar.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
