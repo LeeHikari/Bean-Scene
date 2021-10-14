@@ -28,17 +28,19 @@
                         <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
                             <div class="calendar-wrapper"> </div>
                         </div>
-                        <form class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded mt-4">
+                        <form asp-action="Create" class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded mt-4 form-group">
                             <div class="mb-3 align-items-center">
-                                <label asp-for="Sitting.Id" for="inputSitting" class="form-label">Avaliable Sittings</label>
-                                <select asp-for="Sitting.Id" asp-items="Reservations" id="inputSitting" class="form-select">
-                                    
+                                <label asp-for="SittingId" for="inputSitting" class="control-label">Avaliable Sittings</label>
+                                <select asp-for="SittingId" asp-items="Model.Sittings" id="inputSitting" class="form-control">
+                                    <option value="">-- select Sitting Type --</option>
+
                                     @*<option selected>Select Sitting...</option>
-                                    <option value="breakfastOption">Breakfast</option>
-                                    <option value="lunchOption">Lunch</option>
-                                    <option value="dinnerOption">Dinner</option>
-                                    <option value="eventsOption">Events</option>*@
+            <option value="breakfastOption">Breakfast</option>
+            <option value="lunchOption">Lunch</option>
+            <option value="dinnerOption">Dinner</option>
+            <option value="eventsOption">Events</option>*@
                                 </select>
+                                <span asp-validation-for="SittingId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="inputTime" class="form-label">Avaliable Times</label>

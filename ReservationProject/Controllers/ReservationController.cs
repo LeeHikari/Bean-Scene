@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.WebPages.Html;
 
 namespace ReservationProject.Controllers
 {
@@ -15,11 +14,13 @@ namespace ReservationProject.Controllers
         private readonly ApplicationDbContext _context;
         private Mapper _mapper;
 
-        public ReservationController(ApplicationDbContext context)
+        public ReservationController(ApplicationDbContext context, IMapper mapper)
         {
+            
             _context = context;
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Models.Reservation.Create, Data.Sitting>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Models.Reservation.Create, Data.Reservation>());
             _mapper = new Mapper(config);
+
         }
 
 
@@ -34,7 +35,7 @@ namespace ReservationProject.Controllers
         {
             var model = new Models.Reservation.Create
             {
-                Reservations = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Name), nameof(Sitting.StartTime))
+                Sittings = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
             };
 
             return View(model);
@@ -47,7 +48,8 @@ namespace ReservationProject.Controllers
             {
                 try
                 {
-                    var reservation = _mapper.Map<Data.Sitting>(model);
+                    var reservation = _mapper.Map<Data.Reservation>(model);
+                    _context.Reservations.Add(reservation);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -57,7 +59,7 @@ namespace ReservationProject.Controllers
                 }
             }
 
-            model.Reservations = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Name), nameof(Sitting.StartTime));
+            model.Sittings = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
             return View(model);
         }
     }
