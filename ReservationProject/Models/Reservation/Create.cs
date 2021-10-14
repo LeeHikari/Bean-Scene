@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ReservationProject.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,8 +27,11 @@ namespace ReservationProject.Models.Reservation
 
         public string Note { get; set; }
         public int SittingId { get; set; }
+        public Sitting Sitting { get; }
         public int ReservationStatusId { get; set; }
         public int ReservationSourceId { get; set; }
+
+        public SelectList Reservations { get; set; }
 
 
     }
