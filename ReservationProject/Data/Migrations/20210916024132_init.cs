@@ -63,19 +63,6 @@ namespace ReservationProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sittingtypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sittingtypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Area",
                 columns: table => new
                 {
@@ -106,9 +93,7 @@ namespace ReservationProject.Data.Migrations
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
-                    IsClosed = table.Column<bool>(type: "bit", nullable: false),
-                    SittingTypeId = table.Column<int>(type: "int", nullable: false)
-                },
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false),                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sittings", x => x.Id);
@@ -116,12 +101,6 @@ namespace ReservationProject.Data.Migrations
                         name: "FK_Sittings_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Sittings_Sittingtypes_SittingTypeId",
-                        column: x => x.SittingTypeId,
-                        principalTable: "Sittingtypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -221,17 +200,6 @@ namespace ReservationProject.Data.Migrations
                 values: new object[] { 1, "Bean Scene" });
 
             migrationBuilder.InsertData(
-                table: "Sittingtypes",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Breakfast" },
-                    { 2, "Lunch" },
-                    { 3, "Dinner" },
-                    { 4, "Other" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Area",
                 columns: new[] { "Id", "Name", "RestaurantId" },
                 values: new object[] { 1, "Main", 1 });
@@ -320,11 +288,6 @@ namespace ReservationProject.Data.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sittings_SittingTypeId",
-                table: "Sittings",
-                column: "SittingTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tables_AreaId",
                 table: "Tables",
                 column: "AreaId");
@@ -352,9 +315,6 @@ namespace ReservationProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Area");
-
-            migrationBuilder.DropTable(
-                name: "Sittingtypes");
 
             migrationBuilder.DropTable(
                 name: "Restaurants");

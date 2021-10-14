@@ -57,8 +57,7 @@ namespace ReservationProject.Data
 
             });
 
-            mb.Entity<SittingType>()
-                .Property(r => r.Name).IsRequired().HasMaxLength(50);
+ 
 
             mb.Entity<Table>()
                 .Property(r => r.Name).IsRequired().HasMaxLength(50);
@@ -75,7 +74,6 @@ namespace ReservationProject.Data
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Sitting> Sittings {get; set;}
-        public DbSet<SittingType> Sittingtypes {get; set;}
         public DbSet<Table> Tables { get; set; }
     }
 }

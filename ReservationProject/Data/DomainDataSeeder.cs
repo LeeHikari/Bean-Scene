@@ -74,16 +74,6 @@ namespace ReservationProject.Data
                     new ReservationStatus { Id = 5, Name = "Seated" },
                     new ReservationStatus { Id = 6, Name = "Completed" }
                 );
-
-            mb.Entity<SittingType>()
-                .HasData(
-                    new ReservationStatus { Id = 1, Name = "Breakfast" },
-                    new ReservationStatus { Id = 2, Name = "Lunch" },
-                    new ReservationStatus { Id = 3, Name = "Dinner" },
-                    new ReservationStatus { Id = 4, Name = "Other" }
-                );
-
-
         }
     }
 }

@@ -482,9 +482,6 @@ namespace ReservationProject.Data.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SittingTypeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -492,48 +489,7 @@ namespace ReservationProject.Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.HasIndex("SittingTypeId");
-
                     b.ToTable("Sittings");
-                });
-
-            modelBuilder.Entity("ReservationProject.Data.SittingType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sittingtypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Breakfast"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Lunch"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Dinner"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Other"
-                        });
                 });
 
             modelBuilder.Entity("ReservationProject.Data.Table", b =>
@@ -844,16 +800,6 @@ namespace ReservationProject.Data.Migrations
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ReservationProject.Data.SittingType", "SittingType")
-                        .WithMany()
-                        .HasForeignKey("SittingTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurant");
-
-                    b.Navigation("SittingType");
                 });
 
             modelBuilder.Entity("ReservationProject.Data.Table", b =>

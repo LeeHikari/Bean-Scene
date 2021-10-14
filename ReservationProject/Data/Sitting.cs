@@ -21,9 +21,6 @@ namespace ReservationProject.Data
 
         public int Vacancies { get => Capacity - NumberOfGuests;} //How many spare spots are available.
 
-        public int SittingTypeId { get; set; }
-        public SittingType SittingType { get; set; }
-
         public List<Reservation> Reservations { get; set; }
 
 
