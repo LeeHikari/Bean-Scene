@@ -12,15 +12,12 @@ namespace ReservationProject.Controllers
     public class ReservationController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private Mapper _mapper;
+        private IMapper _mapper;
 
         public ReservationController(ApplicationDbContext context, IMapper mapper)
         {
-            
             _context = context;
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Models.Reservation.Create, Data.Reservation>());
-            _mapper = new Mapper(config);
-
+            _mapper = mapper;
         }
 
 
