@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReservationProject.Models.Member
+namespace ReservationProject.Areas.Employee.Models.Reservation
 {
     public class Create
     {
-        
     }
 }

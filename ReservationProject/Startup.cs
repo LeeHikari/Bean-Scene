@@ -79,7 +79,7 @@ namespace ReservationProject
         private void createRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = { "Admin", "Member", "Employee", "Manager" };
+            string[] roleNames = {"Member", "Employee", "Manager" };
             foreach (string roleName in roleNames)
             {
                 Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
