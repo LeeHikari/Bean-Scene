@@ -31,7 +31,7 @@ namespace ReservationProject.Models.Reservation
         public int ReservationStatusId { get; set; }
         public int ReservationSourceId { get; set; }
 
-        public SelectList Sittings { get; set; }
+        public SelectList SittingTypes { get; set; }
 
 
     }

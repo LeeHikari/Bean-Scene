@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ReservationProject.Controllers
     public class ReservationController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public ReservationController(ApplicationDbContext context, IMapper mapper)
         {
@@ -32,7 +33,7 @@ namespace ReservationProject.Controllers
         {
             var model = new Models.Reservation.Create
             {
-                Sittings = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
+                SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
             };
 
             return View(model);
@@ -56,7 +57,7 @@ namespace ReservationProject.Controllers
                 }
             }
 
-            model.Sittings = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
+            model.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
             return View(model);
         }
     }

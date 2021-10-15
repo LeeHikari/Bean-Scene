@@ -30,8 +30,8 @@
                         </div>
                         <form asp-action="Create" class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded mt-4 form-group">
                             <div class="mb-3 align-items-center">
-                                <label asp-for="SittingId" for="inputSitting" class="control-label">Avaliable Sittings</label>
-                                <select asp-for="SittingId" asp-items="Model.Sittings" id="inputSitting" class="form-control">
+                                <label asp-for="SittingId" class="control-label">Avaliable Sittings</label>
+                                <select asp-for="SittingId" asp-items="Model.SittingTypes" id="inputSitting" class="form-control">
                                     <option value="">-- select Sitting Type --</option>
 
                                     @*<option selected>Select Sitting...</option>
