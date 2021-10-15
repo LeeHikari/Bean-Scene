@@ -26,10 +26,12 @@ namespace ReservationProject.Models.Reservation
         public int Guests { get; set; }
 
         public string Note { get; set; }
-        public int SittingId { get; set; }
-        public Sitting Sitting { get; }
+        public Sitting Sitting { get; set; }
         public int ReservationStatusId { get; set; }
         public int ReservationSourceId { get; set; }
+
+        [Display(Name = "Sitting Types")]
+        public int SittingId { get; set; }
 
         public SelectList SittingTypes { get; set; }
 

@@ -76,7 +76,7 @@ namespace ReservationProject
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Reservation}/{action=Create}/{id?}");
                 endpoints.MapRazorPages();
             });
             //createRoles(serviceProvider); 

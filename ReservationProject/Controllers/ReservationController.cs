@@ -21,19 +21,29 @@ namespace ReservationProject.Controllers
             _mapper = mapper;
         }
 
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         //TODO 8/19/21 9:31am, 38 minutes
         [HttpGet]
         public IActionResult Create()
         {
             var model = new Models.Reservation.Create
             {
+                //TODO (Group)
+                ////_context.Sittings to an array
+                // Return the Filtered array for specified day -calendar linked
+                // 1/10/21
+                // Get non locked sittings.
+                // return as the source for the select list.
+
                 SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
+
+                //Calendar - Automatically Lock day, if no sittings assigned.
+
+                // We will create a edit page specifically for admin usage, that can select a date on the calendar
+                //create, update, delete spe
+
+                //personal details automatically assigned using 'asp-for="FirstName"' Or however we've named it exactly in the model.
+
+                //Summary 
             };
 
             return View(model);
