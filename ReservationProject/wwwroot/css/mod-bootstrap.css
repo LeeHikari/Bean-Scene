@@ -25,3 +25,21 @@
     -webkit-transform: scale(1.1);
     background: #31708f;
 }
+
+.fadeupText {
+    display: inline-block;
+    animation: FadingMove 7.00s ease;
+        -o-animation: FadingMove 7.00s ease;
+        -webkit-animation: FadingMove 7.00s ease;
+        -moz-animation: FadingMove 7.00s ease;
+}
+@keyframes FadingMove{
+    0%{
+        color: transparent;
+        bottom: 0;
+    }
+    100%{
+        color: white;
+        top: 15px;
+    }
+}
