@@ -32,7 +32,10 @@ namespace ReservationProject.Controllers
 
                 var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-                //TODO 26/08 11:50 (41 Minutes)
+                if (!User.IsInRole("Employee"))
+                {
+                    await _userManager.AddToRoleAsync(user, "Employee");
+                }
             }
             return View();
         }

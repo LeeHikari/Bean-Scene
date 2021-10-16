@@ -79,7 +79,7 @@ namespace ReservationProject
                     pattern: "{controller=Reservation}/{action=Create}/{id?}");
                 endpoints.MapRazorPages();
             });
-            //createRoles(serviceProvider); 
+            createRoles(serviceProvider); 
         }
 
 
