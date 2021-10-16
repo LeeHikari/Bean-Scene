@@ -26,9 +26,9 @@ namespace ReservationProject.Data
                     eb.Property(r => r.FirstName).IsRequired().HasMaxLength(50);
                     eb.Property(r => r.LastName).IsRequired().HasMaxLength(50);
                     eb.Property(r => r.Email).IsRequired().HasMaxLength(150);
+                    eb.Property(r => r.Phone).IsRequired().HasMaxLength(15);
                     eb.Property(r => r.UserId).IsRequired().HasMaxLength(150);
                     eb.HasIndex(r => r.Email).IsUnique(true);
-
                 });
 
 

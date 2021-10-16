@@ -10,7 +10,7 @@ using ReservationProject.Data;
 namespace ReservationProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210916024132_init")]
+    [Migration("20211016045718_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace ReservationProject.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -285,6 +285,11 @@ namespace ReservationProject.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -484,9 +489,6 @@ namespace ReservationProject.Data.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SittingTypeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -494,48 +496,7 @@ namespace ReservationProject.Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.HasIndex("SittingTypeId");
-
                     b.ToTable("Sittings");
-                });
-
-            modelBuilder.Entity("ReservationProject.Data.SittingType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sittingtypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Breakfast"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Lunch"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Dinner"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Other"
-                        });
                 });
 
             modelBuilder.Entity("ReservationProject.Data.Table", b =>
@@ -847,15 +808,7 @@ namespace ReservationProject.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ReservationProject.Data.SittingType", "SittingType")
-                        .WithMany()
-                        .HasForeignKey("SittingTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Restaurant");
-
-                    b.Navigation("SittingType");
                 });
 
             modelBuilder.Entity("ReservationProject.Data.Table", b =>

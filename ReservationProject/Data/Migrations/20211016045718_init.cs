@@ -16,7 +16,8 @@ namespace ReservationProject.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,7 +94,8 @@ namespace ReservationProject.Data.Migrations
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
-                    IsClosed = table.Column<bool>(type: "bit", nullable: false),                },
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sittings", x => x.Id);

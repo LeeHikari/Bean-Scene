@@ -1,5 +1,18 @@
 ﻿@model ReservationProject.Models.Reservation.Create
 
+
+<div class="row">
+    <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
+        <img class="card-img" src="/img/bean-scene-header.png" alt="Bean Scene Cafe Interior" data-image-dimensions="1920x854" data-image-focal-point="0.5,0.5" />
+        <div class="card-img-overlay d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
+            <p class="text-light align-self-center">Welcome to Bean Scene</p>
+            <a href="#Reservation-Form" class="btn btn-light btn-lg align-self-center" style="width: 200px;" id="BookingButton">Make Reservation</a>
+            <img class="align-self-center" />
+        </div>
+    </div>
+</div>
+
+
 <div class="text-center">
     <h1 class="display-4 mt-3" id="Reservation-Form">Reservations</h1>
     <p> Please fill in the information below</p>
@@ -28,7 +41,7 @@
                             <div class="mb-3 align-items-center">
                                 <label asp-for="SittingId" class="form-label"></label>
                                 <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
-                                    <option value="">-- select Sitting Type --</option>
+                                    <option value="">Select Sitting Type...</option>
 
                                     @*<option selected>Select Sitting...</option>
             <option value="breakfastOption">Breakfast</option>
