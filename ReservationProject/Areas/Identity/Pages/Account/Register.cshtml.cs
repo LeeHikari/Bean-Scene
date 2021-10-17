@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ReservationProject.Service;
 using ReservationProject.Data;
 
 namespace ReservationProject.Areas.Identity.Pages.Account
@@ -25,15 +26,16 @@ namespace ReservationProject.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
+        private readonly PersonService _personService;
 
-        public RegisterModel(ApplicationDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
+        public RegisterModel(ApplicationDbContext context, UserManager<IdentityUser> userManager, PersonService personService, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-
+            _personService = personService;
         }
 
         [BindProperty]
@@ -88,42 +90,69 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
+            //    if (result.Succeeded)
+            //    {
+            //        _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+            //        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            //        var callbackUrl = Url.Page(
+            //            "/Account/ConfirmEmail",
+            //            pageHandler: null,
+            //            values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+            //            protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            //        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+            //            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
+            //        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+            //        {
+            //            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+            //        }
+            //        else
+            //        {
+            //            await _signInManager.SignInAsync(user, isPersistent: false);
+            //            return LocalRedirect(returnUrl);
+            //        }
+            //    }
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(string.Empty, error.Description);
+            //    }
+            //}
 
              //If we got this far, something failed, redisplay form
-            return Page();
-         
+            //return Page();
 
+            if (result.Succeeded)
+            {
 
+                await _userManager.AddToRoleAsync(user, "Member");
+
+                var p = new Person
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    UserId = user.Id,
+                    Email = Input.Email,
+                    Phone = Input.Phone
+
+                };
+                await _personService.UpsertPersonAsync(p, true);
+
+                _logger.LogInformation("User created a new account with password.");
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Home", new { area = "Member" });
+
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
         }
+        // If we got this far, something failed, redisplay form
+            return Page();
+
+    }
     }
 }

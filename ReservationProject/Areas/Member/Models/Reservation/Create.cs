@@ -16,6 +16,8 @@ namespace ReservationProject.Areas.Member.Models.Reservation
 
         [Required(ErrorMessage = "Email: Required")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Phone: Required")]
+        public string Phone { get; set; }
 
         public DateTime StartTime { get; set; }
         public int Duration { get; set; } //Minutes

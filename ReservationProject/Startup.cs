@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReservationProject.Data;
+using ReservationProject.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace ReservationProject
             {
                 cfg.CreateMap<Models.Reservation.Create, Data.Reservation>();
             });
+
+            services.AddScoped<PersonService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
