@@ -44,11 +44,17 @@ namespace ReservationProject.Controllers
                 var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
                 model.FirstName = _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id).Result.FirstName;
+                model.LastName = _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id).Result.LastName;
+                model.Email = _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id).Result.Email;
+                model.Phone = _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id).Result.Phone;
 
                 return View(model);
             }
 
             model.FirstName = "";
+            model.LastName = "";
+            model.Email = "";
+            model.Phone = "";
 
 
             return View(model);
