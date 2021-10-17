@@ -31,7 +31,7 @@ namespace ReservationProject
 
             services.AddAutoMapper(cfg =>
             {
-                cfg.CreateMap<Models.Reservation.Create, Data.Reservation>();
+                cfg.CreateMap<Models.Reservation.Index, Data.Reservation>();
             });
 
             services.AddScoped<PersonService>();
@@ -79,7 +79,7 @@ namespace ReservationProject
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Reservation}/{action=Create}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
             createRoles(serviceProvider); 

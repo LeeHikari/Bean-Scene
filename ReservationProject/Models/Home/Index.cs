@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Models.Reservation
 {
-    public class Create
+    public class Index
     {
         [Required(ErrorMessage = "Lastname: Required")]
         public string LastName { get; set; }
