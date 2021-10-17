@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Member.Controllers
 {
+    [Area("Member")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -46,7 +47,7 @@ namespace ReservationProject.Areas.Member.Controllers
                 }
             }
 
-            var model = new Models.Reservation.Index
+            var model = new Models.Home.Index
             {
                 SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
             };
@@ -55,7 +56,7 @@ namespace ReservationProject.Areas.Member.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Models.Reservation.Index model)
+        public async Task<IActionResult> Index(Models.Home.Index model)
         {
             if (ModelState.IsValid)
             {

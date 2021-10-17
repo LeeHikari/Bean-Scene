@@ -31,7 +31,7 @@ namespace ReservationProject
 
             services.AddAutoMapper(cfg =>
             {
-                cfg.CreateMap<Models.Reservation.Index, Data.Reservation>();
+                cfg.CreateMap<Models.Home.Index, Data.Reservation>();
             });
 
             services.AddScoped<PersonService>();
@@ -74,7 +74,7 @@ namespace ReservationProject
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "MyArea",
+                    name: "Member",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(

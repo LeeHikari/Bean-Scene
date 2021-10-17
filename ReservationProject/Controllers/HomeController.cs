@@ -43,7 +43,7 @@ namespace ReservationProject.Controllers
                     await _userManager.AddToRoleAsync(user, "Employee");
                 }
             }
-            var model = new Models.Reservation.Index
+            var model = new Models.Home.Index
             {            
                 SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
             };
@@ -52,7 +52,7 @@ namespace ReservationProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Models.Reservation.Index model)
+        public async Task<IActionResult> Index(Models.Home.Index model)
         {
             if (ModelState.IsValid)
             {

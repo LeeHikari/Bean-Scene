@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReservationProject.Models.Reservation
+namespace ReservationProject.Models.Home
 {
     public class Index
     {
