@@ -32,21 +32,24 @@ namespace ReservationProject.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var model = new Models.Home.Index
+            {
+                SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
+            };
+
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
 
                 var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-                if (!User.IsInRole("Employee"))
-                {
-                    await _userManager.AddToRoleAsync(user, "Employee");
-                }
+                model.FirstName = _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id).Result.FirstName;
+
+                return View(model);
             }
-            var model = new Models.Home.Index
-            {            
-                SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
-            };
+
+            model.FirstName = "";
+
 
             return View(model);
         }

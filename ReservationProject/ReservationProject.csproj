@@ -31,8 +31,6 @@
     <Folder Include="Areas\Employee\Controllers\" />
     <Folder Include="Areas\Employee\Data\" />
     <Folder Include="Areas\Employee\Views\" />
-    <Folder Include="Areas\Member\Data\" />
-    <Folder Include="Areas\Member\Data\" />
   </ItemGroup>
 
   <ItemGroup>

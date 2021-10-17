@@ -5,7 +5,7 @@
     <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
         <img class="card-img" src="/img/bean-scene-header.png" alt="Bean Scene Cafe Interior" data-image-dimensions="1920x854" data-image-focal-point="0.5,0.5" />
         <div class="card-img-overlay d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
-            <p class="text-light align-self-center">Welcome to Bean Scene</p>
+            <p class="text-light align-self-center">Welcome to Bean Scene @Model.FirstName</p>
             <a href="#Reservation-Form" class="btn btn-light btn-lg align-self-center" style="width: 200px;" id="BookingButton">Make Reservation</a>
             <img class="align-self-center" />
         </div>
@@ -105,7 +105,7 @@
                     <form class="col-sm-10 shadow p-3 ps-5 mb-2 ms-5 bg-body rounded mt-4">
                         <div class="mb-3">
                             <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Your First Name" id="FirstNameForm" aria-label="First Name">
+                            <input type="text" class="form-control" placeholder="Enter Your First Name" id="FirstNameForm" aria-label="First Name" value="@Model.FirstName">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Last Name</label>
