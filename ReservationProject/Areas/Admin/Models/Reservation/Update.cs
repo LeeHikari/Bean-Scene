@@ -7,5 +7,6 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
 {
     public class Update
     {
+        //Id
     }
 }

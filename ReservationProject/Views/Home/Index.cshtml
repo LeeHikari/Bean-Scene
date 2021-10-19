@@ -5,7 +5,7 @@
     <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
         <img class="card-img" src="/img/bean-scene-header.png" alt="Bean Scene Cafe Interior" data-image-dimensions="1920x854" data-image-focal-point="0.5,0.5" />
         <div class="card-img-overlay d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
-            <p class="text-light align-self-center">Welcome to Bean Scene @Model.FirstName</p>
+            <p class="text-light align-self-center">Welcome to Bean Scene @Model.FirstName </p>
             <a href="#Reservation-Form" class="btn btn-light btn-lg align-self-center" style="width: 200px;" id="BookingButton">Make Reservation</a>
             <img class="align-self-center" />
         </div>
@@ -198,6 +198,9 @@
             });
         }
 
+        var todayDate = new Date();
+        todayDate.setHours(0, 0, 0, 0);
+
         var defaultConfig = {
             weekDayLength: 1,
             date: new Date(),
@@ -207,9 +210,18 @@
             todayButtonContent: "Reset",
             disable: function (date) {
 
-                //Also check for dates with no sittings
-                return date < (new Date() - 1);
-            }
+                //date represents all of the days values on calendar
+
+                //Day Contains a sitting
+                //foreach Sitting Check if Sitting is locked/full of people
+                //
+                //
+
+
+                return date < (new Date());
+            },
+            min: todayDate,
+            max: '2021-12-01',
         };
 
         $('.calendar-wrapper').calendar(defaultConfig);

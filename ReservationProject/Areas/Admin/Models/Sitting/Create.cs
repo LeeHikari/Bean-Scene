@@ -7,5 +7,6 @@ namespace ReservationProject.Areas.Admin.Models.Sitting
 {
     public class Create
     {
+        //Properties to create
     }
 }

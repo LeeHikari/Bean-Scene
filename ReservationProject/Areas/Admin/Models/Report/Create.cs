@@ -7,5 +7,6 @@ namespace ReservationProject.Areas.Admin.Models.Report
 {
     public class Create
     {
+        //Properties to create report
     }
 }
