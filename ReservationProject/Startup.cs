@@ -102,5 +102,16 @@ namespace ReservationProject
                 }
             }
         }
+
+        private void createAdmin(IServiceProvider serviceProvider)
+        {
+            //Peter talked about adding Admin on Startup
+
+            //var userManager = serviceProvider.GetRequiredService<UserManager<IdentityRole>>();
+            
+            //IdentityRole myUser = new IdentityRole();
+            //myUser.Name = ""
+            //userManager.CreateAsync()
+        }
     }
 }

@@ -43,9 +43,6 @@ namespace ReservationProject.Controllers
 
                 var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-                //Edit Code, Instead of repeatedly calling the database, we're calling it above in person
-                //and using the person object to assign the values below.
-
                 model.FirstName = person.FirstName;
                 model.LastName = person.LastName;
                 model.Email = person.Email;
