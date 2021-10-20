@@ -46,7 +46,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
             
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
-            [Display(Name = "Phone number")]
+            [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
         }
 
@@ -55,7 +55,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            //var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
 
             var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
@@ -95,7 +95,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            //var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
             if (!ModelState.IsValid)
