@@ -95,6 +95,8 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+            var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
             if (!ModelState.IsValid)
             {
@@ -102,17 +104,33 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
             //TO DO Edit to change person in database
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (person.Phone!=Input.PhoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                person.Phone = Input.PhoneNumber;
             }
-    
+            if (person.FirstName != Input.FirstName)
+            {
+                person.FirstName = Input.FirstName;
+
+            }
+            if (person.LastName != Input.LastName)
+            {
+                person.LastName = Input.LastName;
+
+            }
+            _context.SaveChanges();
+
+            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            //if (Input.PhoneNumber != phoneNumber)
+            //{
+            //    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            //    if (!setPhoneResult.Succeeded)
+            //    {
+            //        StatusMessage = "Unexpected error when trying to set phone number.";
+            //        return RedirectToPage();
+            //    }
+            //}
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
