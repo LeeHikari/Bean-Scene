@@ -197,9 +197,10 @@
                 date: date
             });
         }
-
         var todayDate = new Date();
-        todayDate.setHours(0, 0, 0, 0);
+        var maxDate = new Date();
+        maxDate.setHours(0, 0, 0, 0);
+        maxDate.setMonth(todayDate.getMonth() + 6);
 
         var defaultConfig = {
             weekDayLength: 1,
@@ -221,7 +222,7 @@
                 return date < (new Date());
             },
             min: todayDate,
-            max: '2021-12-01',
+            max: maxDate,
         };
 
         $('.calendar-wrapper').calendar(defaultConfig);

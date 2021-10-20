@@ -36,7 +36,7 @@ namespace ReservationProject.Controllers
             {
                 SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
             };
-
+            //TODO: check if member and not other type of user
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
