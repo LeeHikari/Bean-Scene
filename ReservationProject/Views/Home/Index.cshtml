@@ -35,51 +35,48 @@
                     </div>
                     <div class="p-4">
                         <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                            <div class="calendar-wrapper"> </div>
+                            <div class="calendar-wrapper" > </div>
                         </div>
                         <form asp-action="Create" class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded mt-4 form-group">
-                            <div class="mb-3 align-items-center">
-                                <label asp-for="SittingId" class="form-label"></label>
-                                <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
-                                    <option value="">Select Sitting Type...</option>
+                            <fieldset id="LockedForm">
+                                <div class="mb-3 align-items-center">
+                                    <label asp-for="SittingId" class="form-label"></label>
+                                    <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
+                                        <option value="">Select Sitting Type...</option>
+                                    </select>
+                                    <span asp-validation-for="SittingId" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputTime" class="form-label">Avaliable Times</label>
+                                    <select id="inputTime" class="form-select">
+                                        <option selected>Select Time...</option>
+                                        <option value="Breakfast">9:00am</option>
+                                        <option value="Breakfast">9:30am</option>
+                                        <option value="Breakfast">10:00am</option>
+                                        <option value="Breakfast">10:30am</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="guest" class="form-label">Number Guest</label>
+                                    <select id="guest" class="form-select">
+                                        <option selected>Select Number of Guests...</option>
+                                        <option value="Breakfast">1</option>
+                                        <option value="Breakfast">2</option>
+                                        <option value="Breakfast">3</option>
+                                    </select>
 
-                                    @*<option selected>Select Sitting...</option>
-            <option value="breakfastOption">Breakfast</option>
-            <option value="lunchOption">Lunch</option>
-            <option value="dinnerOption">Dinner</option>
-            <option value="eventsOption">Events</option>*@
-                                </select>
-                                <span asp-validation-for="SittingId" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputTime" class="form-label">Avaliable Times</label>
-                                <select id="inputTime" class="form-select">
-                                    <option selected>Select Time...</option>
-                                    <option value="Breakfast">9:00am</option>
-                                    <option value="Breakfast">9:30am</option>
-                                    <option value="Breakfast">10:00am</option>
-                                    <option value="Breakfast">10:30am</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="guest" class="form-label">Number Guest</label>
-                                <select id="guest" class="form-select">
-                                    <option selected>Select Number of Guests...</option>
-                                    <option value="Breakfast">1</option>
-                                    <option value="Breakfast">2</option>
-                                    <option value="Breakfast">3</option>
-                                </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="duration" class="form-label">Duration</label>
+                                    <select id="duration" class="form-select">
+                                        <option selected value="Breakfast">90 Minutes (Default)</option>
+                                        <option value="Breakfast">105 Minutes</option>
+                                        <option value="Breakfast">120 Minutes</option>
+                                    </select>
 
-                            </div>
-                            <div class="mb-3">
-                                <label for="duration" class="form-label">Duration</label>
-                                <select id="duration" class="form-select">
-                                    <option selected value="Breakfast">90 Minutes (Default)</option>
-                                    <option value="Breakfast">105 Minutes</option>
-                                    <option value="Breakfast">120 Minutes</option>
-                                </select>
-                                
-                            </div>
+                                </div>
+                            </fieldset>
+                           
 
                             <div class="d-flex justify-content-end">
                                 <div class="gap-2 p-3 d-md-block">
@@ -193,12 +190,15 @@
     <script src="~/js/calendar.js"></script>
     <script>
         function selectDate(date) {
+            debugger;
             $('.calendar-wrapper').updateCalendarOptions({
                 date: date
             });
         }
-        var todayDate = new Date();
         var maxDate = new Date();
+        var todayDate = new Date();
+
+        todayDate.setHours(0, 0, 0, 0);
         maxDate.setHours(0, 0, 0, 0);
         maxDate.setMonth(todayDate.getMonth() + 6);
 
@@ -209,18 +209,6 @@
             highlightSelectedWeek: false,
             highlightSelectedWeekday: false,
             todayButtonContent: "Reset",
-            disable: function (date) {
-
-                //date represents all of the days values on calendar
-
-                //Day Contains a sitting
-                //foreach Sitting Check if Sitting is locked/full of people
-                //
-                //
-
-
-                return date < (new Date());
-            },
             min: todayDate,
             max: maxDate,
         };

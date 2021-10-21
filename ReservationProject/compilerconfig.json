@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/scss/aos/aos.css",
     "inputFile": "wwwroot/scss/aos/aos.scss"
+  },
+  {
+    "outputFile": "wwwroot/js/calendar.es5.js",
+    "inputFile": "Views/Home/Index.cshtml"
   }
 ]

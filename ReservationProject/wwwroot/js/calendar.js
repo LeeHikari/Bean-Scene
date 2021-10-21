@@ -1,6 +1,6 @@
 (function ($) {
-  var todayDate = new Date();
-  todayDate.setHours(0, 0, 0, 0);
+    var todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
 
   // These are the defaults.
   var defaults = {

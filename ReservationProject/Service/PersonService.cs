@@ -10,7 +10,6 @@ namespace ReservationProject.Service
 {
     public class PersonService
     {
-
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 

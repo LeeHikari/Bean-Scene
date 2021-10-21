@@ -9,7 +9,7 @@ using ReservationProject.Data;
 namespace ReservationProject.Areas.Admin.Controllers
 {
   
-    [Area("Admin"), Authorize(Roles = "Manager")]
+    [Area("Admin"), Authorize(Roles = "Staff")]
     public abstract class AdminAreaBaseController : Controller
     {
         protected readonly ApplicationDbContext _context;

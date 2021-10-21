@@ -32,9 +32,15 @@ namespace ReservationProject.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var sittingTypeOptions = _context.Sittings.Select(s => new
+            {
+                Value = s.Id,
+                Display = $"{s.Name} {s.StartTime}"
+            })
+            .ToArray(); 
             var model = new Models.Home.Index
             {
-                SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name))
+                SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display")
             };
             //TODO: check if member and not other type of user
             if (User.Identity.IsAuthenticated)
