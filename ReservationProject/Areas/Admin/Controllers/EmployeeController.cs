@@ -2,6 +2,7 @@
 
 namespace ReservationProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class EmployeeController : Controller
     {
         public IActionResult Index()
@@ -10,6 +11,16 @@ namespace ReservationProject.Areas.Admin.Controllers
         }
 
         public IActionResult Create()
+        {
+            return View();
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        public IActionResult Update()
         {
             return View();
         }
