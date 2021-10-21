@@ -35,7 +35,7 @@ namespace ReservationProject.Controllers
             var sittingTypeOptions = _context.Sittings.Select(s => new
             {
                 Value = s.Id,
-                Display = $"{s.Name} {s.StartTime}"
+                Display = $"{s.Name} {s.StartTime.ToString("h:mm tt")}-{s.EndTime.ToString("h:mm tt")} Spaces Left "
             })
             .ToArray(); 
             var model = new Models.Home.Index

@@ -142,7 +142,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account
 
                 _logger.LogInformation("User created a new account with password.");
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home", new { area = "Member" });
+                return RedirectToAction("Index", "Home", new { area = "" });
 
             }
             foreach (var error in result.Errors)

@@ -82,7 +82,7 @@ namespace ReservationProject
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            createRoles(serviceProvider); 
+            createRoles(serviceProvider);
         }
 
 
@@ -90,7 +90,7 @@ namespace ReservationProject
         private void createRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = {"Member", "Employee", "Admin" };
+            string[] roleNames = {"Member", "Staff", "Admin" };
             foreach (string roleName in roleNames)
             {
                 Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
@@ -101,17 +101,8 @@ namespace ReservationProject
                     result.Wait();
                 }
             }
+
         }
 
-        private void createAdmin(IServiceProvider serviceProvider)
-        {
-            //Peter talked about adding Admin on Startup
-
-            //var userManager = serviceProvider.GetRequiredService<UserManager<IdentityRole>>();
-            
-            //IdentityRole myUser = new IdentityRole();
-            //myUser.Name = ""
-            //userManager.CreateAsync()
-        }
     }
 }
