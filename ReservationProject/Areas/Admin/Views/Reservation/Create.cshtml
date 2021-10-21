@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ReservationProject.Data.Sitting
+
 @{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center fw-bold m-5">Create a New Reservation</h1>
+<div class="container-fluid">
+    <div class="ms-5 me-5 ps-5 pe-5">
+        <div class="card shadow">
+            <h5 class="card-header">Enter details for new Reservation</h5>
+            <div class="card-body">
+                <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group p-2">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group p-2">
+                    <label asp-for="StartTime" class="control-label"></label>
+                    <input asp-for="StartTime" class="form-control" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group p-2">
+                    <label asp-for="EndTime" class="control-label"></label>
+                    <input asp-for="EndTime" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+                <div class="form-group p-2">
+                    <label asp-for="Capacity" class="control-label"></label>
+                    <input asp-for="Capacity" class="form-control" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+                <div class="form-group p-2">
+                    <label asp-for="RestaurantId" class="control-label"></label>
+                    <select asp-for="RestaurantId" class ="form-control" asp-items="ViewBag.RestaurantId"></select>
+                </div>
+                <div class="form-group form-check p-2">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsClosed" /> @Html.DisplayNameFor(model => model.IsClosed)
+                    </label>
+                </div>
+                <div class="form-group p-2">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

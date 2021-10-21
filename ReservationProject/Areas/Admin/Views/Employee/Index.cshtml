@@ -9,7 +9,7 @@
     
 }
 
-<h1>Index</h1>
+<h1 class="text-center fw-bold m-5">Create a New Employee</h1>
 
 @*<p>
     <a asp-action="Create">Create New</a>
@@ -36,7 +36,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@*@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -59,6 +59,6 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+}*@
     </tbody>
 </table>
