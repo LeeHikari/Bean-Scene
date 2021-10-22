@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ReservationProject.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,6 @@ namespace ReservationProject.Areas.Admin.Models.Employee
 
         [Required]
         public string Phone { get; set; }
-
         public SelectList Roles { get; set; }
 
         [Required]

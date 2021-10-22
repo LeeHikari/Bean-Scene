@@ -41,7 +41,7 @@
                             <fieldset id="LockedForm">
                                 <div class="mb-3 align-items-center">
                                     <label asp-for="SittingId" class="form-label"></label>
-                                    <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
+                                    <select asp-for="SittingId" asp-items="Model.SittingTypes" id="FromSittingId" class="form-select">
                                         <option value="">Select Sitting Type...</option>
                                     </select>
                                     <span asp-validation-for="SittingId" class="text-danger"></span>
@@ -50,20 +50,12 @@
                                     <label for="inputTime" class="form-label">Avaliable Times</label>
                                     <select id="inputTime" class="form-select">
                                         <option selected>Select Time...</option>
-                                        <option value="Breakfast">9:00am</option>
-                                        <option value="Breakfast">9:30am</option>
-                                        <option value="Breakfast">10:00am</option>
-                                        <option value="Breakfast">10:30am</option>
+                                        <option id="FromStartTime" value="">9:00am</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="guest" class="form-label">Number Guest</label>
-                                    <select id="guest" class="form-select">
-                                        <option selected>Select Number of Guests...</option>
-                                        <option value="Breakfast">1</option>
-                                        <option value="Breakfast">2</option>
-                                        <option value="Breakfast">3</option>
-                                    </select>
+                                    <label for="Guests" class="form-label">Number Guest</label>
+                                    <input id="FromGuests" class="form-select" placeholder="Amount of Guests">
 
                                 </div>
                                 <div class="mb-3">
@@ -139,28 +131,76 @@
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                         </div>
                     </div>
-                    <form class="col-sm-10 shadow p-3 ps-5 mb-2 ms-5 bg-body rounded mt-4">
-                        <p>Restaurant</p>
-                        <br />
-                        <p>Host Name</p>
-                        <p>Host Phone</p>
-                        <p>Host Email</p>
-                        <br />
-                        <p>Requested Date</p>
-                        <p>Requested Sitting</p>
-                        <p>Requested Time</p>
-                        <br />
-                        <p>Group Size</p>
-                        <div class="d-flex justify-content-between">
-                            <div class="gap-2 p-3 d-md-block">
-                                <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
-                            </div>
-                            <div class="gap-2 p-3 d-md-block">
-                                <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Submit</a>
+                    <div class="col-sm-10 shadow p-3 ps-5 mb-2 ms-5 bg-body rounded mt-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="StartTime" class="control-label"></label>
+                                        <input asp-for="StartTime" id="ToStartTime" class="form-control" name="StartTime" value="" />
+                                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="SittingId" class="control-label"></label>
+                                        <input asp-for="SittingId" id="ToSittingId" class="form-control" value="" />
+                                        <span asp-validation-for="SittingId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Duration" class="control-label"></label>
+                                        <input asp-for="Duration" id="ToDuration" class="form-control" value="" />
+                                        <span asp-validation-for="Duration" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Guests" class="control-label"></label>
+                                        <input asp-for="Guests" id="ToGuests" class="form-control" value="" />
+                                        <span asp-validation-for="Guests" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Note" class="control-label"></label>
+                                        <input asp-for="Note" id="ToNote" class="form-control" value="" />
+                                        <span asp-validation-for="Note" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="FirstName" class="control-label"></label>
+                                        <input asp-for="FirstName" id="ToFirstName" class="form-control" value="" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="control-label"></label>
+                                        <input asp-for="LastName" id="ToLastName" class="form-control" value="" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" id="ToEmail" class="form-control" value="" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Phone" class="control-label"></label>
+                                        <input asp-for="Phone" id="ToPhone" class="form-control" value="" />
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="ReservationStatusId" class="control-label"></label>
+                                        <input asp-for="ReservationStatusId" id="ToStatus" class="form-control" value="" />
+                                        <span asp-validation-for="ReservationStatusId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="ReservationSourceId" class="control-label"></label>
+                                        <input asp-for="ReservationSourceId" id="ToSource" class="form-control" value="" />
+                                        <span asp-validation-for="ReservationSourceId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
+                    
                 <div class="carousel-item">
                     <div class="d-inline-block p-6">
                         <div>
@@ -215,6 +255,8 @@
 
         $('.calendar-wrapper').calendar(defaultConfig);
 
+        $('#ToStartTime').val(selectDate);
+
     </script>
     <script>
         $(document).ready(function () {
@@ -228,5 +270,10 @@
                 $("#FormController").carousel("next");
             });
         });
+    </script>
+    <script>
+        function switchValues() {
+            document.getElementById
+        }
     </script>
 }

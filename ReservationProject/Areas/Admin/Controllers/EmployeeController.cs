@@ -16,6 +16,7 @@ namespace ReservationProject.Areas.Admin.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly PersonService _personService;
 
+
         public EmployeeController(ApplicationDbContext context, UserManager<IdentityUser> userManager, PersonService personService)
             : base(context)
         {
@@ -30,12 +31,18 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            //var roleOptions = _context.UserRoles.
 
+            var RoleOptions = _context.Roles.Select(s => new
+            {
+                Value = s.Id,
+                Display = $"{s.Name}"
+            })
+            .ToArray();
             var model = new Models.Employee.Create
             {
-                Roles = new SelectList(_context.UserRoles.ToArray(), "Id", "Name")
+                Roles = new SelectList(RoleOptions, "Value", "Display")
             };
+
             return View(model);
         }
 

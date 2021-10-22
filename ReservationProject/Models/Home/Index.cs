@@ -34,7 +34,6 @@ namespace ReservationProject.Models.Home
 
         [Display(Name = "Sitting Types")]
         public int SittingId { get; set; }
-
         public SelectList SittingTypes { get; set; }
 
 
