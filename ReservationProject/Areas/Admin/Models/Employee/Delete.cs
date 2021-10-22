@@ -7,6 +7,6 @@ namespace ReservationProject.Areas.Admin.Models.Employee
 {
     public class Delete
     {
-        //Id
+        public int Id { get; set; }
     }
 }
