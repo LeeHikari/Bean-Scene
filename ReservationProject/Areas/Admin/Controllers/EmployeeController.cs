@@ -31,12 +31,10 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var model = new Models.Employee.Create
             {
-                Roles = new SelectList(_context.Roles.ToArray(), "Id", "Name"),
-                UserId = user.Id
+                Roles = new SelectList(await _context.Roles.ToArrayAsync(), "Id", "Name")
             };
 
             return View(model);
