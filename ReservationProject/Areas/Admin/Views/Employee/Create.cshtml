@@ -11,7 +11,7 @@
         <div class="card shadow d-flex justify-content-center">
             <h5 class="card-header">Enter the details of your new employee</h5>
             <div class="card-body">
-                <form asp-action="Create">
+                <form asp-action="Create" >
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="FirstName" class="control-label"></label>
@@ -34,16 +34,15 @@
                         <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Roles" class="control-label"></label>
-                        <select asp-for="Roles" asp-items="Model.Roles" class="form-control">
-                            <option value="Roles">Select Role...</option>
+                        <label class="control-label"></label>
+                        <select asp-items="Model.Roles" class="form-control">
+                            <option value="">Select Role...</option>
                         </select>
-                        <span asp-validation-for="Roles" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="UserId" class="control-label"></label>
-                        <input asp-for="UserId" class="form-control" disabled/>
-                        <span asp-validation-for="UserId" class="text-danger"></span>
+                        <input asp-for="UserId" class="form-control" value="@Model.UserId" disabled/>
                     </div>
                     <div class="pt-2 form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />

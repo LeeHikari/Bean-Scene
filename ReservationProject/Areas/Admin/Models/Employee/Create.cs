@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 using System;
 using System.Collections.Generic;
@@ -25,9 +28,8 @@ namespace ReservationProject.Areas.Admin.Models.Employee
 
         [Required]
         public string Phone { get; set; }
-        public SelectList Roles { get; set; }
-
         [Required]
+        public SelectList Roles { get; set; }
         public string UserId { get; set; }
     }
 }

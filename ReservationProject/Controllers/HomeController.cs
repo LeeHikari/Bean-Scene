@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ReservationProject.Data;
 using ReservationProject.Models;
+using ReservationProject.Service;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,16 +21,18 @@ namespace ReservationProject.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IMapper _mapper;
+        private readonly PersonService _personService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, IMapper mapper, PersonService personService)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
+            _personService = personService;
 
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var sittingTypeOptions = _context.Sittings.Select(s => new
@@ -67,21 +70,56 @@ namespace ReservationProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Models.Home.Index model)
+        public async Task<IActionResult> Create(Models.Home.Index model)
         {
+            Person person = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
+                ModelState.Remove("Email");
+                ModelState.Remove("FirstName");
+                ModelState.Remove("LastName");
+                ModelState.Remove("Phone");
+            }
+
+            person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
+            if (person.UserId != null)
+            {
+                //add code advise they must log in
+            }
+
             if (ModelState.IsValid)
             {
-                try
+
+                if (person == null)
                 {
-                    var reservation = _mapper.Map<Data.Reservation>(model);
-                    _context.Reservations.Add(reservation);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    person = new Person
+                    {
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Phone = model.Phone
+                    };
+                    person = await _personService.UpsertPersonAsync(person, false);
                 }
-                catch (Exception ex)
+
+                //create new reservation assign the person id
+
+                var reservation = new Reservation
                 {
-                    ex.Message.ToString();
-                }
+                    StartTime = model.StartTime,
+                    Duration = model.Duration,
+                    PersonId = person.Id,
+                    Guests = model.Guests,
+                    ReservationSourceId = 1,
+                    ReservationStatusId = 2,
+                    SittingId = model.SittingId,
+                    Note = model.Note
+
+                };
+                _context.Reservations.Add(reservation);
+                await _context.SaveChangesAsync();
             }
 
             model.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));

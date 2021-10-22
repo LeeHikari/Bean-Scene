@@ -29,23 +29,20 @@ namespace ReservationProject.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            var RoleOptions = _context.Roles.Select(s => new
-            {
-                Value = s.Id,
-                Display = $"{s.Name}"
-            })
-            .ToArray();
             var model = new Models.Employee.Create
             {
-                Roles = new SelectList(RoleOptions, "Value", "Display")
+                Roles = new SelectList(_context.Roles.ToArray(), "Id", "Name"),
+                UserId = user.Id
             };
 
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(Models.Employee.Create model)
         {
             if (ModelState.IsValid)
@@ -72,6 +69,10 @@ namespace ReservationProject.Areas.Admin.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
+            model.Roles = new SelectList(_context.Roles.ToArray(), "Id", "Name");
+
+
             return View(model);
         }
 

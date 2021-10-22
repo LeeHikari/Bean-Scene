@@ -26,9 +26,7 @@ namespace ReservationProject.Models.Home
         public DateTime EndTime { get => StartTime.AddMinutes(Duration); } //Pre-defining EndTime (Adding our duration into our StartTime)
         [Required(ErrorMessage = "No of Guests: Required")]
         public int Guests { get; set; }
-
         public string Note { get; set; }
-        public Sitting Sitting { get; set; }
         public int ReservationStatusId { get; set; }
         public int ReservationSourceId { get; set; }
 
