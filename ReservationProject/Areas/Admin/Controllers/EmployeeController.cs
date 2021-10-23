@@ -32,9 +32,18 @@ namespace ReservationProject.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
 
+
+
+            var rolelist=_context.Roles.Select(s=>new
+            { 
+            Value=s.Name,
+            Display=s.Name
+            }).ToArray();
+
             var model = new Models.Employee.Create
+
             {
-                Roles = new SelectList(await _context.Roles.ToArrayAsync(), "Id", "Name")
+                Roles = new SelectList(rolelist.Where(x=>x.Display != "Member").ToList(), "Value", "Display")
             };
 
             return View(model);
@@ -51,7 +60,7 @@ namespace ReservationProject.Areas.Admin.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Staff");
+                    await _userManager.AddToRoleAsync(user, model.Role);
 
                     var p = new Person();
                     {
