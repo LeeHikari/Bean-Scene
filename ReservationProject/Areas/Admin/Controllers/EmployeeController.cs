@@ -45,19 +45,21 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone };
-                var result = await _userManager.CreateAsync(user);
+                var user = new IdentityUser { UserName = $"{model.FirstName}.{model.LastName}@beanscene.com", Email = $"{model.FirstName}.{model.LastName}@beanscene.com", PhoneNumber = model.Phone };
+                var result = await _userManager.CreateAsync(user, model.Password);
+         
+
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Staff");
 
                     var p = new Person();
                     {
-                        p.Email = model.Email;
+                        p.Email = $"{model.FirstName}.{model.LastName}@beanscene.com";
                         p.Phone = model.Phone;
                         p.FirstName = model.FirstName;
                         p.LastName = model.LastName;
-                        p.UserId = model.UserId;
+                        p.UserId = user.Id;
                     }
                     await _personService.UpsertPersonAsync(p, true);
                     return RedirectToAction("Index", "Home", new { area = "Employee" });
