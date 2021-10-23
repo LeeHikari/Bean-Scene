@@ -23,9 +23,10 @@ namespace ReservationProject.Areas.Admin.Controllers
             _userManager = userManager;
             _personService = personService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var people = await _context.People.OrderBy(people=>people.Id).ToArrayAsync();
+            return View(people);
         }
 
         [HttpGet]
