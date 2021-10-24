@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "Admin")]
     public class EmployeeController : AdminAreaBaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
