@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         }
 
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var sitting = await _context.Sittings.OrderBy(sitting => sitting.Id).ToArrayAsync();
+            return View(sitting);
         }
 
         [HttpGet]

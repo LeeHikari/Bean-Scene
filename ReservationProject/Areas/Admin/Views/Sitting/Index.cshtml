@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model IEnumerable<ReservationProject.Data.Sitting>
 @{
+    ViewData["Title"] = "Index";
+
 }
+
+<h1 class="text-center fw-bold m-5">View Sittings</h1>
+<a asp-action="Create" class="btn btn-primary">Create</a>
+<hr />
+<table border="1" width="100%">
+    <thead>
+        <tr><td>Id</td><td>Restruant Name</td><td>Start Time</td><td>End Time</td><td>Capacity</td><td>Is Closed<td></td></tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+        <tr>
+            <td>@r.Id</td>
+            <td>@r.Name</td>
+            <td>@r.StartTime</td>
+            <td>@r.EndTime</td>
+            <td>@r.Capacity</td>
+            <td>@r.IsClosed</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@r.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@r.Id">Delete</a> |
+                <a asp-action="Update" asp-route-id="@r.Id">Update</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -25,6 +25,8 @@ namespace ReservationProject.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            
+
             var people = await _context.People.OrderBy(people=>people.Id).ToArrayAsync();
             return View(people);
         }
@@ -35,7 +37,7 @@ namespace ReservationProject.Areas.Admin.Controllers
 
 
 
-            var rolelist=_context.Roles.Select(s=>new
+            var rolelist= _context.Roles.Select(s=>new
             { 
             Value=s.Name,
             Display=s.Name
