@@ -17,7 +17,7 @@ namespace ReservationProject.Data
 
         public bool IsClosed { get; set; }
 
-        public int NumberOfGuests { get => Reservations.Sum(r=>r.Guests); } //Gets total number of guests for a sitting
+        public int NumberOfGuests { get => Reservations?.Sum(r=>r.Guests)??0; } //Gets total number of guests for a sitting
 
         public int Vacancies { get => Capacity - NumberOfGuests;} //How many spare spots are available.
 

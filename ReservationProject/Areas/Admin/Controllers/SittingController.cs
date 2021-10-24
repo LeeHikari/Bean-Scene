@@ -17,41 +17,54 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         }
 
-        
-            public IActionResult Index()
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            var restaurantlist = _context.Restaurants.Select(r => new
             {
-                return View();
-            }
+                Value = r.Id,
+                Display = r.Name
+            }).ToArray();
 
-            [HttpGet]
-            public IActionResult Create()
+            var model = new Models.Sitting.Create
+
             {
+                Restaurants = new SelectList(restaurantlist.ToList(), "Value", "Display")
+            };
 
-                var restaurantlist = _context.Restaurants.Select(r => new
-                {
-                    Value = r.Id,
-                    Display = r.Name
-                }).ToArray();
-
-                var model = new Models.Sitting.Create
-
-                {
-                    Restaurants = new SelectList(restaurantlist.ToList(), "Value", "Display")
-                };
-
-                return View(model);
-            }
-            [HttpPost]
-            public async Task<IActionResult> Create(Models.Sitting.Create model)
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Models.Sitting.Create model)
+        {
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var sitting = new Sitting();
                 {
-                var sitting = new Sitting { Name = model.Name, StartTime = model.StartTime, EndTime = model.EndTime, Capacity = model.Capacity, RestaurantId = model.RestaurantId, IsClosed = model.IsClosed };
+                    sitting.Name = model.Name; sitting.StartTime = model.StartTime;
+                    sitting.EndTime = model.EndTime;
+                    sitting.Capacity = model.Capacity;
+                    sitting.RestaurantId = model.RestaurantId;
+                    sitting.IsClosed = model.IsClosed;
                 }
+                _context.Sittings.Add(sitting);
+                _context.SaveChanges();
+
+
                 return View(model);
 
             }
-            public IActionResult Delete()
+            return View(model);
+
+        }
+        public IActionResult Delete()
             {
                 return View();
             }
@@ -60,6 +73,7 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 return View();
             }
-    }
-} 
+        }
+    } 
+
 
