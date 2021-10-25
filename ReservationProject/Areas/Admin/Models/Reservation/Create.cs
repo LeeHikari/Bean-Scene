@@ -20,7 +20,6 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         [Required]
         [Display(Name = "Number of Guests")]
         public int Guests { get; set; }
-        [Required]
         [Display(Name = "Additional Notes")]
         public string Note { get; set; }
 
@@ -37,12 +36,23 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         [Display(Name = "Sitting of Reservation")]
         public int SittingId { get; set; }
         public SelectList Sittings { get; set; }
-   
-        [Required]
-        [Display(Name = "Person Making Reservation")]
-        public int PersonId { get; set; }
 
-        public Person Person { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [Display(Name = "Restaurant")]

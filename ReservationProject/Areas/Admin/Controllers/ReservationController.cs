@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
+using ReservationProject.Service;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +12,12 @@ namespace ReservationProject.Areas.Admin.Controllers
     [Area("Admin"), Authorize(Roles = "Admin, Staff")]
     public class ReservationController : AdminAreaBaseController
     {
-        public ReservationController(ApplicationDbContext context)
+        private readonly PersonService _personService;
+
+        public ReservationController(ApplicationDbContext context, PersonService personService)
           : base(context)
         {
-
+            _personService = personService;
         }
         public IActionResult Index()
         {
@@ -56,6 +60,19 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                //upsert new person
+                var p = new Person
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Phone = model.Phone
+
+                };
+                var person= _personService.UpsertPersonAsync(p, true);
+
+
+                //create reservation with persoon id
                 var reservation = new Reservation();
                 {
                     reservation.StartTime = model.StartTime;
@@ -66,7 +83,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                     reservation.ReservationStatusId = 1;//pending
                     reservation.SittingId = model.SittingId;
                     reservation.RestaurantId = model.RestaurantId;
-                    reservation.PersonId = model.PersonId;
+                    reservation.PersonId = person.Id;
                 }
                 _context.Reservations.Add(reservation);
                 _context.SaveChanges();
