@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "Admin")]
     public class SittingController : AdminAreaBaseController
     {
 
@@ -55,8 +56,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                     sitting.RestaurantId = model.RestaurantId;
                     sitting.IsClosed = model.IsClosed;
                 }
-                _context.Sittings.Add(sitting);
-                _context.SaveChanges();
+                await _context.Sittings.AddAsync(sitting);
+                await _context.SaveChangesAsync();
 
 
                 return View(model);

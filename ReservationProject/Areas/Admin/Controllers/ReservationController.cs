@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
+using ReservationProject.Service;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "Admin, Staff")]
     public class ReservationController : AdminAreaBaseController
     {
-        public ReservationController(ApplicationDbContext context)
+        private readonly PersonService _personService;
+
+        public ReservationController(ApplicationDbContext context, PersonService personService)
           : base(context)
         {
-
+            _personService = personService;
         }
         public async Task<IActionResult> Index()
         {
@@ -23,24 +27,24 @@ namespace ReservationProject.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
-            var sourceList = _context.ReservationSources.Select(s => new
+            var sourceList = await _context.ReservationSources.Select(s => new
             {
                 Value = s.Id,
                 Display = s.Name
-            }).ToArray();
-            var restaurantList = _context.Restaurants.Select(r => new
+            }).ToArrayAsync();
+            var restaurantList = await _context.Restaurants.Select(r => new
             {
                 Value = r.Id,
                 Display = r.Name
-            }).ToArray();
-            var sittingList = _context.Sittings.Select(r => new
+            }).ToArrayAsync();
+            var sittingList = await _context.Sittings.Select(r => new
             {
                 Value = r.Id,
                 Display = r.Name
-            }).ToArray();
+            }).ToArrayAsync();
             var model = new Models.Reservation.Create
 
             {
@@ -57,20 +61,33 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                //upsert new person
+                var p = new Person
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Phone = model.Phone
+
+                };
+                var person = await _personService.UpsertPersonAsync(p, true);
+
+
+                //create reservation with persoon id
                 var reservation = new Reservation();
                 {
                     reservation.StartTime = model.StartTime;
                     reservation.Duration = model.Duration;
                     reservation.Guests = model.Guests;
                     reservation.Note = model.Note;
-                    reservation.ReservationSourceId = model.ReservationSourceId;
+                    reservation.ReservationSourceId = 1;
                     reservation.ReservationStatusId = 1;//pending
                     reservation.SittingId = model.SittingId;
-                    reservation.RestaurantId = model.RestaurantId;
-                    reservation.PersonId = model.PersonId;
+                    reservation.RestaurantId = 1;
+                    reservation.PersonId = person.Id;
                 }
-                _context.Reservations.Add(reservation);
-                _context.SaveChanges();
+                await _context.Reservations.AddAsync(reservation);
+                await _context.SaveChangesAsync();
 
 
                 return View(model);

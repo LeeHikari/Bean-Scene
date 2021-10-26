@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Area("Admin"), Authorize(Roles = "Admin, Staff")]
     public class HomeController : AdminAreaBaseController
     {
         public HomeController(ApplicationDbContext context) : base(context) { }
