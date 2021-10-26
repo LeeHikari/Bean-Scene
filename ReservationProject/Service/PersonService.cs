@@ -23,7 +23,7 @@ namespace ReservationProject.Service
 
         public async Task<Person> UpsertPersonAsync(Person _person, bool update)
         {
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == _person.Email);
+            var person =  await _context.People.FirstOrDefaultAsync(p => p.Email == _person.Email);
             if (person == null)
             {
                 person = new Person
@@ -32,9 +32,8 @@ namespace ReservationProject.Service
                     FirstName = _person.FirstName,
                     LastName = _person.LastName,
                     Phone = _person.Phone,
-                    UserId = _person.UserId
                 };
-                await _context.People.AddAsync(person);
+                _context.People.Add(person);
             }
             else if(person != null && update)
             {
@@ -42,7 +41,6 @@ namespace ReservationProject.Service
                 person.FirstName = _person.FirstName;
                 person.LastName = _person.LastName; 
                 person.Phone = _person.Phone;
-                person.UserId = _person.UserId;
             }
             await _context.SaveChangesAsync();
             return person;

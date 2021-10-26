@@ -61,18 +61,22 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                Person? person = null;
 
-                //upsert new person
-                var p = new Person
+                person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
+
+                if (person == null)
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    Phone = model.Phone                   
-
-                };
-
-                var person = await _personService.UpsertPersonAsync(p, true);
+                    person = new Person
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Phone = model.Phone
+                    };
+                    person = await _personService.UpsertPersonAsync(person, false);
+                }
+               
 
                 //create reservation with persoon id
                 var reservation = new Reservation();
@@ -86,11 +90,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                     reservation.SittingId = model.SittingId;
                     reservation.PersonId = person.Id;
                 }
-                await _context.Reservations.AddAsync(reservation);
+                _context.Reservations.Add(reservation);
                 await _context.SaveChangesAsync();
-
-
-                return View(model);
 
             }
             return View(model);
