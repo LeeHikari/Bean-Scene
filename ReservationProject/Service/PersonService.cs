@@ -21,29 +21,28 @@ namespace ReservationProject.Service
         }
 
 
-        public async Task<Person> UpsertPersonAsync(Person data, bool update)
+        public async Task<Person> UpsertPersonAsync(Person _person, bool update)
         {
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == data.Email);
+            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == _person.Email);
             if (person == null)
             {
                 person = new Person
                 {
-                    Email = data.Email,
-                    FirstName = data.FirstName,
-                    LastName = data.LastName,
-                    Phone = data.Phone,
-                    UserId = data.UserId
+                    Email = _person.Email,
+                    FirstName = _person.FirstName,
+                    LastName = _person.LastName,
+                    Phone = _person.Phone,
+                    UserId = _person.UserId
                 };
-                _context.People.Add(person);
-               
+                await _context.People.AddAsync(person);
             }
-            if(person != null && update)
+            else if(person != null && update)
             {
-                person.Email = data.Email;
-                person.FirstName = data.FirstName;
-                person.LastName = data.LastName; 
-                person.Phone = data.Phone;
-                person.UserId = data.UserId;
+                person.Email = _person.Email;
+                person.FirstName = _person.FirstName;
+                person.LastName = _person.LastName; 
+                person.Phone = _person.Phone;
+                person.UserId = _person.UserId;
             }
             await _context.SaveChangesAsync();
             return person;

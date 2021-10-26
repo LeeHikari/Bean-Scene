@@ -19,8 +19,6 @@ namespace ReservationProject.Data
 
         public int ReservationSourceId { get; set; }
         public ReservationSource ReservationSource { get; set; }
-        public int RestaurantId { get; set; }
-        public Restaurant Restaurant { get; set; }
         public int SittingId { get; set; }
         public Sitting Sitting { get; set; }
 
