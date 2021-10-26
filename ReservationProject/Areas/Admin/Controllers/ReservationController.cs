@@ -82,7 +82,6 @@ namespace ReservationProject.Areas.Admin.Controllers
                     reservation.ReservationSourceId = model.ReservationSourceId;
                     reservation.ReservationStatusId = 1;//pending
                     reservation.SittingId = model.SittingId;
-                    reservation.RestaurantId = model.RestaurantId;
                     reservation.PersonId = person.Id;
                 }
                 _context.Reservations.Add(reservation);
