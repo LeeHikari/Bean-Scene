@@ -56,8 +56,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                     sitting.RestaurantId = model.RestaurantId;
                     sitting.IsClosed = model.IsClosed;
                 }
-                _context.Sittings.Add(sitting);
-                _context.SaveChanges();
+                await _context.Sittings.AddAsync(sitting);
+                await _context.SaveChangesAsync();
 
 
                 return View(model);

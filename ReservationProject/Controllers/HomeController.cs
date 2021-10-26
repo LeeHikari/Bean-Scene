@@ -35,12 +35,12 @@ namespace ReservationProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var sittingTypeOptions = _context.Sittings.Select(s => new
+            var sittingTypeOptions = await _context.Sittings.Select(s => new
             {
                 Value = s.Id,
                 Display = $"{s.Name} {s.StartTime.ToString("h:mm tt")}-{s.EndTime.ToString("h:mm tt")} Spaces Left "
             })
-            .ToArray(); 
+            .ToArrayAsync(); 
             var model = new Models.Home.Index
             {
                 SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display")
@@ -52,12 +52,24 @@ namespace ReservationProject.Controllers
 
                 var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-                model.FirstName = person.FirstName;
-                model.LastName = person.LastName;
-                model.Email = person.Email;
-                model.Phone = person.Phone;
+                if(person != null)
+                {
+                    model.FirstName = person.FirstName;
+                    model.LastName = person.LastName;
+                    model.Email = person.Email;
+                    model.Phone = person.Phone;
 
-                return View(model);
+                    return View(model);
+                }
+                else
+                {
+                    model.FirstName = "";
+                    model.LastName = "";
+                    model.Email = "";
+                    model.Phone = "";
+
+                    return View(model);
+                }
             }
 
             model.FirstName = "";

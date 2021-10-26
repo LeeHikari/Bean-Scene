@@ -10,10 +10,21 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
 {
     public class Create
     {
-        //properties to create reservation
+
+        //Local Properties for reservation
         [Required]
-        [Display(Name = "Start Time of Reservation")]
-        public DateTime StartTime { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Reservation Date")]
+        public DateTime ResDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Reservation Time")]
+        public DateTime ResTime { get; set; }
+
+        //properties to create reservation
+        public DateTime StartTime { get => ResDate.AddHours(ResTime.Hour).AddMinutes(ResTime.Minute); }
+        public DateTime EndTime { get => StartTime.AddMinutes(Duration); }
         [Required]
         [Display(Name = "Duration of Reservation")]
         public int Duration { get; set; } //Minutes

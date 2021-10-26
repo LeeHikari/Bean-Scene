@@ -26,24 +26,24 @@ namespace ReservationProject.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
-            var sourceList = _context.ReservationSources.Select(s => new
+            var sourceList = await _context.ReservationSources.Select(s => new
             {
                 Value = s.Id,
                 Display = s.Name
-            }).ToArray();
-            var restaurantList = _context.Restaurants.Select(r => new
+            }).ToArrayAsync();
+            var restaurantList = await _context.Restaurants.Select(r => new
             {
                 Value = r.Id,
                 Display = r.Name
-            }).ToArray();
-            var sittingList = _context.Sittings.Select(r => new
+            }).ToArrayAsync();
+            var sittingList = await _context.Sittings.Select(r => new
             {
                 Value = r.Id,
                 Display = r.Name
-            }).ToArray();
+            }).ToArrayAsync();
             var model = new Models.Reservation.Create
 
             {
@@ -69,7 +69,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                     Phone = model.Phone
 
                 };
-                var person= _personService.UpsertPersonAsync(p, true);
+                var person = await _personService.UpsertPersonAsync(p, true);
 
 
                 //create reservation with persoon id
@@ -79,14 +79,14 @@ namespace ReservationProject.Areas.Admin.Controllers
                     reservation.Duration = model.Duration;
                     reservation.Guests = model.Guests;
                     reservation.Note = model.Note;
-                    reservation.ReservationSourceId = model.ReservationSourceId;
+                    reservation.ReservationSourceId = 1;
                     reservation.ReservationStatusId = 1;//pending
                     reservation.SittingId = model.SittingId;
-                    reservation.RestaurantId = model.RestaurantId;
+                    reservation.RestaurantId = 1;
                     reservation.PersonId = person.Id;
                 }
-                _context.Reservations.Add(reservation);
-                _context.SaveChanges();
+                await _context.Reservations.AddAsync(reservation);
+                await _context.SaveChangesAsync();
 
 
                 return View(model);

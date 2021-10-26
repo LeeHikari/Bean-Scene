@@ -37,11 +37,11 @@ namespace ReservationProject.Areas.Admin.Controllers
 
 
 
-            var rolelist= _context.Roles.Select(s=>new
+            var rolelist= await _context.Roles.Select(s=>new
             { 
             Value=s.Name,
             Display=s.Name
-            }).ToArray();
+            }).ToArrayAsync();
 
             var model = new Models.Employee.Create
 
@@ -82,7 +82,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 }
             }
 
-            model.Roles = new SelectList(_context.Roles.ToArray(), "Id", "Name");
+            model.Roles = new SelectList(await _context.Roles.ToArrayAsync(), "Id", "Name");
 
 
             return View(model);
