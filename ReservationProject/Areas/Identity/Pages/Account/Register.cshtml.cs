@@ -127,7 +127,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
 
-                await _userManager.AddToRoleAsync(user, "Member");
+                await _userManager.AddToRoleAsync(user, "Admin");
 
                 var p = new Person
                 {

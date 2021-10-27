@@ -30,6 +30,8 @@
             <td>@r.Guests</td>
             <td>@r.StartTime</td>
             <td>@r.EndTime</td>
+            <td>@*@r.Capacity*@</td>
+            <td>@r.Note</td>
             <td>
                 <a asp-action="Details" asp-route-id="@r.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@r.Id">Delete</a> |
