@@ -63,7 +63,7 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 Person? person = null;
 
-                person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
+                person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email.ToLower());
 
                 if (person == null)
                 {
@@ -71,7 +71,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                     {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
-                        Email = model.Email,
+                        Email = model.Email.ToLower(),
                         Phone = model.Phone
                     };
                     person = await _personService.UpsertPersonAsync(person, false);

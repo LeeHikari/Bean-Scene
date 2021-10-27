@@ -37,7 +37,7 @@ namespace ReservationProject.Service
             }
             else if(person != null && update)
             {
-                person.Email = _person.Email;
+                person.Email = _person.Email.ToLower();
                 person.FirstName = _person.FirstName;
                 person.LastName = _person.LastName; 
                 person.Phone = _person.Phone;
