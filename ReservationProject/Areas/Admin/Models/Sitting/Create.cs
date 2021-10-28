@@ -10,16 +10,37 @@ namespace ReservationProject.Areas.Admin.Models.Sitting
 {
     public class Create
     {
-        //Properties to create
+
         [Required]
         [Display(Name = "Name of Sitting")]
         public string Name { get; set; }
+
+        //Local Properties for reservation
         [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Sitting Date")]
+        public DateTime SitDate { get; set; }
+
+
+        //Properties to create
+        [Required]
+        [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
-        public DateTime StartTime { get; set; }
+        public DateTime SitStartTime { get; set; }
+
+        public DateTime StartTime { get => SitDate.AddHours(SitStartTime.Hour).AddMinutes(SitStartTime.Minute); }
+        
+        
         [Required]
+        [DataType(DataType.Time)]
         [Display(Name = "End Time")]
-        public DateTime EndTime { get; set; }
+        public DateTime SitEndTime { get; set;}
+
+
+        public DateTime EndTime { get => SitDate.AddHours(SitEndTime.Hour).AddMinutes(SitEndTime.Minute); }
+
+
+
         [Required]
         [Display(Name = "Capacity")]
         public int Capacity { get; set; }
