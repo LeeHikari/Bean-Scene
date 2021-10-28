@@ -61,21 +61,16 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Person? person = null;
-
-                person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email.ToLower());
-
-                if (person == null)
-                {
-                    person = new Person
+            
+                    var person = new Person
                     {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Email = model.Email.ToLower(),
                         Phone = model.Phone
                     };
-                    person = await _personService.UpsertPersonAsync(person, false);
-                }
+                    person = await _personService.UpsertPersonAsync(person, true);
+                
                
 
                 //create reservation with persoon id
