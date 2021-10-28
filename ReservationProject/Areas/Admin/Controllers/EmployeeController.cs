@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 using ReservationProject.Service;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,9 +35,6 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
-
-
             var rolelist= await _context.Roles.Select(s=>new
             { 
             Value=s.Name,
@@ -86,6 +84,29 @@ namespace ReservationProject.Areas.Admin.Controllers
 
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            try
+            {
+                if (!id.HasValue)
+                {
+                    return StatusCode(400, "Id Required");
+                }
+                var person = await _context.People.FirstOrDefaultAsync(p => p.Id == id.Value);
+                if(person == null)
+                {
+                    return NotFound();
+                }
+                return View(person);
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
+            
+            
         }
 
         public IActionResult Delete()
