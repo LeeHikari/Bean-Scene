@@ -78,7 +78,6 @@ namespace ReservationProject.Areas.Admin.Controllers
                 //TODO Ensure reservation time is within selected sitting time, else return error
                
 
-                //TODO When you create a reservation it doesn't populate the select lists once it's created, so we need get all select lists so another reservation can be made
 
                 //Create reservation with person Id
                 var reservation = new Reservation();
@@ -97,6 +96,32 @@ namespace ReservationProject.Areas.Admin.Controllers
 
                 }
             }
+
+
+            //return selectlist data after create
+            var sourceList = await _context.ReservationSources.Select(s => new
+            {
+                Value = s.Id,
+                Display = s.Name
+            }).ToArrayAsync();
+            var restaurantList = await _context.Restaurants.Select(r => new
+            {
+                Value = r.Id,
+                Display = r.Name
+            }).ToArrayAsync();
+            var sittingList = await _context.Sittings.Select(r => new
+            {
+                Value = r.Id,
+                Display = r.Name
+            }).ToArrayAsync();
+            model = new Models.Reservation.Create
+
+            {
+                ReservationSources = new SelectList(sourceList.ToList(), "Value", "Display"),
+                Restaurants = new SelectList(restaurantList.ToList(), "Value", "Display"),
+                Sittings = new SelectList(sittingList.ToList(), "Value", "Display")
+
+            };
             return View(model);
 
         }

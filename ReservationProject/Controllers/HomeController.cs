@@ -50,7 +50,7 @@ namespace ReservationProject.Controllers
             {
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
 
-                var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
+                var person = await _context.People.FirstOrDefaultAsync(p => p.Email == user.Email);
 
                 if(person != null)
                 {
@@ -84,28 +84,27 @@ namespace ReservationProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Models.Home.Index model)
         {
-            Person person = null;
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
-                ModelState.Remove("Email");
-                ModelState.Remove("FirstName");
-                ModelState.Remove("LastName");
-                ModelState.Remove("Phone");
-            }
+            //Person person = null;
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //    person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
+            //    ModelState.Remove("Email");
+            //    ModelState.Remove("FirstName");
+            //    ModelState.Remove("LastName");
+            //    ModelState.Remove("Phone");
+            //}
 
-            person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
-            if (person.UserId != null)
-            {
-                //TODO add code advise they must log in
-            }
+            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
+            //if (person.UserId != null)
+            //{
+            //    //TODO add code advise they must log in
+            //}
 
             if (ModelState.IsValid)
             {
 
-                if (person == null)
-                {
+                
                     person = new Person
                     {
                         Email = model.Email,
@@ -113,9 +112,9 @@ namespace ReservationProject.Controllers
                         LastName = model.LastName,
                         Phone = model.Phone
                     };
-                    person = await _personService.UpsertPersonAsync(person, false);
-                }
-
+                    person = await _personService.UpsertPersonAsync(person,true);
+                
+             
                 //create new reservation assign the person id
 
                 var reservation = new Reservation
@@ -129,7 +128,9 @@ namespace ReservationProject.Controllers
                     SittingId = model.SittingId,
                     Note = model.Note
 
+
                 };
+
                 _context.Reservations.Add(reservation);
                 await _context.SaveChangesAsync();
             }
