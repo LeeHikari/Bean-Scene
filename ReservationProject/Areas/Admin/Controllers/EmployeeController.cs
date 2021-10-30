@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,18 +17,18 @@ namespace ReservationProject.Areas.Admin.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly PersonService _personService;
+        private IMapper _mapper;
 
 
-        public EmployeeController(ApplicationDbContext context, UserManager<IdentityUser> userManager, PersonService personService)
+        public EmployeeController(ApplicationDbContext context, UserManager<IdentityUser> userManager, PersonService personService, IMapper mapper)
             : base(context)
         {
             _userManager = userManager;
             _personService = personService;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            
-
             var people = await _context.People.OrderBy(people=>people.Id).ToArrayAsync();
             return View(people);
         }
@@ -94,7 +95,9 @@ namespace ReservationProject.Areas.Admin.Controllers
                 {
                     return StatusCode(400, "Id Required");
                 }
+
                 var person = await _context.People.FirstOrDefaultAsync(p => p.Id == id.Value);
+
                 if(person == null)
                 {
                     return NotFound();
@@ -114,9 +117,66 @@ namespace ReservationProject.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Update()
+        [HttpGet]
+        public async Task<IActionResult> Update(int? id)
         {
-            return View();
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var employee = await _context.People.FirstOrDefaultAsync(p => p.Id == id.Value);
+
+            if(employee == null)
+            {
+                return NotFound();
+            }
+
+            var model = _mapper.Map<Models.Employee.Update>(employee);
+           
+            var rolelist = await _context.Roles.Select(s => new
+            {
+                Value = s.Name,
+                Display = s.Name
+            }).ToArrayAsync();
+            
+            model.Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, Models.Employee.Update model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var employee = _mapper.Map<Data.Person>(model);
+                    _context.Update<Person>(employee);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception)
+                {
+                    //Exception
+                }
+            }
+
+            var rolelist = await _context.Roles.Select(s => new
+            {
+                Value = s.Name,
+                Display = s.Name
+            }).ToArrayAsync();
+
+            model.Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display");
+
+            return View(model);
         }
     }
 }

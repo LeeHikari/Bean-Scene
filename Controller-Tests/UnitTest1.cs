@@ -15,12 +15,12 @@ namespace Controller_Tests
 
             Assert.IsNotNull(actualResult);
         }
-        [TestMethod()]
-        public void IndexPopulated()
-        {
-            var fakeRepo = new Mock<>
+        //[TestMethod()]
+        //public void IndexPopulated()
+        //{
+        //    var fakeRepo = new Mock<>
 
             
-        }
+        //}
     }
 }

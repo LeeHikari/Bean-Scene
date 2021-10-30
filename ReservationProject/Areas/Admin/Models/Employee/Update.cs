@@ -6,23 +6,11 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Models.Employee
 {
-    public class Update
+    public class Update : Models.Employee.Create
     {
         //Id
         [Required]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        public string Phone { get; set; }
+        public int Id { get; set; }
 
     }
 }
