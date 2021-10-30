@@ -61,7 +61,11 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-            
+                var sitting = await _context.Sittings.FindAsync(model.SittingId);
+                if (sitting.IsClosed==false)
+                {
+
+             
                 var person = new Person
                 {
                     FirstName = model.FirstName,
@@ -91,6 +95,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 _context.Reservations.Add(reservation);
                 await _context.SaveChangesAsync();
 
+                }
             }
             return View(model);
 
