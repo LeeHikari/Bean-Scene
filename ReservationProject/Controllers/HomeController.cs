@@ -98,7 +98,7 @@ namespace ReservationProject.Controllers
             person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
             if (person.UserId != null)
             {
-                //add code advise they must log in
+                //TODO add code advise they must log in
             }
 
             if (ModelState.IsValid)

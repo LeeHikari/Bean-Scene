@@ -14,7 +14,7 @@
 <hr />
 <table border="1" width="100%">
     <thead>
-        <tr><td>Id</td><td>First Name</td><td>Last Name</td><td></td></tr>
+        <tr><td>Id</td><td>First Name</td><td>Last Name</td><td>Role</td></tr>
     </thead>
     <tbody>
         @foreach (var p in Model)
@@ -23,6 +23,7 @@
             <td>@p.Id</td>
             <td>@p.FirstName</td>
             <td>@p.LastName</td>
+            
             <td>
                 <a asp-action="Details" asp-route-id="@p.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@p.Id">Delete</a> |

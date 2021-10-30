@@ -51,7 +51,8 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 var sitting = new Sitting();
                 {
-                    sitting.Name = model.Name; sitting.StartTime = model.StartTime;
+                    sitting.Name = model.Name; 
+                    sitting.StartTime = model.StartTime;
                     sitting.EndTime = model.EndTime;
                     sitting.Capacity = model.Capacity;
                     sitting.RestaurantId = model.RestaurantId;

@@ -62,25 +62,28 @@ namespace ReservationProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
             
-                    var person = new Person
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Email = model.Email.ToLower(),
-                        Phone = model.Phone
-                    };
-                    person = await _personService.UpsertPersonAsync(person, true);
+                var person = new Person
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email.ToLower(),
+                    Phone = model.Phone
+                };
+                person = await _personService.UpsertPersonAsync(person, true);
                 
+                //TODO Ensure reservation time is within selected sitting time, else return error
                
 
-                //create reservation with persoon id
+                //TODO When you create a reservation it doesn't populate the select lists once it's created, so we need get all select lists so another reservation can be made
+
+                //Create reservation with person Id
                 var reservation = new Reservation();
                 {
                     reservation.StartTime = model.StartTime;
                     reservation.Duration = model.Duration;
                     reservation.Guests = model.Guests;
                     reservation.Note = model.Note;
-                    reservation.ReservationSourceId = 1;
+                    reservation.ReservationSourceId = model.ReservationSourceId;
                     reservation.ReservationStatusId = 1;//pending
                     reservation.SittingId = model.SittingId;
                     reservation.PersonId = person.Id;
@@ -96,6 +99,8 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             return View();
         }
+
+        //TODO Parse Reservation status to Update
 
         public IActionResult Update()
         {

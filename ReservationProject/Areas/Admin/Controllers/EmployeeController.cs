@@ -29,6 +29,8 @@ namespace ReservationProject.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            //TODO Only display employees inside employee index
+
             var people = await _context.People.OrderBy(people=>people.Id).ToArrayAsync();
             return View(people);
         }
@@ -145,6 +147,8 @@ namespace ReservationProject.Areas.Admin.Controllers
             return View(model);
         }
 
+
+        //TODO Finish Update POST and GET
         [HttpPost]
         public async Task<IActionResult> Update(int id, Models.Employee.Update model)
         {
