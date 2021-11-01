@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace ReservationProject.Areas.Admin.Controllers
 {
     [Area("Admin"), Authorize(Roles = "Admin, Staff")]
-    [AllowAnonymous]
     public class HomeController : AdminAreaBaseController
     {
         public HomeController(ApplicationDbContext context) : base(context) { }
