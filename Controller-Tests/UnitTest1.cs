@@ -13,7 +13,7 @@ namespace Controller_Tests
     {
         private ApplicationDbContext GetDatabaseContext()
         {
-            var connectionstring = "Data Source = localhost; Initial Catalog = Reservation - bs; Integrated Security = True; MultipleActiveResultSets = true";
+            var connectionstring = "Data Source=localhost;Initial Catalog=Reservation-bs;Integrated Security=True;MultipleActiveResultSets=true";
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer(connectionstring);
@@ -22,7 +22,7 @@ namespace Controller_Tests
 
 
         }
-        [TestMethod()]
+        [TestMethod("CreateSitting")]
         public void CreateSitting()
         {
 
@@ -34,7 +34,7 @@ namespace Controller_Tests
                 SitEndTime = DateTime.Now.AddHours(3),
                 Capacity = 30,
                 RestaurantId = 1,
-                IsClosed = false,
+                IsClosed = true,
              };
 
             SittingController controller = new SittingController(context);
