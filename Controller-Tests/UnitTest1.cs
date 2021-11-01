@@ -15,12 +15,22 @@ namespace Controller_Tests
 
             Assert.IsNotNull(actualResult);
         }
-        //[TestMethod()]
-        //public void IndexPopulated()
-        //{
-        //    var fakeRepo = new Mock<>
+        [TestMethod()]
+        public void ReservationController()
+        {
+            var sittingController = new SittingController(null);
+
+            var result = sittingController.Index();
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            //var viewResult = result as ViewResult;
+            //Assert.AreEqual(typeof(AboutViewItem), viewResult);
+            
 
             
-        //}
+
+
+
+        }
     }
 }
