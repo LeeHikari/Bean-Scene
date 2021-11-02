@@ -21,7 +21,25 @@ namespace ReservationProject.Models.Home
         [Required(ErrorMessage = "Phone: Required")]
         public string Phone { get; set; }
 
-        public DateTime StartTime { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Reservation Date")]
+        public DateTime ResDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Reservation Time")]
+        public DateTime ResTime { get; set; }
+
+        //properties to create reservation
+        public DateTime StartTime { get => ResDate.AddHours(ResTime.Hour).AddMinutes(ResTime.Minute); }
+
+
+
+
+        //public DateTime StartTime { get; set; }
         public int Duration { get; set; } //Minutes
         public DateTime EndTime { get => StartTime.AddMinutes(Duration); } //Pre-defining EndTime (Adding our duration into our StartTime)
         [Required(ErrorMessage = "No of Guests: Required")]

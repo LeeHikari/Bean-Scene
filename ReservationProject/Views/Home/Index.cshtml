@@ -19,204 +19,6 @@
     @* Carousel Section *@
 
 <div class="d-flex justify-content-center w-auto">
-    @*<div id="FormController" class="carousel slide" data-bs-ride="carousel" data-bs-interval='false' style="min-height:800px; width: 700px;">
-                <div class="carousel-inner d-block" style="min-height: 400px">
-                    <div class="carousel-item active">
-                        <div class="d-inline-block p-6">
-                            <div>
-                                <p class="fs-3">Select Time and Date</p>
-                                <p>For bookings of 12+, please contact <a class="d-inline-block text-decoration-none email-link" href="mailto:reservations@beanscene.com.au">reservations@beanscene.com.au</a></p>
-
-                            </div>
-                            <div class="progress" style="width: 500px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                <div class="calendar-wrapper" id="calenderInput" > </div>
-                            </div>
-                            <form asp-action="Create" class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded mt-4 form-group">
-                                <fieldset id="LockedForm">
-                                    <div class="mb-3 align-items-center">
-                                        <label asp-for="SittingId" class="form-label"></label>
-                                        <select asp-for="SittingId" asp-items="Model.SittingTypes" id="FromSittingId" class="form-select">
-                                            <option value="">Select Sitting Type...</option>
-                                        </select>
-                                        <span asp-validation-for="SittingId" class="text-danger"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Avaliable Times</label>
-                                        <select id="inputTime" class="form-select">
-                                            <option selected>Select Time...</option>
-                                            <option id="FromStartTime" value="">9:00am</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="FromGuests" class="form-label">Number Guest</label>
-                                        <input id="FromGuests" class="form-select" placeholder="Amount of Guests">
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Duration</label>
-                                        <select id="FromDuration" class="form-select">
-                                            <option selected value="Breakfast">90 Minutes (Default)</option>
-                                            <option value="Breakfast">105 Minutes</option>
-                                            <option value="Breakfast">120 Minutes</option>
-                                        </select>
-
-                                    </div>
-                                </fieldset>
-
-
-                                <div class="d-flex justify-content-end">
-                                    <div class="gap-2 p-3 d-md-block">
-                                        <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
-                                    </div>
-                                </div>
-
-                            </form>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-inline-block p-6">
-                            <div>
-                                <p class="fs-3">Enter Details</p>
-                                <p>Requested DateTime and Guest Number</p>
-
-                            </div>
-                            <div class="progress" style="width: 500px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-                            </div>
-                        </div>
-                        <form class="col-sm-10 shadow p-3 ps-5 mb-2 ms-5 bg-body rounded mt-4">
-                            <div class="mb-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" placeholder="Enter Your First Name" id="FromFirstName" aria-label="First Name" value="@Model.FirstName">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" placeholder="Enter Your Last Name" id="FromLastName" aria-label="Last Name" value="@Model.LastName">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" placeholder="Enter Your Phone Number"  id="FromPhone" aria-label="Phone Number" value="@Model.Phone">
-                            </div>
-                            <div class="mb-3">
-                                <label for="InputEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" placeholder="Enter Your Email Address" id="FromEmail" aria-describedby="emailHelp" value="@Model.Email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="Requirements" class="form-label">Additional Requirements</label>
-                                <textarea type="text" rows="5" class="form-control" placeholder="Enter allergies, dietary restrictions or requests" id="FromNote" aria-label="Requirements"></textarea>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="gap-2 p-3 d-md-block">
-                                    <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
-                                </div>
-                                <div class="gap-2 p-3 d-md-block">
-                                    <a class="btn btn-primary fs-6 next-control" onclick="switchValues()" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-inline-block p-6">
-                            <div>
-                                <p class="fs-3">Summary</p>
-                            </div>
-                            <div class="progress" style="width: 500px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-10 shadow p-3 ps-5 mb-2 ms-5 bg-body rounded mt-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form asp-action="Create">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <div class="form-group">
-                                            <label asp-for="StartTime" class="control-label"></label>
-                                            <input asp-for="StartTime" class="form-control" name="StartTime" value="" />
-                                            <span asp-validation-for="StartTime" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="SittingId" class="form-label"></label>
-                                            <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
-                                                <option value="">Select Sitting Type...</option>
-                                            </select>
-                                            <span asp-validation-for="SittingId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Duration" class="control-label"></label>
-                                            <input asp-for="Duration" class="form-control" value="" />
-                                            <span asp-validation-for="Duration" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Guests" class="control-label"></label>
-                                            <input asp-for="Guests" class="form-control" value="" />
-                                            <span asp-validation-for="Guests" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Note" class="control-label"></label>
-                                            <input asp-for="Note" class="form-control" value="" />
-                                            <span asp-validation-for="Note" class="text-danger"></span>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label asp-for="FirstName" class="control-label"></label>
-                                            <input asp-for="FirstName" class="form-control" value="" />
-                                            <span asp-validation-for="FirstName" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="LastName" class="control-label"></label>
-                                            <input asp-for="LastName" class="form-control" value="" />
-                                            <span asp-validation-for="LastName" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Email" class="control-label"></label>
-                                            <input asp-for="Email" class="form-control" value="" />
-                                            <span asp-validation-for="Email" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Phone" class="control-label"></label>
-                                            <input asp-for="Phone" class="form-control" value="" />
-                                            <span asp-validation-for="Phone" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="ReservationStatusId" class="control-label"></label>
-                                            <input asp-for="ReservationStatusId" class="form-control" value="" />
-                                            <span asp-validation-for="ReservationStatusId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="ReservationSourceId" class="control-label"></label>
-                                            <input asp-for="ReservationSourceId" class="form-control" value="" />
-                                            <span asp-validation-for="ReservationSourceId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="submit" class="btn btn-primary" />
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="d-inline-block p-6">
-                            <div>
-                                <p class="fs-3">Booking Confirmation</p>
-                            </div>
-
-                        </div>
-                        <form class="col-sm-10 shadow p-3 ps-5 mb-2 ms-5 bg-body rounded mt-4">
-                            <p>Reservation Confirmed Thank You For Booking</p>
-                            <p>Booking Details</p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>*@
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Create">
@@ -241,35 +43,40 @@
                                     <div class="calendar-wrapper" id="calenderInput"> </div>
                                 </div>
                                 @*CONTENT - CONTENT - CONTENT - CONTENT - CONTENT -*@
-                                <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                    <div class="form-group p-2">
-                                        <label asp-for="StartTime" class="control-label"></label>
-                                        <input asp-for="StartTime" class="form-control" value="" />
-                                        <span asp-validation-for="StartTime" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label asp-for="SittingId" class="form-label"></label>
-                                        <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
-                                            <option value="">Select Sitting Type...</option>
-                                        </select>
-                                        <span asp-validation-for="SittingId" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label asp-for="Duration" class="control-label"></label>
-                                        <input asp-for="Duration" class="form-control" value="" />
-                                        <span asp-validation-for="Duration" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label asp-for="Guests" class="control-label"></label>
-                                        <input asp-for="Guests" class="form-control" value="" />
-                                        <span asp-validation-for="Guests" class="text-danger"></span>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <div class="gap-2 p-3 d-md-block">
-                                            <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
-                                        </div>
+                            <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
+                                <div class="form-group p-2" hidden>
+                                    <label asp-for="ResDate" class="control-label"></label>
+                                    <input asp-for="ResDate" id="calendarDate" class="form-control" value="" />
+                                    <span asp-validation-for="ResDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label asp-for="ResTime" class="control-label"></label>
+                                    <input asp-for="ResTime" class="form-control" value="" />
+                                    <span asp-validation-for="ResTime" class="text-danger"></span>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label asp-for="SittingId" class="form-label"></label>
+                                    <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
+                                        <option value="">Select Sitting Type...</option>
+                                    </select>
+                                    <span asp-validation-for="SittingId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label asp-for="Duration" class="control-label"></label>
+                                    <input asp-for="Duration" class="form-control" value="" />
+                                    <span asp-validation-for="Duration" class="text-danger"></span>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label asp-for="Guests" class="control-label"></label>
+                                    <input asp-for="Guests" class="form-control" value="" />
+                                    <span asp-validation-for="Guests" class="text-danger"></span>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <div class="gap-2 p-3 d-md-block">
+                                        <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
 
@@ -338,12 +145,29 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/js/calendar.js"></script>
         <script>
+
             function selectDate(date) {
-                debugger;
                 $('.calendar-wrapper').updateCalendarOptions({
-                    date: date
+                    date: date,
                 });
+
+                document.getElementById("calendarDate").value = formatDate(date);
             }
+
+            function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+
+                return [year, month, day].join('-');
+            }
+
             var maxDate = new Date();
             var todayDate = new Date();
 
@@ -353,7 +177,7 @@
 
             var defaultConfig = {
                 weekDayLength: 1,
-                date: new Date(),
+                date: new Date().toLocaleDateString(),
                 onClickDate: selectDate,
                 highlightSelectedWeek: false,
                 highlightSelectedWeekday: false,

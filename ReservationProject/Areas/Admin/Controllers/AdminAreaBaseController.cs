@@ -10,7 +10,6 @@ namespace ReservationProject.Areas.Admin.Controllers
 {
   
     [Area("Admin"), Authorize(Roles = "Staff, Admin")]
-    [AllowAnonymous]
     public abstract class AdminAreaBaseController : Controller
     {
         protected readonly ApplicationDbContext _context;
