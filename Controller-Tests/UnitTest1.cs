@@ -53,22 +53,5 @@ namespace Controller_Tests
 
 
         }
-        [TestMethod()]
-        public void ReservationController()
-        {
-            var sittingController = new SittingController(null);
-
-            var result = sittingController.Index();
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-            //var viewResult = result as ViewResult;
-            //Assert.AreEqual(typeof(AboutViewItem), viewResult);
-            
-
-            
-
-
-
-        }
     }
 }
