@@ -21,7 +21,15 @@ namespace ReservationProject.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var reservation = await _context.Reservations.OrderBy(reservation => reservation.Id).ToArrayAsync();
+            var reservation = await _context.Reservations
+                .Include(rs => rs.ReservationSource)
+                .Include(rst => rst.ReservationStatus)
+                .Include(sr => sr.Sitting.Restaurant)
+                .Include(s => s.Sitting)
+                .Include(p => p.Person)
+                .OrderBy(reservation => reservation.Id)
+                .ToArrayAsync();
+
             return View(reservation);
         }
 
