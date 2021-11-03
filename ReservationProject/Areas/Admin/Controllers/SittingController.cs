@@ -68,15 +68,15 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         }
         public IActionResult Delete()
-            {
-                return View();
-            }
-
-            public IActionResult Update()
-            {
-                return View();
-            }
+        {
+            return View();
         }
-    } 
+
+        public IActionResult Update()
+        {
+            return View();
+        }
+    }
+} 
 
 

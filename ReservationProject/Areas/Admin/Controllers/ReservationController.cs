@@ -138,9 +138,22 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         //TODO Parse Reservation status to Update
 
-        public IActionResult Update()
+        public async Task<IActionResult> Update()
         {
-            return View();
+
+            var reservationStatusOptions = await _context.ReservationStatuses.Select(rs => new
+            {
+                Value = rs.Id,
+                Display = rs.Name
+            })
+            .ToArrayAsync();
+
+            var model = new Models.Reservation.Update
+            {
+                ReservationStatuses = new SelectList(reservationStatusOptions, "Value", "Display")
+            };
+
+            return View(model);
         }
     }
 }
