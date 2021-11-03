@@ -35,6 +35,13 @@ namespace ReservationProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Home Page";
+
+            if (_context == null)
+            {
+                return View();
+            }
+
             var sittingTypeOptions = await _context.Sittings.Select(s => new
             {
                 Value = s.Id,
