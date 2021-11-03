@@ -53,24 +53,14 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
         private async Task LoadAsync(IdentityUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            //var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-
             var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
-
-            //Edit Code, Instead of repeatedly calling the database, we're calling it above in person
-            //and using the person object to assign the values below.
-
-       
-
 
             Email = userName;
 
             Input = new InputModel
             {
                 FirstName = person.FirstName,
-                LastName=person.LastName,
+                LastName = person.LastName,
                 PhoneNumber = person.Phone
 
             };

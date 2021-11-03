@@ -14,8 +14,8 @@
 
 <a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
-<table border="1" width="100%">
-    <thead>
+<table border="1" width="100%" class="table table-striped">
+    <thead class="table-dark">
         <tr>
             <td>Id</td>
             <td>Restaurant Name</td>
@@ -27,9 +27,10 @@
             <td>Start Time</td>
             <td>End Time</td>
             <td>Note</td>
+            <td> </td>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-light">
         @foreach (var r in Model)
         {
         <tr>

@@ -47,7 +47,8 @@ namespace ReservationProject.Controllers
                 Value = s.Id,
                 Display = $"{s.Name} {s.StartTime.ToString("h:mm tt")}-{s.EndTime.ToString("h:mm tt")} Spaces Left "
             })
-            .ToArrayAsync(); 
+            .ToArrayAsync();
+
             var model = new Models.Home.Index
             {
                 SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display")
@@ -150,6 +151,14 @@ namespace ReservationProject.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public IActionResult FindSitting(Models.Home.Index model)
+        //{
+        //    var availableSittings = _context.Sittings.Include(s => s.StartTime.ToString("yyyy-MM-dd") == model.ResDate.ToString("yyyy-MM-dd"));
+
+        //    return View(availableSittings);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
