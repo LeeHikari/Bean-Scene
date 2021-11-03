@@ -15,6 +15,8 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            ViewData["Title"] = "Admin Home Page";
+
             return View();
         }
     }
