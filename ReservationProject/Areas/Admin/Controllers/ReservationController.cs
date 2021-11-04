@@ -139,15 +139,28 @@ namespace ReservationProject.Areas.Admin.Controllers
             return View(model);
 
         }
-        public IActionResult Delete()
-        {
-            return View();
-        }
 
         //TODO Parse Reservation status to Update
 
-        public async Task<IActionResult> Update()
+        [HttpGet]
+        public async Task<IActionResult> Update(int? id)
         {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+            var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            var person = await _context.People.FirstOrDefaultAsync(p => p.Id == reservation.PersonId);
+            if (person == null)
+            {
+                return NotFound();
+            }
+
 
             var reservationStatusOptions = await _context.ReservationStatuses.Select(rs => new
             {
@@ -156,12 +169,59 @@ namespace ReservationProject.Areas.Admin.Controllers
             })
             .ToArrayAsync();
 
+            var sourceList = await _context.ReservationSources.Select(s => new
+            {
+                Value = s.Id,
+                Display = s.Name
+            }).ToArrayAsync();
+
+            var sittingList = await _context.Sittings.Select(r => new
+            {
+                Value = r.Id,
+                Display = $"{r.Name} {r.StartTime.ToString("h:mm tt")} - {r.EndTime.ToString("h:mm tt")}"
+            }).ToArrayAsync();
+
+            var restaurantList = await _context.Restaurants.Select(r => new
+            {
+                Value = r.Id,
+                Display = r.Name
+            }).ToArrayAsync();
+
             var model = new Models.Reservation.Update
             {
-                ReservationStatuses = new SelectList(reservationStatusOptions, "Value", "Display")
+                ReservationStatuses = new SelectList(reservationStatusOptions.ToList(), "Value", "Display"),
+                Restaurants = new SelectList(restaurantList.ToList(), "Value", "Display"),
+                ReservationSources = new SelectList(sourceList.ToList(), "Value", "Display"),
+                Sittings = new SelectList(sittingList.ToList(), "Value", "Display")
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _context.Reservations
+                .Include(rs => rs.ReservationSource)
+                .Include(rst => rst.ReservationStatus)
+                .Include(sr => sr.Sitting.Restaurant)
+                .Include(s => s.Sitting)
+                .Include(p => p.Person)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            return View(reservation);
         }
     }
 }
