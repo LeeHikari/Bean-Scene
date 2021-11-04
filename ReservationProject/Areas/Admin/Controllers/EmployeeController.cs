@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 using ReservationProject.Service;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,12 +28,40 @@ namespace ReservationProject.Areas.Admin.Controllers
             _personService = personService;
             _mapper = mapper;
         }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             //TODO Only display employees inside employee index
 
-            var people = await _context.People.OrderBy(people=>people.Id).ToArrayAsync();
-            return View(people);
+            var s = await _userManager.GetUsersInRoleAsync("Staff");
+            var m = await _userManager.GetUsersInRoleAsync("Admin");
+            var staffList = new List<Person>();
+            var managerList = new List<Person>();
+
+            foreach (var item in s)
+            {
+                var sList = await _context.People.Where(p => p.UserId == item.Id).FirstOrDefaultAsync();
+                if (sList!=null)
+                {
+                    staffList.Add(sList);
+
+                }
+            }
+            foreach (var item in m)
+            {
+                var mList = await _context.People.Where(p => p.UserId == item.Id).FirstOrDefaultAsync();
+                if (mList!=null)
+                {
+                    managerList.Add(mList);
+                }
+            }
+            var model = new Models.Employee.Index
+            {
+                Staff = staffList,
+                Admin=managerList,
+            };
+          
+            return View(model);
         }
 
         [HttpGet]

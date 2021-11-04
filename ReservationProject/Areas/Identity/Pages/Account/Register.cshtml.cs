@@ -88,7 +88,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email.ToLower(), Email = Input.Email.ToLower() };
+                var user = new IdentityUser { UserName = Input.Email.ToLower(), Email = Input.Email.ToLower(),PhoneNumber=Input.Phone};
                 var result = await _userManager.CreateAsync(user, Input.Password);
             //    if (result.Succeeded)
             //    {
@@ -127,7 +127,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
 
-                await _userManager.AddToRoleAsync(user, "Admin");
+                await _userManager.AddToRoleAsync(user, "Member");
 
                 var p = new Person
                 {

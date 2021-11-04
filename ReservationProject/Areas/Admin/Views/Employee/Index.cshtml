@@ -2,7 +2,7 @@
 @* Edit Employee Includes Reset Password for Admin Only *@
 @* Other Options Include Create new Employee*@
 
-@model IEnumerable<ReservationProject.Data.Person>
+@model ReservationProject.Areas.Admin.Models.Employee.Index
 
 @{
     ViewData["Title"] = "Index";
@@ -12,22 +12,64 @@
 <h1>Person - Index</h1>
 <a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
+<h2>Admins</h2>
 <table border="1" width="100%">
     <thead>
-        <tr><td>Id</td><td>First Name</td><td>Last Name</td><td>Role</td></tr>
+
+        <tr>
+            <td>Id</td>
+            <td>Email</td>
+            <td>Full Name</td>
+            <td>Phone</td>
+            <td>Role</td>
+        </tr>
     </thead>
     <tbody>
-        @foreach (var p in Model)
+        @foreach (var admin in Model.Admin)
+        {
+            <tr>
+                <td>@admin.Id</td>
+                <td>@admin.Email</td>
+                <td>@admin.Fullname</td>
+                <td>@admin.Phone</td>
+                <td>Admin</td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@admin.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@admin.Id">Delete</a> |
+                    <a asp-action="Update" asp-route-id="@admin.Id">Update</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h2>Staffs</h2>
+<table border="1" width="100%">
+    <thead>
+
+        <tr>
+            <td>Id</td>
+            <td>Email</td>
+            <td>Full Name</td>
+            <td>Phone</td>
+            <td>Role</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in Model.Staff)
         {
         <tr>
-            <td>@p.Id</td>
-            <td>@p.FirstName</td>
-            <td>@p.LastName</td>
-            
+            <td>@staff.Id</td>
+            <td>@staff.Email</td>
+            <td>@staff.Fullname</td>
+            <td>@staff.Phone</td>
+            <td>Staff</td>
+
+
             <td>
-                <a asp-action="Details" asp-route-id="@p.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@p.Id">Delete</a> |
-                <a asp-action="Update" asp-route-id="@p.Id">Update</a>
+                <a asp-action="Details" asp-route-id="@staff.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@staff.Id">Delete</a> |
+                <a asp-action="Update" asp-route-id="@staff.Id">Update</a>
             </td>
         </tr>
         }

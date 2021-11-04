@@ -32,6 +32,7 @@ namespace ReservationProject.Service
                     FirstName = _person.FirstName,
                     LastName = _person.LastName,
                     Phone = _person.Phone,
+                    UserId = _person.UserId
                 };
                 _context.People.Add(person);
             }
@@ -41,6 +42,11 @@ namespace ReservationProject.Service
                 person.FirstName = _person.FirstName;
                 person.LastName = _person.LastName; 
                 person.Phone = _person.Phone;
+
+                if(person.UserId == null)
+                {
+                    person.UserId = _person.UserId;
+                }
             }
             await _context.SaveChangesAsync();
             return person;
