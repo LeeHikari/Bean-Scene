@@ -146,8 +146,11 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         //TODO Parse Reservation status to Update
 
-        public async Task<IActionResult> Update()
+        [HttpGet]
+        public async Task<IActionResult> Update(int Id)
         {
+
+            var reservation = _context.Reservations.FirstOrDefault(r => r.Id == Id);
 
             var reservationStatusOptions = await _context.ReservationStatuses.Select(rs => new
             {
@@ -158,7 +161,9 @@ namespace ReservationProject.Areas.Admin.Controllers
 
             var model = new Models.Reservation.Update
             {
-                ReservationStatuses = new SelectList(reservationStatusOptions, "Value", "Display")
+                ReservationStatuses = new SelectList(reservationStatusOptions, "Value", "Display"),
+                
+                
             };
 
             return View(model);

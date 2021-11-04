@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Models.Reservation
 {
-    public class Update : Models.Reservation.Create
+    public class Update : Create
     {
         public int Id { get; set; }
         public string Name { get; set; }

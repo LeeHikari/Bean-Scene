@@ -42,7 +42,11 @@ namespace ReservationProject.Service
                 person.FirstName = _person.FirstName;
                 person.LastName = _person.LastName; 
                 person.Phone = _person.Phone;
-                person.UserId = _person.UserId;
+
+                if(person.UserId == null)
+                {
+                    person.UserId = _person.UserId;
+                }
             }
             await _context.SaveChangesAsync();
             return person;
