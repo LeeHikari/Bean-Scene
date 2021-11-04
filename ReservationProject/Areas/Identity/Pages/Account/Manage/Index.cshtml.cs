@@ -85,12 +85,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            if (user.PhoneNumber!=Input.PhoneNumber)
-            {
-                user.PhoneNumber = Input.PhoneNumber;
-                user.PhoneNumberConfirmed = false;
-
-            }
+           
 
             //var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
@@ -101,10 +96,14 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
             //TO DO Edit to change person in database
-            if (person.Phone!=Input.PhoneNumber)
+            if (user.PhoneNumber != Input.PhoneNumber)
             {
+                user.PhoneNumber = Input.PhoneNumber;
+                user.PhoneNumberConfirmed = false;
                 person.Phone = Input.PhoneNumber;
+
             }
+          
             if (person.FirstName != Input.FirstName)
             {
                 person.FirstName = Input.FirstName;

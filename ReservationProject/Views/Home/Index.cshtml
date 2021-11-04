@@ -63,12 +63,27 @@
                                         </div>
                                         <div class="form-group p-2">
                                             <label asp-for="Duration" class="control-label"></label>
-                                            <input asp-for="Duration" class="form-control" value="" />
+                                            <select asp-for="Duration" class="form-select">
+                                                <option value="75">75 Minutes</option>
+                                                <option value="90" selected>90 Minutes (Default)</option>
+                                                <option value="105">105 Minutes</option>
+                                                <option value="120">120 Minutes</option>
+                                            </select>
                                             <span asp-validation-for="Duration" class="text-danger"></span>
                                         </div>
                                         <div class="form-group p-2">
                                             <label asp-for="Guests" class="control-label"></label>
-                                            <input asp-for="Guests" class="form-control" value="" />
+                                            <select asp-for="Guests" class="form-select">
+                                                <option value="">Please Select Number of Guest</option>
+                                                <option value="1">1 Person</option>
+                                                <option value="2">2 Person</option>
+                                                <option value="3">3 Person</option>
+                                                <option value="4">4 Person</option>
+                                                <option value="5">5 Person</option>
+                                                <option value="6">6 Person</option>
+                                                <option value="7">7 Person</option>
+                                                <option value="8">8 Person</option>
+                                            </select>                                            
                                             <span asp-validation-for="Guests" class="text-danger"></span>
                                         </div>
                                         <div class="d-flex justify-content-end">
