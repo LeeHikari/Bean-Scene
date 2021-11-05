@@ -21,14 +21,14 @@ namespace ReservationProject.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
         private readonly PersonService _personService;
 
-        public RegisterModel(ApplicationDbContext context, UserManager<IdentityUser> userManager, PersonService personService, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
+        public RegisterModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager, PersonService personService, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
@@ -88,7 +88,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email.ToLower(), Email = Input.Email.ToLower(),PhoneNumber=Input.Phone};
+                var user = new ApplicationUser { UserName = Input.Email.ToLower(), Email = Input.Email.ToLower(),PhoneNumber=Input.Phone,FirstName=Input.FirstName,LastName=Input.LastName};
                 var result = await _userManager.CreateAsync(user, Input.Password);
             //    if (result.Succeeded)
             //    {
@@ -127,7 +127,7 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
 
-                await _userManager.AddToRoleAsync(user, "Member");
+                await _userManager.AddToRoleAsync(user, "Admin");
 
                 var p = new Person
                 {

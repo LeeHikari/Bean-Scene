@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ReservationProject.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -65,6 +65,17 @@ namespace ReservationProject.Data
             mb.Entity<Area>()
                 .Property(r => r.Name).IsRequired().HasMaxLength(50);
 
+            mb.Entity<ApplicationUser>(
+                eb =>
+                {
+                    eb.Property(e => e.FirstName)
+                    .IsRequired().HasMaxLength(50);
+                    eb.Property(e => e.LastName)
+                    .IsRequired().HasMaxLength(50);
+                });
+           
+
+                
             new DomainDataSeeder(mb);
         }
 

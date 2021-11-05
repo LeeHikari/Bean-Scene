@@ -1,4 +1,4 @@
-﻿@model ReservationProject.Data.Person
+﻿@model ReservationProject.Data.ApplicationUser
 
 @{
     ViewData["Title"] = "Delete";
@@ -30,17 +30,12 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
+            @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
+     
     </dl>
     
     <form asp-action="View">

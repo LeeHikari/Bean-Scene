@@ -19,11 +19,11 @@ namespace ReservationProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         private readonly PersonService _personService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, IMapper mapper, PersonService personService)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, IMapper mapper, PersonService personService)
         {
             _logger = logger;
             _context = context;
