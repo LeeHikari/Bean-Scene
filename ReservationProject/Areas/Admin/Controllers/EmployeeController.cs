@@ -33,8 +33,7 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             //TODO Only display employees inside employee index
 
-
-
+      
             var model = new Models.Employee.Index
             {
                 Staff = await _userManager.GetUsersInRoleAsync("Staff"),
