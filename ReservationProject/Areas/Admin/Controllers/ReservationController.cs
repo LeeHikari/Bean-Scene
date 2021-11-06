@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 using ReservationProject.Service;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -145,21 +147,48 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-            var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
-            if (reservation == null)
-            {
-                return NotFound();
-            }
 
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Id == reservation.PersonId);
-            if (person == null)
+            try
             {
-                return NotFound();
+                if(id == null)
+                {
+                    return StatusCode(400, "Id Required");
+                }
+                var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
+                if(reservation == null)
+                {
+                    return NotFound();
+                }
+                return View(reservation);
             }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
+            //if (!id.HasValue)
+            //{
+            //    return NotFound();
+            //}
+            //var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _context.Update(reservation);
+            //        await _context.SaveChangesAsync();
+            //        return RedirectToAction("Update");
+            //    }
+            //    catch (DbUpdateException)
+            //    {
+            //        ModelState.AddModelError("", "Unable to save changes");
+            //    }
+            //}
+
+            //var person = await _context.People.FirstOrDefaultAsync(p => p.Id == reservation.PersonId);
+            //if (person == null)
+            //{
+            //    return NotFound();
+            //}
 
 
             var reservationStatusOptions = await _context.ReservationStatuses.Select(rs => new

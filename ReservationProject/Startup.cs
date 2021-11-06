@@ -32,6 +32,7 @@ namespace ReservationProject
             services.AddAutoMapper(cfg =>
             {
                 cfg.CreateMap<Models.Home.Index, Data.Reservation>();
+                cfg.CreateMap<Models.Home.Index, Data.Reservation>().ReverseMap();
             });
 
             services.AddScoped<PersonService>();
