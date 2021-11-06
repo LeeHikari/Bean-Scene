@@ -154,12 +154,48 @@ namespace ReservationProject.Areas.Admin.Controllers
                 {
                     return StatusCode(400, "Id Required");
                 }
+
                 var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
+
                 if(reservation == null)
                 {
                     return NotFound();
                 }
-                return View(reservation);
+                var reservationStatusOptions = await _context.ReservationStatuses.Select(rs => new
+                {
+                    Value = rs.Id,
+                    Display = rs.Name
+                })
+                .ToArrayAsync();
+
+                var sourceList = await _context.ReservationSources.Select(s => new
+                {
+                    Value = s.Id,
+                    Display = s.Name
+                }).ToArrayAsync();
+
+                var sittingList = await _context.Sittings.Select(r => new
+                {
+                    Value = r.Id,
+                    Display = $"{r.Name} {r.StartTime.ToString("h:mm tt")} - {r.EndTime.ToString("h:mm tt")}"
+                }).ToArrayAsync();
+
+                var restaurantList = await _context.Restaurants.Select(r => new
+                {
+                    Value = r.Id,
+                    Display = r.Name
+                }).ToArrayAsync();
+
+                var model = new Models.Reservation.Update
+                {
+                    ReservationStatuses = new SelectList(reservationStatusOptions.ToList(), "Value", "Display"),
+                    Restaurants = new SelectList(restaurantList.ToList(), "Value", "Display"),
+                    ReservationSources = new SelectList(sourceList.ToList(), "Value", "Display"),
+                    Sittings = new SelectList(sittingList.ToList(), "Value", "Display")
+                };
+
+                return View(model);
+
             }
             catch(Exception)
             {
@@ -191,40 +227,9 @@ namespace ReservationProject.Areas.Admin.Controllers
             //}
 
 
-            var reservationStatusOptions = await _context.ReservationStatuses.Select(rs => new
-            {
-                Value = rs.Id,
-                Display = rs.Name
-            })
-            .ToArrayAsync();
 
-            var sourceList = await _context.ReservationSources.Select(s => new
-            {
-                Value = s.Id,
-                Display = s.Name
-            }).ToArrayAsync();
 
-            var sittingList = await _context.Sittings.Select(r => new
-            {
-                Value = r.Id,
-                Display = $"{r.Name} {r.StartTime.ToString("h:mm tt")} - {r.EndTime.ToString("h:mm tt")}"
-            }).ToArrayAsync();
-
-            var restaurantList = await _context.Restaurants.Select(r => new
-            {
-                Value = r.Id,
-                Display = r.Name
-            }).ToArrayAsync();
-
-            var model = new Models.Reservation.Update
-            {
-                ReservationStatuses = new SelectList(reservationStatusOptions.ToList(), "Value", "Display"),
-                Restaurants = new SelectList(restaurantList.ToList(), "Value", "Display"),
-                ReservationSources = new SelectList(sourceList.ToList(), "Value", "Display"),
-                Sittings = new SelectList(sittingList.ToList(), "Value", "Display")
-            };
-
-            return View(model);
+            
         }
 
         [HttpGet]
