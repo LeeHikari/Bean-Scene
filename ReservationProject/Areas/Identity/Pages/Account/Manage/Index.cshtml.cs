@@ -13,14 +13,14 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ApplicationDbContext context
             )
         {
@@ -50,18 +50,18 @@ namespace ReservationProject.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
+            //var person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
             Email = userName;
 
             Input = new InputModel
             {
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                PhoneNumber = person.Phone
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber
 
             };
         }

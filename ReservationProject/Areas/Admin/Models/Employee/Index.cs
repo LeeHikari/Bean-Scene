@@ -8,7 +8,7 @@ namespace ReservationProject.Areas.Admin.Models.Employee
 {
     public class Index:Person
     {
-        public List<Person> Staff { get; set; } = new List<Person>();
-        public List<Person> Admin { get; set; } = new List<Person>();
+        public IList<ApplicationUser> Staff { get; set; } = new List<ApplicationUser>();
+        public IList<ApplicationUser> Admin { get; set; } = new List<ApplicationUser>();
     }
 }

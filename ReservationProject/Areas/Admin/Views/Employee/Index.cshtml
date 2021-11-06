@@ -17,7 +17,6 @@
     <thead>
 
         <tr>
-            <td>Id</td>
             <td>Email</td>
             <td>Full Name</td>
             <td>Phone</td>
@@ -28,10 +27,9 @@
         @foreach (var admin in Model.Admin)
         {
             <tr>
-                <td>@admin.Id</td>
                 <td>@admin.Email</td>
-                <td>@admin.Fullname</td>
-                <td>@admin.Phone</td>
+                <td>@admin.FirstName </td>
+                <td>@admin.PhoneNumber</td>
                 <td>Admin</td>
 
                 <td>
@@ -48,7 +46,6 @@
     <thead>
 
         <tr>
-            <td>Id</td>
             <td>Email</td>
             <td>Full Name</td>
             <td>Phone</td>
@@ -59,10 +56,9 @@
         @foreach (var staff in Model.Staff)
         {
         <tr>
-            <td>@staff.Id</td>
             <td>@staff.Email</td>
-            <td>@staff.Fullname</td>
-            <td>@staff.Phone</td>
+            <td>@staff.FirstName</td>
+            <td>@staff.PhoneNumber</td>
             <td>Staff</td>
 
 

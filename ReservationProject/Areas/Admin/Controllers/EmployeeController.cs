@@ -16,12 +16,12 @@ namespace ReservationProject.Areas.Admin.Controllers
     [Area("Admin"), Authorize(Roles = "Admin")]
     public class EmployeeController : AdminAreaBaseController
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly PersonService _personService;
         private IMapper _mapper;
 
 
-        public EmployeeController(ApplicationDbContext context, UserManager<IdentityUser> userManager, PersonService personService, IMapper mapper)
+        public EmployeeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, PersonService personService, IMapper mapper)
             : base(context)
         {
             _userManager = userManager;
@@ -33,50 +33,29 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             //TODO Only display employees inside employee index
 
-            var s = await _userManager.GetUsersInRoleAsync("Staff");
-            var m = await _userManager.GetUsersInRoleAsync("Admin");
-            var staffList = new List<Person>();
-            var managerList = new List<Person>();
-
-            foreach (var item in s)
-            {
-                var sList = await _context.People.Where(p => p.UserId == item.Id).FirstOrDefaultAsync();
-                if (sList!=null)
-                {
-                    staffList.Add(sList);
-
-                }
-            }
-            foreach (var item in m)
-            {
-                var mList = await _context.People.Where(p => p.UserId == item.Id).FirstOrDefaultAsync();
-                if (mList!=null)
-                {
-                    managerList.Add(mList);
-                }
-            }
+      
             var model = new Models.Employee.Index
             {
-                Staff = staffList,
-                Admin=managerList,
+                Staff = await _userManager.GetUsersInRoleAsync("Staff"),
+                Admin = await _userManager.GetUsersInRoleAsync("Admin")
             };
-          
+
             return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var rolelist= await _context.Roles.Select(s=>new
-            { 
-            Value=s.Name,
-            Display=s.Name
+            var rolelist = await _context.Roles.Select(s => new
+            {
+                Value = s.Name,
+                Display = s.Name
             }).ToArrayAsync();
 
             var model = new Models.Employee.Create
 
             {
-                Roles = new SelectList(rolelist.Where(x=>x.Display != "Member").ToList(), "Value", "Display")
+                Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display")
             };
 
             return View(model);
@@ -87,23 +66,23 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", PhoneNumber = model.Phone };
+                var user = new ApplicationUser { UserName = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", PhoneNumber = model.Phone, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
-         
+
 
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.Role);
-
-                    var p = new Person();
-                    {
-                        p.Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com";
-                        p.Phone = model.Phone;
-                        p.FirstName = model.FirstName;
-                        p.LastName = model.LastName;
-                        p.UserId = user.Id;
-                    }
-                    await _personService.UpsertPersonAsync(p, true);
+                    //No Longer Needed
+                    //var p = new Person();
+                    //{
+                    //    p.Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com";
+                    //    p.Phone = model.Phone;
+                    //    p.FirstName = model.FirstName;
+                    //    p.LastName = model.LastName;
+                    //    p.UserId = user.Id;
+                    //}
+                    //await _personService.UpsertPersonAsync(p, true);
                     return RedirectToAction("Index", "Home", new { area = "Employee" });
                 }
                 foreach (var error in result.Errors)
@@ -118,68 +97,94 @@ namespace ReservationProject.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             try
             {
-                if (!id.HasValue)
+                if (id == null)
                 {
                     return StatusCode(400, "Id Required");
                 }
 
-                var person = await _context.People.FirstOrDefaultAsync(p => p.Id == id.Value);
+                var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
 
-                if(person == null)
+                if (person == null)
                 {
                     return NotFound();
                 }
                 return View(person);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
-            
-            
-        }
 
-        public IActionResult Delete()
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
         {
-            return View();
+            try
+            {
+                if (id == null)
+                {
+                    return StatusCode(400, "Id Required");
+                }
+
+                var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
+
+                if (person == null)
+                {
+                    return NotFound();
+                }
+                return View(person);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Update(string id)
         {
-            if (!id.HasValue)
             {
-                return NotFound();
+                try
+                {
+                    if (id == null)
+                    {
+                        return StatusCode(400, "Id Required");
+                    }
+
+                    var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
+
+                    if (person == null)
+                    {
+                        return NotFound();
+                    }
+                    return View(person);
+                }
+                catch (Exception)
+                {
+                    return StatusCode(500);
+                }
             }
 
-            var employee = await _context.People.FirstOrDefaultAsync(p => p.Id == id.Value);
-
-            if(employee == null)
-            {
-                return NotFound();
-            }
-
-            var model = _mapper.Map<Models.Employee.Update>(employee);
-           
-            var rolelist = await _context.Roles.Select(s => new
-            {
-                Value = s.Name,
-                Display = s.Name
-            }).ToArrayAsync();
+            //var rolelist = await _context.Roles.Select(s => new
+            //{
+            //    Value = s.Name,
+            //    Display = s.Name
+            //}).ToArrayAsync();
             
-            model.Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display");
+            //model.Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display");
 
-            return View(model);
+            //return View(model);
         }
 
 
         //TODO Finish Update POST and GET
         [HttpPost]
-        public async Task<IActionResult> Update(int id, Models.Employee.Update model)
+        public async Task<IActionResult> Update(string id, Models.Employee.Update model)
         {
             if (id != model.Id)
             {

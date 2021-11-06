@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,9 +43,12 @@ namespace ReservationProject
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false) //Set Sign in to require real accounts
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false) //Set Sign in to require real accounts
+            //TODO Change to true to require confirm
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
 
             services.AddRazorPages();
@@ -83,15 +87,17 @@ namespace ReservationProject
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            createRoles(serviceProvider);
+            createRolesAsync(serviceProvider);
         }
 
 
 
-        private void createRoles(IServiceProvider serviceProvider)
+        private void createRolesAsync(IServiceProvider serviceProvider)
         {
+          
+
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = {"Member", "Staff", "Admin" };
+            string[] roleNames = { "Member", "Staff", "Admin" };
             foreach (string roleName in roleNames)
             {
                 Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
@@ -102,11 +108,18 @@ namespace ReservationProject
                     result.Wait();
                 }
             }
-
-            
+        
         }
 
-
+       
 
     }
-}
+} 
+
+            
+        
+
+
+
+    
+

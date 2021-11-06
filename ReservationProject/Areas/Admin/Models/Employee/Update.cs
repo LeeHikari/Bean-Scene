@@ -10,7 +10,7 @@ namespace ReservationProject.Areas.Admin.Models.Employee
     {
         //Id
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
     }
 }
