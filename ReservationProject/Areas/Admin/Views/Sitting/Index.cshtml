@@ -8,15 +8,25 @@
 <h1 class="text-center fw-bold m-5">View Sittings</h1>
 <a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
-<table border="1" width="100%">
-    <thead>
-        <tr><td>Id</td><td>Restaurant Name</td><td>Start Time</td><td>End Time</td><td>Capacity</td><td>Is Closed<td></td></tr>
+<table border="1" width="100%" class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <td>Id</td>
+            <td>Restaurant Name</td>
+            <td>Sitting Name</td>
+            <td>Start Time</td>
+            <td>End Time</td>
+            <td>Capacity</td>
+            <td>Is Closed</td>
+            <td>Actions</td>
+        </tr>
     </thead>
-    <tbody>
+    <tbody class="table-light">
         @foreach (var r in Model)
         {
         <tr>
             <td>@r.Id</td>
+            <td>@r.Restaurant.Name</td>
             <td>@r.Name</td>
             <td>@r.StartTime</td>
             <td>@r.EndTime</td>

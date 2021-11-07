@@ -9,21 +9,22 @@
 
 }
 
-<h1>Person - Index</h1>
+<h1 class="text-center fw-bold m-5">Employee Index</h1>
 <a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
 <h2>Admins</h2>
-<table border="1" width="100%">
-    <thead>
+<table border="1" width="100%" class="table table-striped">
+    <thead class="table-dark">
 
         <tr>
             <td>Email</td>
             <td>Full Name</td>
             <td>Phone</td>
             <td>Role</td>
+            <td>Actions</td>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-light">
         @foreach (var admin in Model.Admin)
         {
             <tr>

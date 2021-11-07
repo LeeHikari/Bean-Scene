@@ -21,7 +21,9 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var sitting = await _context.Sittings.OrderBy(sitting => sitting.Id).ToArrayAsync();
+            var sitting = await _context.Sittings
+                .Include(r => r.Restaurant)
+                .OrderBy(sitting => sitting.Id).ToArrayAsync();
             return View(sitting);
         }
 
@@ -70,6 +72,28 @@ namespace ReservationProject.Areas.Admin.Controllers
         public IActionResult Delete()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var sitting = await _context.Sittings
+                .Include(r => r.Restaurant)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (sitting == null)
+            {
+                return NotFound();
+            }
+
+            return View(sitting);
         }
 
         public IActionResult Update()
