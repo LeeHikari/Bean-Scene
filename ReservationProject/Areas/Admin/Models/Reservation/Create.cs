@@ -24,7 +24,7 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         public DateTime ResTime { get; set; }
 
         //properties to create reservation
-        public DateTime StartTime { get => ResDate.AddHours(ResTime.Hour).AddMinutes(ResTime.Minute); }
+        public DateTime StartTime { get => ResDate.AddHours(ResTime.Hour).AddMinutes(ResTime.Minute);}
         public DateTime EndTime { get => StartTime.AddMinutes(Duration); }
         [Required]
         [Display(Name = "Duration of Reservation")]

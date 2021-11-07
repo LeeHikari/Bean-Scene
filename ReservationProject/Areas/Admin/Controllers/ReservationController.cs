@@ -163,9 +163,17 @@ namespace ReservationProject.Areas.Admin.Controllers
                     return StatusCode(400, "Id Required");
                 }
 
-                var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
 
-                if(reservation == null)
+                var reservation = await _context.Reservations
+                    .Include(rs => rs.ReservationSource)
+                    .Include(rst => rst.ReservationStatus)
+                    .Include(sr => sr.Sitting.Restaurant)
+                    .Include(s => s.Sitting)
+                    .Include(p => p.Person)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.Id == id);
+
+                if (reservation == null)
                 {
                     return NotFound();
                 }
@@ -194,8 +202,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                     Display = r.Name
                 }).ToArrayAsync();
 
-                var model = new Models.Reservation.Update
-                {
+                var model = new Models.Reservation.Update(reservation)
+                {   
                     ReservationStatuses = new SelectList(reservationStatusOptions.ToList(), "Value", "Display"),
                     Restaurants = new SelectList(restaurantList.ToList(), "Value", "Display"),
                     ReservationSources = new SelectList(sourceList.ToList(), "Value", "Display"),
