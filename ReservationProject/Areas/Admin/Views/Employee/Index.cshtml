@@ -9,12 +9,20 @@
 
 }
 
+<<<<<<< HEAD
 <h1 class="text-center fw-bold m-5">Employee Index</h1>
 <a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
 <h2>Admins</h2>
 <table border="1" width="100%" class="table table-striped">
     <thead class="table-dark">
+=======
+<h1>Employees</h1>
+<a asp-action="Create" class="btn btn-primary">Create</a>
+<hr />
+<table border="1" width="100%">
+    <thead>
+>>>>>>> f256cea2002236db1842367b7191a671b7f1f169
 
         <tr>
             <td>Email</td>
@@ -29,7 +37,7 @@
         {
             <tr>
                 <td>@admin.Email</td>
-                <td>@admin.FirstName </td>
+                <td>@admin.Fullname </td>
                 <td>@admin.PhoneNumber</td>
                 <td>Admin</td>
 
@@ -39,10 +47,27 @@
                     <a asp-action="Update" asp-route-id="@admin.Id">Update</a>
                 </td>
             </tr>
+
+        }
+        @foreach (var staff in Model.Staff)
+        {
+            <tr>
+                <td>@staff.Email</td>
+                <td>@staff.Fullname</td>
+                <td>@staff.PhoneNumber</td>
+                <td>Staff</td>
+
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@staff.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@staff.Id">Delete</a> |
+                    <a asp-action="Update" asp-route-id="@staff.Id">Update</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
-<h2>Staffs</h2>
+@*<h2>Staffs</h2>
 <table border="1" width="100%">
     <thead>
 
@@ -54,21 +79,6 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var staff in Model.Staff)
-        {
-        <tr>
-            <td>@staff.Email</td>
-            <td>@staff.FirstName</td>
-            <td>@staff.PhoneNumber</td>
-            <td>Staff</td>
-
-
-            <td>
-                <a asp-action="Details" asp-route-id="@staff.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@staff.Id">Delete</a> |
-                <a asp-action="Update" asp-route-id="@staff.Id">Update</a>
-            </td>
-        </tr>
-        }
+     
     </tbody>
-</table>
+</table>*@

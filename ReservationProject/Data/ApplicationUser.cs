@@ -11,7 +11,8 @@ namespace ReservationProject.Data
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-     
+
+        public string Fullname { get => FirstName + " " + LastName; }
 
 
     }
