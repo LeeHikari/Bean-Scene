@@ -18,6 +18,7 @@ namespace ReservationProject.Areas.Admin.Models.Sitting
         //Local Properties for reservation
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Sitting Date")]
         public DateTime SitDate { get; set; }
 
@@ -25,6 +26,7 @@ namespace ReservationProject.Areas.Admin.Models.Sitting
         //Properties to create
         [Required]
         [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Time")]
         public DateTime SitStartTime { get; set; }
 
@@ -33,6 +35,7 @@ namespace ReservationProject.Areas.Admin.Models.Sitting
         
         [Required]
         [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "End Time")]
         public DateTime SitEndTime { get; set;}
 

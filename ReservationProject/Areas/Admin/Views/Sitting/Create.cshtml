@@ -12,7 +12,7 @@
             <div class="card-body">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group p-2">
+                    <div class="form-group">
                         <label asp-for="Name" class="control-label"></label>
                         <input asp-for="Name" id="SittingName" class="form-control" />
                         <span asp-validation-for="Name" class="text-danger"></span>
@@ -32,16 +32,16 @@
                         <input asp-for="SitEndTime" id="SittingEndTime" class="form-control" />
                         <span asp-validation-for="SitEndTime" class="text-danger"></span>
                     </div>
-                    <div class="form-group p-2">
+                    <div class="form-group">
                         <label asp-for="Capacity" class="control-label"></label>
                         <input asp-for="Capacity" id="SittingCapcity" class="form-control" />
                         <span asp-validation-for="Capacity" class="text-danger"></span>
                     </div>
-                    <div class="form-group p-2">
+                    <div class="form-group">
                         <label asp-for="RestaurantId" class="control-label"></label>
                         <select asp-for="RestaurantId" id="RestaurantName" class="form-control" asp-items="Model.Restaurants"></select>
                     </div>
-                    <div class="form-group form-check p-2">
+                    <div class="form-group form-check ps-4 pt-2">
                         <label class="form-check-label">
                             <input class="form-check-input" asp-for="IsClosed" /> @Html.DisplayNameFor(model => model.IsClosed)
                         </label>

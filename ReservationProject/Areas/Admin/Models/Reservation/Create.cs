@@ -19,6 +19,7 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
 
         [Required]
         [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Reservation Time")]
         public DateTime ResTime { get; set; }
 

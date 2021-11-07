@@ -24,7 +24,7 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             var sitting = await _context.Sittings
                 .Include(r => r.Restaurant)
-                .OrderBy(sitting => sitting.Id).ToArrayAsync();
+                .OrderBy(sitting => sitting.StartTime).ToArrayAsync();
             return View(sitting);
         }
 
