@@ -66,35 +66,42 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", PhoneNumber = model.Phone, FirstName = model.FirstName, LastName = model.LastName };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                try
+                {
+                    var user = new ApplicationUser { UserName = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com", PhoneNumber = model.Phone, FirstName = model.FirstName, LastName = model.LastName };
+                    var result = await _userManager.CreateAsync(user, model.Password);
 
 
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, model.Role);
-                    //No Longer Needed
-                    //var p = new Person();
-                    //{
-                    //    p.Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com";
-                    //    p.Phone = model.Phone;
-                    //    p.FirstName = model.FirstName;
-                    //    p.LastName = model.LastName;
-                    //    p.UserId = user.Id;
-                    //}
-                    //await _personService.UpsertPersonAsync(p, true);
-                    return RedirectToAction("Index", "Home", new { area = "Employee" });
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, model.Role);
+                        //No Longer Needed
+                        //var p = new Person();
+                        //{
+                        //    p.Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com";
+                        //    p.Phone = model.Phone;
+                        //    p.FirstName = model.FirstName;
+                        //    p.LastName = model.LastName;
+                        //    p.UserId = user.Id;
+                        //}
+                        //await _personService.UpsertPersonAsync(p, true);
+                        return RedirectToAction("Index", "Home", new { area = "Employee" });
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-                foreach (var error in result.Errors)
+                catch (Exception)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    StatusCode(500);
                 }
+
             }
-
             model.Roles = new SelectList(await _context.Roles.ToArrayAsync(), "Id", "Name");
-
-
             return View(model);
+
         }
 
         public async Task<IActionResult> Details(string id)

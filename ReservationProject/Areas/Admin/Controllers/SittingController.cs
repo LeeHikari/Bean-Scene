@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,21 +51,25 @@ namespace ReservationProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sitting = new Sitting();
+                try
                 {
-                    sitting.Name = model.Name; 
-                    sitting.StartTime = model.StartTime;
-                    sitting.EndTime = model.EndTime;
-                    sitting.Capacity = model.Capacity;
-                    sitting.RestaurantId = model.RestaurantId;
-                    sitting.IsClosed = model.IsClosed;
+                    var sitting = new Sitting();
+                    {
+                        sitting.Name = model.Name;
+                        sitting.StartTime = model.StartTime;
+                        sitting.EndTime = model.EndTime;
+                        sitting.Capacity = model.Capacity;
+                        sitting.RestaurantId = model.RestaurantId;
+                        sitting.IsClosed = model.IsClosed;
+                    }
+                    await _context.Sittings.AddAsync(sitting);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                await _context.Sittings.AddAsync(sitting);
-                await _context.SaveChangesAsync();
-
-
-                return View(model);
-
+                catch (Exception)
+                {
+                    StatusCode(500);
+                }
             }
             return View(model);
 
