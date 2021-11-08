@@ -85,7 +85,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                         //    p.UserId = user.Id;
                         //}
                         //await _personService.UpsertPersonAsync(p, true);
-                        return RedirectToAction("Index", "Home", new { area = "Employee" });
+                        return RedirectToAction(nameof(Index));
                     }
 
                     foreach (var error in result.Errors)
@@ -99,7 +99,12 @@ namespace ReservationProject.Areas.Admin.Controllers
                 }
 
             }
-            model.Roles = new SelectList(await _context.Roles.ToArrayAsync(), "Id", "Name");
+            var rolelist = await _context.Roles.Select(s => new
+            {
+                Value = s.Name,
+                Display = s.Name
+            }).ToArrayAsync();
+            model.Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display");
             return View(model);
 
         }
@@ -113,13 +118,20 @@ namespace ReservationProject.Areas.Admin.Controllers
                     return StatusCode(400, "Id Required");
                 }
 
+
                 var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
 
                 if (person == null)
                 {
                     return NotFound();
                 }
-                return View(person);
+                var roles = await _userManager.GetRolesAsync(person);
+
+                var employee = new Models.Employee.Update(person);
+
+                employee.Role = roles[0];
+
+                return View(employee);
             }
             catch (Exception)
             {
@@ -131,6 +143,7 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
+
             try
             {
                 if (id == null)
@@ -138,18 +151,26 @@ namespace ReservationProject.Areas.Admin.Controllers
                     return StatusCode(400, "Id Required");
                 }
 
+
                 var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
 
                 if (person == null)
                 {
                     return NotFound();
                 }
-                return View(person);
+                var roles = await _userManager.GetRolesAsync(person);
+
+                var employee = new Models.Employee.Update(person);
+
+                employee.Role = roles[0];
+
+                return View(employee);
             }
             catch (Exception)
             {
                 return StatusCode(500);
             }
+
         }
 
         [HttpGet]
