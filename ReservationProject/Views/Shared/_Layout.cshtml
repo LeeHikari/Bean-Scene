@@ -26,12 +26,19 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" id="Dashboard" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
-                                    </li>
-                                    @*<li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Reservations</a>
-                        </li>*@
+                                    @if (User.IsInRole("Member"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-light" id="Reservations" asp-area="Member" asp-controller="Reservation" asp-action="Index">Your Reservations</a>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-light" id="Dashboard" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                        </li>
+                                    }
+
                                 </ul>
 
                                 <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4" asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
