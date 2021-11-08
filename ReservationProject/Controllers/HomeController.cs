@@ -141,10 +141,12 @@ namespace ReservationProject.Controllers
 
                 _context.Reservations.Add(reservation);
                 await _context.SaveChangesAsync();
+                return View(model);
+
             }
 
             model.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
-            return View(model);
+            return View("Index",model);
         }
 
         public IActionResult Privacy()
