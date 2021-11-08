@@ -100,10 +100,26 @@ namespace ReservationProject.Areas.Admin.Controllers
 
             return View(sitting);
         }
+        [HttpGet]
 
-        public IActionResult Update()
+        public async Task<IActionResult> Update(int? id)
         {
-            return View();
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var sitting = await _context.Sittings
+                .Include(r => r.Restaurant)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (sitting == null)
+            {
+                return NotFound();
+            }
+
+            return View(sitting);
         }
     }
 } 
