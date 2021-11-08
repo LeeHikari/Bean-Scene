@@ -90,7 +90,7 @@ namespace ReservationProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Models.Home.Index model)
+        public async Task<IActionResult> Index(Models.Home.Index model)
         {
             //Person person = null;
             //if (User.Identity.IsAuthenticated)
@@ -140,13 +140,28 @@ namespace ReservationProject.Controllers
                 };
 
                 _context.Reservations.Add(reservation);
+
                 await _context.SaveChangesAsync();
-                return View(model);
+                var confirmReservation = await _context.Reservations
+                    .Include(rs => rs.ReservationSource)
+                    .Include(rst => rst.ReservationStatus)
+                    .Include(sr => sr.Sitting.Restaurant)
+                    .Include(s => s.Sitting)
+                    .Include(p => p.Person)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.Id == reservation.Id);
+                if (confirmReservation == null)
+                {
+                    return NotFound();
+                }
+                return View("Confirm", confirmReservation);
+
+             
 
             }
 
             model.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
-            return View("Index",model);
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -154,7 +169,40 @@ namespace ReservationProject.Controllers
             return View();
         }
 
-        //[HttpPost]
+        [HttpGet]
+        public async Task<IActionResult> Confirm(int? id)
+        {
+            try
+            {
+                if (!id.HasValue)
+                {
+                    return NotFound();
+                }
+
+                var reservation = await _context.Reservations
+                    .Include(rs => rs.ReservationSource)
+                    .Include(rst => rst.ReservationStatus)
+                    .Include(sr => sr.Sitting.Restaurant)
+                    .Include(s => s.Sitting)
+                    .Include(p => p.Person)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.Id == id);
+
+                if (reservation == null)
+                {
+                    return NotFound();
+                }
+
+                return View(reservation);
+            }
+            catch (Exception)
+            {
+
+            }
+            return View();
+
+        }
+
         //public IActionResult FindSitting(Models.Home.Index model)
         //{
         //    var availableSittings = _context.Sittings.Include(s => s.StartTime.ToString("yyyy-MM-dd") == model.ResDate.ToString("yyyy-MM-dd"));
