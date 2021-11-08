@@ -172,7 +172,45 @@ namespace ReservationProject.Areas.Admin.Controllers
             }
 
         }
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
 
+            try
+            {
+
+                if (id == null)
+                {
+                    return StatusCode(400, "Id Required");
+                }
+
+
+                var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
+
+                if (person == null)
+                {
+                    return NotFound();
+                }
+                //remove roles
+
+                var roles = await _userManager.GetRolesAsync(person);
+
+                foreach (var role in roles)
+                {
+                    IdentityResult deletionResult = await _userManager.RemoveFromRoleAsync(person, role);
+                }
+
+                await _userManager.DeleteAsync(person);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
+        }
         [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
@@ -224,6 +262,7 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         //TODO Finish Update POST and GET
         [HttpPost]
+        [ActionName("Update")]
         public async Task<IActionResult> Update(string id, Models.Employee.Update model)
         {
             if (id != model.Id)
@@ -235,10 +274,39 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    var employee = _mapper.Map<Data.Person>(model);
-                    _context.Update<Person>(employee);
+                    if (id == null)
+                    {
+                        return StatusCode(400, "Id Required");
+                    }
+
+
+                    var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
+
+                    if (person == null)
+                    {
+                        return NotFound();
+                    }
+                    //remove roles
+
+                    var roles = await _userManager.GetRolesAsync(person);
+
+                    foreach (var role in roles)
+                    {
+                        IdentityResult deletionResult = await _userManager.RemoveFromRoleAsync(person, role);
+                    }
+
+
+                    person.UserName = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com";
+                    person.Email = $"{model.FirstName.ToLower()}.{model.LastName.ToLower()}@beanscene.com";
+                    person.PhoneNumber = model.Phone;
+                    person.FirstName = model.FirstName;
+                    person.LastName = model.LastName;
+                    
+                    //add selected role
+                    await _userManager.AddToRoleAsync(person, model.Role);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
+
                 }
                 catch (Exception)
                 {
