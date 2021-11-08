@@ -114,20 +114,11 @@ namespace ReservationProject.Areas.Admin.Controllers
                 }
 
                 var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
-                
 
                 if (person == null)
                 {
                     return NotFound();
                 }
-                var rolename = await _userManager.GetRolesAsync(person);
-                var role = rolename[0];
-                if (role!="")
-                {
-                    person.Role = role;
-                }
-
-
                 return View(person);
             }
             catch (Exception)
@@ -171,6 +162,11 @@ namespace ReservationProject.Areas.Admin.Controllers
                     {
                         return StatusCode(400, "Id Required");
                     }
+                    var rolelist = await _context.Roles.Select(s => new
+                    {
+                        Value = s.Name,
+                        Display = s.Name
+                    }).ToArrayAsync();
 
                     var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -178,7 +174,14 @@ namespace ReservationProject.Areas.Admin.Controllers
                     {
                         return NotFound();
                     }
-                    return View(person);
+                    var roles = await _userManager.GetRolesAsync(person);
+                    
+                    var employee = new Models.Employee.Update(person);
+
+                    employee.Role = roles[0];
+                    employee.Roles = new SelectList(rolelist.Where(x => x.Display != "Member").ToList(), "Value", "Display");
+
+                    return View(employee);
                 }
                 catch (Exception)
                 {
@@ -215,10 +218,6 @@ namespace ReservationProject.Areas.Admin.Controllers
                     _context.Update<Person>(employee);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-                    //var roles = await UserManager.GetRolesAsync(userid);
-
-                    // await UserManager.RemoveFromRolesAsync(userid, roles.ToArray());
-
                 }
                 catch (Exception)
                 {
