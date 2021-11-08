@@ -74,29 +74,10 @@ namespace ReservationProject.Areas.Admin.Controllers
             return View(model);
 
         }
-        [HttpGet]
-
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete()
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-            var sitting = await _context.Sittings
-              .Include(r => r.Restaurant)
-              .AsNoTracking()
-              .FirstOrDefaultAsync(r => r.Id == id);
-
-
-
-            if (sitting == null)
-            {
-                return NotFound();
-            }
-
-            return View(sitting);
-        } 
-    
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
@@ -119,26 +100,10 @@ namespace ReservationProject.Areas.Admin.Controllers
 
             return View(sitting);
         }
-        [HttpGet]
 
-        public async Task<IActionResult> Update(int? id)
+        public IActionResult Update()
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-
-            var sitting = await _context.Sittings
-                .Include(r => r.Restaurant)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
-
-            if (sitting == null)
-            {
-                return NotFound();
-            }
-
-            return View(sitting);
+            return View();
         }
     }
 } 
