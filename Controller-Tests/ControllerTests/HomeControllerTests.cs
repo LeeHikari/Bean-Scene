@@ -42,7 +42,7 @@ namespace ReservationSystemTesting.Controllers
 
             HomeController controller = new HomeController(null, null, null, null, null);
 
-            var actualResult = controller.Index();
+            var actualResult = controller.Index(new ReservationProject.Models.Home.GetDate());
 
             Assert.IsNotNull(actualResult);
         }
@@ -52,9 +52,8 @@ namespace ReservationSystemTesting.Controllers
         {
             //Arrange
             HomeController controller = new HomeController(null, null, null, null, null);
-
             //Act
-            ViewResult actualResult = (ViewResult)controller.Index().Result;
+            ViewResult actualResult = (ViewResult)controller.Index(new ReservationProject.Models.Home.GetDate()).Result;
 
             //Assert
             Assert.IsNotNull(actualResult.ViewData["Title"]);
