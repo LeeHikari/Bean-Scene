@@ -3,16 +3,21 @@
 
 // Write your JavaScript code.
 
-    function selectDate(date) {
-        $('.calendar-wrapper').updateCalendarOptions({
-            date: date,
-        });
 
+
+function selectDate(date) {
+    $('.calendar-wrapper').updateCalendarOptions({
+        date: date
+    });
     document.getElementById("calendarDate").value = formatDate(date);
-            }
+    document.getElementById("calendarSubmit").submit();
+}
 
-    function formatDate(date) {
-                var d = new Date(date),
+
+function formatDate(date) {
+
+    var d = new Date(date),
+
     month = '' + (d.getMonth() + 1),
     day = '' + d.getDate(),
     year = d.getFullYear();
@@ -23,7 +28,8 @@
     day = '0' + day;
 
     return [year, month, day].join('-');
-            }
+
+}
 
     var maxDate = new Date();
     var todayDate = new Date();
@@ -34,14 +40,13 @@
 
     var defaultConfig = {
         weekDayLength: 1,
-    date: new Date().toLocaleDateString(),
-    onClickDate: selectDate,
-    highlightSelectedWeek: false,
-    highlightSelectedWeekday: false,
-    todayButtonContent: "Reset",
-    min: todayDate,
-    max: maxDate,
-            };
+        date: document.getElementById("calendarDate").value,
+        onClickDate: selectDate,
+        highlightSelectedWeek: false,
+        highlightSelectedWeekday: false,
+        todayButtonContent: "Reset",
+        min: todayDate,
+        max: maxDate,
+    };
 
     $('.calendar-wrapper').calendar(defaultConfig);
-

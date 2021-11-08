@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ReservationProject.Data;
 using ReservationProject.Models;
+using ReservationProject.Models.Home;
 using ReservationProject.Service;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace ReservationProject.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(GetDate dateModel)
         {
             ViewData["Title"] = "Home Page";
 
@@ -42,17 +43,54 @@ namespace ReservationProject.Controllers
                 return View();
             }
 
-            var sittingTypeOptions = await _context.Sittings.Select(s => new
-            {
-                Value = s.Id,
-                Display = $"{s.Name} {s.StartTime.ToString("h:mm tt")}-{s.EndTime.ToString("h:mm tt")} Spaces Left "
-            })
-            .ToArrayAsync();
+            var m = new Models.MultiViewModel();
+            m.Create = new Models.Home.Index();
 
-            var model = new Models.Home.Index
+            if (dateModel.ObtainDate != new DateTime())
             {
-                SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display")
-            };
+                ViewData["FormDate"] = dateModel.ObtainDate.ToString("yyyy-MM-dd");
+
+                m.Create.ResDate = dateModel.ObtainDate;
+
+                var date = dateModel.ObtainDate.Date;
+
+                var availableSittings = _context.Sittings.Where(s => s.StartTime.Date == date.Date);
+                if (availableSittings != null)
+                {
+                    m.Create.SittingTypes = new SelectList(availableSittings, "Id", "Name");
+                }
+                else
+                {
+                    var sittingTypeOptions = _context.Sittings.Select(s => new
+                    {
+                        Value = s.Id,
+                        Display =
+                    $"{s.Name} - " +
+                    $"Start: {s.StartTime.ToString("hh:mm")} - " +
+                    $"End: {s.EndTime.ToString("hh:mm")} - " +
+                    $"Spots left: {s.Vacancies}"
+                    }).ToArray();
+
+                    m.Create.SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display");
+                }
+
+
+            }
+            else
+            {
+                var sittingTypeOptions = _context.Sittings.Select(s => new
+                {
+                    Value = s.Id,
+                    Display =
+                    $"{s.Name} - " +
+                    $"Start: {s.StartTime.ToString("hh:mm")} - " +
+                    $"End: {s.EndTime.ToString("hh:mm")} - " +
+                    $"Spots left: {s.Vacancies}"
+                }).ToArray();
+
+                m.Create.SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display");
+
+            }
             //TODO: check if member and not other type of user
             if (User.Identity.IsAuthenticated)
             {
@@ -62,52 +100,43 @@ namespace ReservationProject.Controllers
 
                 if(person != null)
                 {
-                    model.FirstName = person.FirstName;
-                    model.LastName = person.LastName;
-                    model.Email = person.Email;
-                    model.Phone = person.Phone;
+                    m.Create.FirstName = person.FirstName;
+                    m.Create.LastName = person.LastName;
+                    m.Create.Email = person.Email;
+                    m.Create.Phone = person.Phone;
 
-                    return View(model);
+                    return View(m);
                 }
                 else
                 {
-                    model.FirstName = "";
-                    model.LastName = "";
-                    model.Email = "";
-                    model.Phone = "";
+                    m.Create.FirstName = "";
+                    m.Create.LastName = "";
+                    m.Create.Email = "";
+                    m.Create.Phone = "";
 
-                    return View(model);
+                    return View(m);
                 }
             }
 
-            model.FirstName = "";
-            model.LastName = "";
-            model.Email = "";
-            model.Phone = "";
+            m.Create.FirstName = "";
+            m.Create.LastName = "";
+            m.Create.Email = "";
+            m.Create.Phone = "";
 
 
-            return View(model);
+            return View(m);
         }
 
+<<<<<<< Updated upstream
         [HttpPost]
         public async Task<IActionResult> Index(Models.Home.Index model)
+=======
+        [HttpPost, ActionName("Create")]
+        public async Task<IActionResult> CreateConfirmed(MultiViewModel model)
+>>>>>>> Stashed changes
         {
-            //Person person = null;
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //    person = await _context.People.FirstOrDefaultAsync(p => p.UserId == user.Id);
-            //    ModelState.Remove("Email");
-            //    ModelState.Remove("FirstName");
-            //    ModelState.Remove("LastName");
-            //    ModelState.Remove("Phone");
-            //}
 
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
-            //if (person.UserId != null)
-            //{
-            //    //TODO add code advise they must log in
-            //}
+            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Create.Email);
 
             if (ModelState.IsValid)
             {
@@ -115,26 +144,24 @@ namespace ReservationProject.Controllers
                 
                     person = new Person
                     {
-                        Email = model.Email,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Phone = model.Phone
+                        Email = model.Create.Email,
+                        FirstName = model.Create.FirstName,
+                        LastName = model.Create.LastName,
+                        Phone = model.Create.Phone
                     };
                     person = await _personService.UpsertPersonAsync(person,true);
                 
              
-                //create new reservation assign the person id
-
                 var reservation = new Reservation
                 {
-                    StartTime = model.StartTime,
-                    Duration = model.Duration,
+                    StartTime = model.Create.StartTime,
+                    Duration = model.Create.Duration,
                     PersonId = person.Id,
-                    Guests = model.Guests,
+                    Guests = model.Create.Guests,
                     ReservationSourceId = 1,
                     ReservationStatusId = 2,
-                    SittingId = model.SittingId,
-                    Note = model.Note
+                    SittingId = model.Create.SittingId,
+                    Note = model.Create.Note
 
 
                 };
@@ -160,15 +187,20 @@ namespace ReservationProject.Controllers
 
             }
 
-            model.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
+            model.Create.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
             return View(model);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult FindSitting(Models.MultiViewModel m) //Requires MultiViewModel's - Create VM
         {
-            return View();
+
+            GetDate getDate = new GetDate { ObtainDate = m.GetDate.ObtainDate };
+            //return RedirectToActionPreserveMethod("Create", "Reservation", m.GetDate);
+            return RedirectToAction("Index", "Home", getDate);
         }
 
+<<<<<<< Updated upstream
         [HttpGet]
         public async Task<IActionResult> Confirm(int? id)
         {
@@ -206,9 +238,30 @@ namespace ReservationProject.Controllers
         //public IActionResult FindSitting(Models.Home.Index model)
         //{
         //    var availableSittings = _context.Sittings.Include(s => s.StartTime.ToString("yyyy-MM-dd") == model.ResDate.ToString("yyyy-MM-dd"));
+=======
+>>>>>>> Stashed changes
 
-        //    return View(availableSittings);
-        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

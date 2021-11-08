@@ -1,10 +1,10 @@
-﻿@model ReservationProject.Models.Home.Index
+﻿@model ReservationProject.Models.MultiViewModel
 
 <div class="row">
     <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
         <img class="card-img" src="/img/bean-scene-header.png" alt="Bean Scene Cafe Interior" data-image-dimensions="1920x854" data-image-focal-point="0.5,0.5" />
         <div class="card-img-overlay d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
-            <p class="text-light align-self-center">Welcome to Bean Scene @Model.FirstName </p>
+            <p class="text-light align-self-center">Welcome to Bean Scene @Model.Create.FirstName </p>
             <a href="#Reservation-Form" class="btn btn-light btn-lg align-self-center" style="width: 200px;" id="BookingButton">Make Reservation</a>
             <img class="align-self-center" />
         </div>
@@ -21,7 +21,18 @@
     <div class="d-flex justify-content-center w-auto">
         <div class="row">
             <div class="col-md-4">
+<<<<<<< Updated upstream
                 <form asp-action="Index">
+=======
+                <form asp-action="FindSitting" id="calendarSubmit" hidden>
+                    <div class="form-group">
+                        <label asp-for="GetDate.ObtainDate" class="control-label"></label>
+                        <input asp-for="GetDate.ObtainDate" value="@ViewData["FormDate"]" id="calendarDate" class="form-control" onload="setDate" />
+                        <span asp-validation-for="GetDate.ObtainDate" class="text-danger"></span>
+                    </div>
+                </form>
+                <form asp-action="Create">
+>>>>>>> Stashed changes
                     <div id="FormController" class="carousel slide" data-bs-ride="carousel" data-bs-interval='false' style="min-height:800px; width: 700px;">
                         <div class="carousel-inner d-block" style="min-height: 400px">
 
@@ -43,37 +54,37 @@
                                         <div class="calendar-wrapper" id="calenderInput"> </div>
                                     </div>
                                     @*CONTENT - CONTENT - CONTENT - CONTENT - CONTENT -*@
-                                    <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                        <div class="form-group p-2" hidden>
-                                            <label asp-for="ResDate" class="control-label"></label>
-                                            <input asp-for="ResDate" id="calendarDate" class="form-control" value="" />
-                                            <span asp-validation-for="ResDate" class="text-danger"></span>
+                                    <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded" id="Reservation">
+                                        <div class="form-group" hidden>
+                                            <label asp-for="Create.ResDate" class="control-label"></label>
+                                            <input asp-for="Create.ResDate" value="@ViewData["FormDate"]" class="form-control" onload="setDate" />
+                                            <span asp-validation-for="Create.ResDate" class="text-danger"></span>
                                         </div>
                                         <div class="form-group p-2">
-                                            <label asp-for="ResTime" class="control-label"></label>
-                                            <input asp-for="ResTime" class="form-control" value="" />
-                                            <span asp-validation-for="ResTime" class="text-danger"></span>
+                                            <label asp-for="Create.ResTime" class="control-label"></label>
+                                            <input asp-for="Create.ResTime" class="form-control" value="" />
+                                            <span asp-validation-for="Create.ResTime" class="text-danger"></span>
                                         </div>
                                         <div class="form-group p-2">
-                                            <label asp-for="SittingId" class="form-label"></label>
-                                            <select asp-for="SittingId" asp-items="Model.SittingTypes" class="form-select">
+                                            <label asp-for="Create.SittingId" class="form-label"></label>
+                                            <select asp-for="Create.SittingId" asp-items="Model.Create.SittingTypes" class="form-select">
                                                 <option value="">Select Sitting Type...</option>
                                             </select>
-                                            <span asp-validation-for="SittingId" class="text-danger"></span>
+                                            <span asp-validation-for="Create.SittingId" class="text-danger"></span>
                                         </div>
                                         <div class="form-group p-2">
-                                            <label asp-for="Duration" class="control-label"></label>
-                                            <select asp-for="Duration" class="form-select">
+                                            <label asp-for="Create.Duration" class="control-label"></label>
+                                            <select asp-for="Create.Duration" class="form-select">
                                                 <option value="75">75 Minutes</option>
                                                 <option value="90" selected>90 Minutes (Default)</option>
                                                 <option value="105">105 Minutes</option>
                                                 <option value="120">120 Minutes</option>
                                             </select>
-                                            <span asp-validation-for="Duration" class="text-danger"></span>
+                                            <span asp-validation-for="Create.Duration" class="text-danger"></span>
                                         </div>
                                         <div class="form-group p-2">
-                                            <label asp-for="Guests" class="control-label"></label>
-                                            <select asp-for="Guests" class="form-select">
+                                            <label asp-for="Create.Guests" class="control-label"></label>
+                                            <select asp-for="Create.Guests" class="form-select">
                                                 <option value="">Please Select Number of Guest</option>
                                                 <option value="1">1 Person</option>
                                                 <option value="2">2 Person</option>
@@ -83,8 +94,8 @@
                                                 <option value="6">6 Person</option>
                                                 <option value="7">7 Person</option>
                                                 <option value="8">8 Person</option>
-                                            </select>                                            
-                                            <span asp-validation-for="Guests" class="text-danger"></span>
+                                            </select>
+                                            <span asp-validation-for="Create.Guests" class="text-danger"></span>
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <div class="gap-2 p-3 d-md-block">
@@ -109,29 +120,29 @@
                                 </div>
                                 <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
                                     <div class="form-group p-2">
-                                        <label asp-for="FirstName" class="control-label"></label>
-                                        <input asp-for="FirstName" class="form-control" value="@Model.FirstName" />
-                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                        <label asp-for="Create.FirstName" class="control-label"></label>
+                                        <input asp-for="Create.FirstName" class="form-control" value="@Model.Create.FirstName" />
+                                        <span asp-validation-for="Create.FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="LastName" class="control-label"></label>
-                                        <input asp-for="LastName" class="form-control" value="@Model.LastName" />
-                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                        <label asp-for="Create.LastName" class="control-label"></label>
+                                        <input asp-for="Create.LastName" class="form-control" value="@Model.Create.LastName" />
+                                        <span asp-validation-for="Create.LastName" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="Email" class="control-label"></label>
-                                        <input asp-for="Email" class="form-control" value="@Model.Email" />
-                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                        <label asp-for="Create.Email" class="control-label"></label>
+                                        <input asp-for="Create.Email" class="form-control" value="@Model.Create.Email" />
+                                        <span asp-validation-for="Create.Email" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="Phone" class="control-label"></label>
-                                        <input asp-for="Phone" class="form-control" value="@Model.Phone" />
-                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                        <label asp-for="Create.Phone" class="control-label"></label>
+                                        <input asp-for="Create.Phone" class="form-control" value="@Model.Create.Phone" />
+                                        <span asp-validation-for="Create.Phone" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="Note" class="control-label"></label>
-                                        <input asp-for="Note" class="form-control" value="" />
-                                        <span asp-validation-for="Note" class="text-danger"></span>
+                                        <label asp-for="Create.Note" class="control-label"></label>
+                                        <input asp-for="Create.Note" class="form-control" value="" />
+                                        <span asp-validation-for="Create.Note" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
                                         <input type="submit" class="btn btn-primary" />
@@ -162,6 +173,12 @@
     <script src="~/js/customCalender.js"></script>
     <script>
         $(document).ready(function () {
+
+
+            //Will navigate the viewer towards the form, if Address contains "ObtainDate"
+            if (window.location.href.indexOf("ObtainDate") > -1) {
+                window.location.href = "#Reservation";
+            }
 
             $("#myCarousel").carousel({ interval: false });
 
