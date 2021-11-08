@@ -127,13 +127,9 @@ namespace ReservationProject.Controllers
             return View(m);
         }
 
-<<<<<<< Updated upstream
-        [HttpPost]
-        public async Task<IActionResult> Index(Models.Home.Index model)
-=======
+
         [HttpPost, ActionName("Create")]
         public async Task<IActionResult> CreateConfirmed(MultiViewModel model)
->>>>>>> Stashed changes
         {
 
             var person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Create.Email);
@@ -194,13 +190,10 @@ namespace ReservationProject.Controllers
         [HttpPost]
         public IActionResult FindSitting(Models.MultiViewModel m) //Requires MultiViewModel's - Create VM
         {
-
             GetDate getDate = new GetDate { ObtainDate = m.GetDate.ObtainDate };
-            //return RedirectToActionPreserveMethod("Create", "Reservation", m.GetDate);
             return RedirectToAction("Index", "Home", getDate);
         }
 
-<<<<<<< Updated upstream
         [HttpGet]
         public async Task<IActionResult> Confirm(int? id)
         {
@@ -234,12 +227,6 @@ namespace ReservationProject.Controllers
             return View();
 
         }
-
-        //public IActionResult FindSitting(Models.Home.Index model)
-        //{
-        //    var availableSittings = _context.Sittings.Include(s => s.StartTime.ToString("yyyy-MM-dd") == model.ResDate.ToString("yyyy-MM-dd"));
-=======
->>>>>>> Stashed changes
 
 
 

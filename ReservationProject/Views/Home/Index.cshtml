@@ -21,9 +21,6 @@
     <div class="d-flex justify-content-center w-auto">
         <div class="row">
             <div class="col-md-4">
-<<<<<<< Updated upstream
-                <form asp-action="Index">
-=======
                 <form asp-action="FindSitting" id="calendarSubmit" hidden>
                     <div class="form-group">
                         <label asp-for="GetDate.ObtainDate" class="control-label"></label>
@@ -32,7 +29,6 @@
                     </div>
                 </form>
                 <form asp-action="Create">
->>>>>>> Stashed changes
                     <div id="FormController" class="carousel slide" data-bs-ride="carousel" data-bs-interval='false' style="min-height:800px; width: 700px;">
                         <div class="carousel-inner d-block" style="min-height: 400px">
 
@@ -174,8 +170,6 @@
     <script>
         $(document).ready(function () {
 
-
-            //Will navigate the viewer towards the form, if Address contains "ObtainDate"
             if (window.location.href.indexOf("ObtainDate") > -1) {
                 window.location.href = "#Reservation";
             }
