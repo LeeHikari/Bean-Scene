@@ -114,11 +114,20 @@ namespace ReservationProject.Areas.Admin.Controllers
                 }
 
                 var person = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
+                
 
                 if (person == null)
                 {
                     return NotFound();
                 }
+                var rolename = await _userManager.GetRolesAsync(person);
+                var role = rolename[0];
+                if (role!="")
+                {
+                    person.Role = role;
+                }
+
+
                 return View(person);
             }
             catch (Exception)
@@ -206,6 +215,10 @@ namespace ReservationProject.Areas.Admin.Controllers
                     _context.Update<Person>(employee);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
+                    //var roles = await UserManager.GetRolesAsync(userid);
+
+                    // await UserManager.RemoveFromRolesAsync(userid, roles.ToArray());
+
                 }
                 catch (Exception)
                 {
