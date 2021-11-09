@@ -29,7 +29,7 @@
                                     @if (User.IsInRole("Member"))
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link text-light" id="Reservations" asp-area="Member" asp-controller="Reservation" asp-action="Index">Your Reservations</a>
+                                            <a class="nav-link text-light" id="Reservations" asp-area="Member" asp-controller="Reservation" asp-action="Index">History</a>
                                         </li>
                                     }
                                     @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
