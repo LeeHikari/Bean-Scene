@@ -43,28 +43,39 @@ namespace ReservationSystemTesting.Controllers
         {
 
             var db = new ApplicationDbContext(optionsBuilder.Options);
+            var person = db.People.FirstOrDefault(p => p.Email == "testdummy@bs.com");
 
-            Person person = new Person
+            if (person == null)
             {
-                Id = 4,
-                Email = "testdummy@bs.com",
-                FirstName = "Test",
-                LastName = "Dummy",
-                Phone = "9999999999",
-                UserId = "1"
-            };
+                Person newPerson = new Person
+                {
+                    Email = "testdummy@bs.com",
+                    FirstName = "Test",
+                    LastName = "Dummy",
+                    Phone = "9999999999",
+                    UserId = null
+                };
+
+                person = newPerson;
+
+                db.People.Add(person);
+                db.SaveChangesAsync();
+            }
+
 
             //create new reservation assign the person id
 
+            var sitting1 = db.Sittings.FirstOrDefault();
+
             var reservation = new Reservation
             {
-                StartTime = new DateTime(),
+                StartTime = new DateTime(2021, 11, 20),
                 Duration = 90,
                 PersonId = person.Id,
                 Guests = 3,
                 ReservationSourceId = 4,
                 ReservationStatusId = 1,
-                SittingId = 2,
+                SittingId = sitting1.Id,
                 Note = "Unit Testing"
 
             };
