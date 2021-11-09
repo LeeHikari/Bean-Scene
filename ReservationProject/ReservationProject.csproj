@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Member\Models\Reservation\**" />
+    <Content Remove="Areas\Member\Models\Reservation\**" />
+    <EmbeddedResource Remove="Areas\Member\Models\Reservation\**" />
+    <None Remove="Areas\Member\Models\Reservation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
@@ -31,7 +38,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Home\" />
-    <Folder Include="Areas\Member\Models\Reservation\" />
+    <Folder Include="Areas\Member\Models\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
