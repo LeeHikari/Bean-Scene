@@ -69,7 +69,7 @@ namespace ReservationSystemTesting.Controllers
 
             var reservation = new Reservation
             {
-                StartTime = new DateTime(),
+                StartTime = new DateTime(2021, 11, 20),
                 Duration = 90,
                 PersonId = person.Id,
                 Guests = 3,
