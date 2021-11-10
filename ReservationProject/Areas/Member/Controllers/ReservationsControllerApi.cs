@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,10 @@ using ReservationProject.Data;
 
 namespace ReservationProject.Areas.Member.Controllers
 {
+
+    [Authorize]
     [Route("api/Reservations")]
+    
     [ApiController]
     public class ReservationsControllerApi : ControllerBase
     {
