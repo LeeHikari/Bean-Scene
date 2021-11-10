@@ -55,6 +55,7 @@ namespace ReservationProject
             services.AddControllersWithViews();
 
             services.AddRazorPages();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +76,14 @@ namespace ReservationProject
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors(x =>
+            {
+                x.AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(o=>true)
+                .AllowCredentials();
+
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
