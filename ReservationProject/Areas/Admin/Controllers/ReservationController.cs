@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ReservationProject.Data;
 using ReservationProject.Service;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,14 +17,18 @@ namespace ReservationProject.Areas.Admin.Controllers
     public class ReservationController : AdminAreaBaseController
     {
         private readonly PersonService _personService;
+        private readonly ILogger<ReservationController> _logger;
 
-        public ReservationController(ApplicationDbContext context, PersonService personService)
+        public ReservationController(ApplicationDbContext context, PersonService personService, ILogger<ReservationController> logger)
           : base(context)
         {
             _personService = personService;
+            _logger = logger;
         }
         public async Task<IActionResult> Index()
         {
+            _logger.LogInformation("Reservation Index at {time}", DateTime.UtcNow);
+            Trace.Listeners.Add(new TextWriterTraceListener("MyOutput.log"));
             var reservation = await _context.Reservations
                 .Include(rs => rs.ReservationSource)
                 .Include(rst => rst.ReservationStatus)
@@ -31,6 +37,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                 .Include(p => p.Person)
                 .OrderBy(reservation => reservation.Id)
                 .ToArrayAsync();
+            Debug.Assert(reservation is not null, "Reservation is not null");
+            
 
             return View(reservation);
         }
@@ -39,6 +47,7 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            _logger.LogInformation("[HttpGet] Reservation at {time}", DateTime.UtcNow);
 
             var sourceList = await _context.ReservationSources.Select(s => new
             {
@@ -58,6 +67,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 Display = $"{r.Name} {r.StartTime.ToString("h:mm tt")} - {r.EndTime.ToString("h:mm tt")}"
             }).ToArrayAsync();
 
+            _logger.LogInformation("Parsing in the create model for Reservations to render SelectLists");
             var model = new Models.Reservation.Create
 
             {
@@ -67,11 +77,14 @@ namespace ReservationProject.Areas.Admin.Controllers
 
             };
 
+            
+
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Create(Models.Reservation.Create model)
         {
+            _logger.LogInformation("[HttpPost] Reservation at {time}", DateTime.UtcNow);
             if (ModelState.IsValid)
             {
                 try
@@ -111,12 +124,27 @@ namespace ReservationProject.Areas.Admin.Controllers
                         }
                         _context.Reservations.Add(reservation);
                         await _context.SaveChangesAsync();
+                        _logger.LogInformation("Submit Reservation {time}", DateTime.UtcNow);
+
                         return RedirectToAction(nameof(Index));
 
                     }
                 }
                 catch(Exception)
                 {
+                    StackTrace st = new StackTrace(true);
+                    for (int i = 0; i < st.FrameCount; i++)
+                    {
+                        StackFrame sf = st.GetFrame(i);
+                        Console.WriteLine();
+                        Console.WriteLine("High up the call stack, Method {0}");
+                        sf.GetMethod();
+
+                        Console.WriteLine("High up the call stack, Line Number: {0}");
+                        sf.GetFileName();
+                    }
+
+
                     StatusCode(500);
                 }
 
@@ -158,6 +186,7 @@ namespace ReservationProject.Areas.Admin.Controllers
 
             try
             {
+                _logger.LogWarning("If Reservation Id is equal to null, return to StatusCode 400");
                 if(id == null)
                 {
                     return StatusCode(400, "Id Required");
