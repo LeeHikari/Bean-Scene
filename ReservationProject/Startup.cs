@@ -61,6 +61,7 @@ namespace ReservationProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -103,15 +104,17 @@ namespace ReservationProject
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
             createRolesAsync(serviceProvider);
+
         }
 
 
 
         private void createRolesAsync(IServiceProvider serviceProvider)
         {
-          
 
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             string[] roleNames = { "Member", "Staff", "Admin" };
             foreach (string roleName in roleNames)
@@ -124,7 +127,42 @@ namespace ReservationProject
                     result.Wait();
                 }
             }
-        
+
+            Task<ApplicationUser> findUserTask = UserManager.FindByEmailAsync("admin@bs.com");
+            findUserTask.Wait();
+
+            var user = findUserTask.Result;
+
+            // check if the user exists
+            if (user == null)
+            {
+                //Here you could create the super admin who will maintain the web app
+                var adminAcc = new ApplicationUser
+                {
+                    UserName = "admin@bs.com",
+                    Email = "admin@bs.com",
+                    FirstName = "Admin",
+                    LastName = "bs",
+                    PhoneNumber = "1234"
+                };
+                string adminPassword = "Beanscene1!";
+
+
+
+                Task<IdentityResult> createadminAcc = UserManager.CreateAsync(adminAcc, adminPassword);
+                createadminAcc.Wait();
+
+                var result = createadminAcc.Result;
+
+                if (result.Succeeded)
+                {
+                    //here we tie the new user to the role
+                    Task<IdentityResult> addRoleResult = UserManager.AddToRoleAsync(adminAcc, "Admin");
+                    addRoleResult.Wait();
+
+                }
+            }
+
         }
 
        

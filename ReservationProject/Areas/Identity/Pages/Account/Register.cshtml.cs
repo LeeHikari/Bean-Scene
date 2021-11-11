@@ -89,16 +89,6 @@ namespace ReservationProject.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
 
-                var checkForAdmin = _userManager.GetUsersInRoleAsync("Admin");
-                checkForAdmin.Wait();
-                if (checkForAdmin.Result.Count==0)
-                {
-                    var admin= new ApplicationUser { UserName ="admin@bs", Email = "admin@bs", PhoneNumber = "1234", FirstName = "Bean", LastName = "Scene" };
-                    await _userManager.CreateAsync(admin, "Beanscene1!");
-                    await _userManager.AddToRoleAsync(admin, "Admin");
-
-                }
-
                 var user = new ApplicationUser { UserName = Input.Email.ToLower(), Email = Input.Email.ToLower(),PhoneNumber=Input.Phone,FirstName=Input.FirstName,LastName=Input.LastName};
                 var result = await _userManager.CreateAsync(user, Input.Password);
             //    if (result.Succeeded)

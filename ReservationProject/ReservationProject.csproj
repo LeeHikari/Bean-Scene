@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Member\Models\Reservation\**" />
+    <Compile Remove="Migrations\**" />
     <Content Remove="Areas\Member\Models\Reservation\**" />
+    <Content Remove="Migrations\**" />
     <EmbeddedResource Remove="Areas\Member\Models\Reservation\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <None Remove="Areas\Member\Models\Reservation\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +44,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Home\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
