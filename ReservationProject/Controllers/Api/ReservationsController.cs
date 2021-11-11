@@ -7,31 +7,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
 
-namespace ReservationProject.Areas.Member.Controllers
+namespace ReservationProject.Controllers.Api
 {
-    [Route("api/Reservations")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ReservationsControllerApi : ControllerBase
+    public class ReservationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ReservationsControllerApi(ApplicationDbContext context)
+        public ReservationsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/ReservationsControllerApi
+        // GET: api/Reservations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations()
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(/*string email*/)
         {
-            return await _context.Reservations.ToListAsync();
+            return await _context.Reservations
+                .Include(rs => rs.ReservationSource)
+                .Include(rst => rst.ReservationStatus)
+                .Include(s => s.Sitting)
+                .Include(p => p.Person)
+                //.Where(r=>r.Person.Email==email)
+                .ToListAsync();
         }
 
-        // GET: api/ReservationsControllerApi/5
+        // GET: api/Reservations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Reservation>> GetReservation(int id)
         {
-            var reservation = await _context.Reservations.FindAsync(id);
+            var reservation = await _context.Reservations
+                        .Include(rs => rs.ReservationSource)
+                        .Include(rst => rst.ReservationStatus)
+                        .Include(s => s.Sitting)
+                        .Include(p => p.Person)
+                        .FirstOrDefaultAsync(r=>r.Id==id);
 
             if (reservation == null)
             {
@@ -41,7 +52,7 @@ namespace ReservationProject.Areas.Member.Controllers
             return reservation;
         }
 
-        // PUT: api/ReservationsControllerApi/5
+        // PUT: api/Reservations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReservation(int id, Reservation reservation)
@@ -72,7 +83,7 @@ namespace ReservationProject.Areas.Member.Controllers
             return NoContent();
         }
 
-        // POST: api/ReservationsControllerApi
+        // POST: api/Reservations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Reservation>> PostReservation(Reservation reservation)
@@ -83,7 +94,7 @@ namespace ReservationProject.Areas.Member.Controllers
             return CreatedAtAction("GetReservation", new { id = reservation.Id }, reservation);
         }
 
-        // DELETE: api/ReservationsControllerApi/5
+        // DELETE: api/Reservations/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservation(int id)
         {

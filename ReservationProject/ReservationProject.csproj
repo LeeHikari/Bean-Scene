@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Member\Models\Reservation\**" />
+    <Compile Remove="Migrations\**" />
     <Content Remove="Areas\Member\Models\Reservation\**" />
+    <Content Remove="Migrations\**" />
     <EmbeddedResource Remove="Areas\Member\Models\Reservation\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <None Remove="Areas\Member\Models\Reservation\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,9 +24,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
@@ -41,8 +47,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Home\" />
-    <Folder Include="Areas\Member\Models\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

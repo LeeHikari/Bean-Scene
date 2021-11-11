@@ -56,17 +56,18 @@
                                             <input asp-for="Create.ResDate" value="@ViewData["FormDate"]" class="form-control" onload="setDate" />
                                             <span asp-validation-for="Create.ResDate" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group p-2">
-                                            <label asp-for="Create.ResTime" class="control-label"></label>
-                                            <input asp-for="Create.ResTime" class="form-control" value="" />
-                                            <span asp-validation-for="Create.ResTime" class="text-danger"></span>
-                                        </div>
+                                       
                                         <div class="form-group p-2">
                                             <label asp-for="Create.SittingId" class="form-label"></label>
                                             <select asp-for="Create.SittingId" asp-items="Model.Create.SittingTypes" class="form-select">
                                                 <option value="">Select Sitting Type...</option>
                                             </select>
                                             <span asp-validation-for="Create.SittingId" class="text-danger"></span>
+                                        </div>
+                                         <div class="form-group p-2">
+                                            <label asp-for="Create.ResTime" class="control-label"></label>
+                                            <input asp-for="Create.ResTime" class="form-control" value="" />
+                                            <span asp-validation-for="Create.ResTime" class="text-danger"></span>
                                         </div>
                                         <div class="form-group p-2">
                                             <label asp-for="Create.Duration" class="control-label"></label>
