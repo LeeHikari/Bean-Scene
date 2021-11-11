@@ -22,13 +22,14 @@ namespace ReservationProject.Controllers.Api
 
         // GET: api/Reservations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations()
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(string email)
         {
             return await _context.Reservations
                 .Include(rs => rs.ReservationSource)
                 .Include(rst => rst.ReservationStatus)
                 .Include(s => s.Sitting)
                 .Include(p => p.Person)
+                .Where(r=>r.Person.Email==email)
                 .ToListAsync();
         }
 
