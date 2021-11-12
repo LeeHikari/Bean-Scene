@@ -25,11 +25,13 @@ namespace ReservationProject.Controllers.Api
         public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(/*string email*/)
         {
             return await _context.Reservations
+                //.Where(r => r.StartTime.Date > new DateTime().Date)
                 .Include(rs => rs.ReservationSource)
                 .Include(rst => rst.ReservationStatus)
                 .Include(s => s.Sitting)
                 .Include(p => p.Person)
                 //.Where(r=>r.Person.Email==email)
+                .OrderBy(p => p.StartTime)
                 .ToListAsync();
         }
 
