@@ -28,7 +28,7 @@
                         <span asp-validation-for="GetDate.ObtainDate" class="text-danger"></span>
                     </div>
                 </form>
-                <form asp-action="Create">
+                <form asp-action="Index">
                     <div id="FormController" class="carousel slide" data-bs-ride="carousel" data-bs-interval='false' style="min-height:800px; width: 700px;">
                         <div class="carousel-inner d-block" style="min-height: 400px">
 
@@ -51,48 +51,53 @@
                                     </div>
                                     @*CONTENT - CONTENT - CONTENT - CONTENT - CONTENT -*@
                                     <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded" id="Reservation">
-                                        <div class="form-group" hidden>
+                                        <div class="form-group">
                                             <label asp-for="Create.ResDate" class="control-label"></label>
                                             <input asp-for="Create.ResDate" value="@ViewData["FormDate"]" class="form-control" onload="setDate" />
                                             <span asp-validation-for="Create.ResDate" class="text-danger"></span>
                                         </div>
                                        
-                                        <div class="form-group p-2">
+                                        <div class="form-group p-2" id="SittingDiv">
                                             <label asp-for="Create.SittingId" class="form-label"></label>
-                                            <select asp-for="Create.SittingId" asp-items="Model.Create.SittingTypes" class="form-select">
+                                            <select asp-for="Create.SittingId" asp-items="Model.Create.SittingTypes" id="SittingsList" class="form-select">
                                                 <option value="">Select Sitting Type...</option>
                                             </select>
                                             <span asp-validation-for="Create.SittingId" class="text-danger"></span>
                                         </div>
-                                         <div class="form-group p-2">
-                                            <label asp-for="Create.ResTime" class="control-label"></label>
-                                            <input asp-for="Create.ResTime" class="form-control" value="" />
-                                            <span asp-validation-for="Create.ResTime" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group p-2">
-                                            <label asp-for="Create.Duration" class="control-label"></label>
-                                            <select asp-for="Create.Duration" class="form-select">
-                                                <option value="75">75 Minutes</option>
-                                                <option value="90" selected>90 Minutes (Default)</option>
-                                                <option value="105">105 Minutes</option>
-                                                <option value="120">120 Minutes</option>
-                                            </select>
-                                            <span asp-validation-for="Create.Duration" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group p-2">
-                                            <label asp-for="Create.Guests" class="control-label"></label>
-                                            <select asp-for="Create.Guests" class="form-select">
-                                                <option value="">Please Select Number of Guest</option>
-                                                <option value="1">1 Person</option>
-                                                <option value="2">2 Person</option>
-                                                <option value="3">3 Person</option>
-                                                <option value="4">4 Person</option>
-                                                <option value="5">5 Person</option>
-                                                <option value="6">6 Person</option>
-                                                <option value="7">7 Person</option>
-                                                <option value="8">8 Person</option>
-                                            </select>
-                                            <span asp-validation-for="Create.Guests" class="text-danger"></span>
+                                        <div id="TimeDiv">
+                                            <div class="form-group p-2">
+                                                <label asp-for="Create.ResTime" class="control-label"></label>
+                                                @*<input asp-for="Create.ResTime" class="form-control" value="" />*@
+                                                <select asp-for="Create.ResTime" id="selectTime" class="form-select">
+                                                    <option value="">Select</option>
+                                                </select>
+                                                <span asp-validation-for="Create.ResTime" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group p-2">
+                                                <label asp-for="Create.Duration" class="control-label"></label>
+                                                <select asp-for="Create.Duration" class="form-select">
+                                                    <option value="75">75 Minutes</option>
+                                                    <option value="90" selected>90 Minutes (Default)</option>
+                                                    <option value="105">105 Minutes</option>
+                                                    <option value="120">120 Minutes</option>
+                                                </select>
+                                                <span asp-validation-for="Create.Duration" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group p-2">
+                                                <label asp-for="Create.Guests" class="control-label"></label>
+                                                <select asp-for="Create.Guests" class="form-select">
+                                                    <option value="">Please Select Number of Guest</option>
+                                                    <option value="1">1 Person</option>
+                                                    <option value="2">2 Person</option>
+                                                    <option value="3">3 Person</option>
+                                                    <option value="4">4 Person</option>
+                                                    <option value="5">5 Person</option>
+                                                    <option value="6">6 Person</option>
+                                                    <option value="7">7 Person</option>
+                                                    <option value="8">8 Person</option>
+                                                </select>
+                                                <span asp-validation-for="Create.Guests" class="text-danger"></span>
+                                            </div>
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <div class="gap-2 p-3 d-md-block">
@@ -183,6 +188,90 @@
             $(".next-control").click(function () {
                 $("#FormController").carousel("next");
             });
+
+            //$(function () {
+
+            //    $('#SittingsList').on("change", function () {
+            //        debugger;
+            //        var sitting = $('#SittingsList').val();
+            //        AjaxCall(sitting).done(function (response) {
+            //            if (response.length > 0) {
+            //                $('#selectTime').html('');
+            //                var options = '';
+            //                options += '<option value="Select">Select</option>';
+
+
+
+            //                //for (var i = 0; i < response.length; i++) {
+            //                //    options += '<option value="' + response[i] + '">' + response[i] + '</option>';
+            //                //}
+            //                //$('#stateDropDownList').append(options);
+
+            //            }
+            //        }).fail(function () {
+            //            alert("Couldn't retrieve a response");
+            //        });
+            //    });
+
+            //});
+
+            $('#TimeDiv').hide();
+
+            $('#SittingsList').on("change", function () {
+                var sitting = $('#SittingsList').val();
+               
+
+                $.ajax({
+                    url: '@Url.Action("GetTimes")',
+                    data: { 'id' : sitting },
+                    type: "POST",
+                    cache: false,
+                    success: function (response) {
+
+                        $('#selectTime').html('');
+                        var options = '';
+
+                        if (response.length > 0) {
+                            $('#TimeDiv').show();
+                            options += "<option value='0'>--Select Date--</option>";
+
+                            var startTime = new Date(response[0]);
+                            var endTime = new Date(response[1]);
+
+                            debugger;
+                            for (var time = startTime; time < endTime; ) {
+                                options += "<option value='" + time.toLocaleTimeString() + "'>" + time.toLocaleTimeString() + "</option>";
+                                debugger;
+                                time = new Date(time.getTime() + 15 * 60000);
+                            }
+                        }
+                        else {
+                            options += "<option value='0'>--Select Sitting First--</option>";
+                            $('#TimeDiv').hide();
+                        }
+                        $('#selectTime').append(options); //Disable
+
+                    },
+                    error: function () {
+                        alert("failed");
+                    }
+                });
+            });
+
+
+            @*function AjaxCall(data) {
+                debugger;
+                return $.ajax({
+                    url: '@Url.Action("GetTimes")',
+                    type: 'POST',
+                    data: '{id: ' + JSON.stringify(data) + '}',
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: () => { alert("Loaded Successfully"); },
+                    error: () => { alert("fail"); }
+                });
+            }*@
+
         });
     </script>
 }

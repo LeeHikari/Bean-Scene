@@ -128,7 +128,7 @@ namespace ReservationProject.Controllers
         }
 
 
-        [HttpPost, ActionName("Create")]
+        [HttpPost, ActionName("Index")]
         public async Task<IActionResult> CreateConfirmed(MultiViewModel model)
         {
 
@@ -228,22 +228,30 @@ namespace ReservationProject.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult GetTimes(int id)
+        {
+            Task<Sitting> SittingTimes = _context.Sittings.FirstOrDefaultAsync(s => s.Id == id);
+            SittingTimes.Wait();
+            var sitting = SittingTimes.Result;
 
+            List<DateTime> dates = new List<DateTime>();
 
+            if (sitting != null)
+            {
+                dates.Add(sitting.StartTime);
+                dates.Add(sitting.EndTime);
+            }
+            return Json(dates);
+        }
 
+        [HttpPost]
+        public JsonResult GetSittings(DateTime date)
+        {
+            var sittingsList = _context.Sittings.Where(s => s.StartTime.Date == date.Date);
 
-
-
-
-
-
-
-
-
-
-
-
-
+            return Json(sittingsList);
+        }
 
         public IActionResult Privacy()
         {
