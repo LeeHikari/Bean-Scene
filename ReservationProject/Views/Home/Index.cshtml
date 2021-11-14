@@ -98,10 +98,10 @@
                                                 </select>
                                                 <span asp-validation-for="Create.Guests" class="text-danger"></span>
                                             </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="gap-2 p-3 d-md-block">
-                                                <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
+                                            <div class="d-flex justify-content-end">
+                                                <div class="gap-2 p-3 d-md-block">
+                                                    <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -216,9 +216,6 @@
                         $('#SittingsList').append(options);
 
                     },
-                    error: function () {
-                        alert("failed");
-                    }
                 });
             })
             $('#SittingsList').on("change", function () {
@@ -250,12 +247,9 @@
                             options += "<option value='0'>--Select Sitting First--</option>";
                             $('#TimeDiv').hide();
                         }
-                        $('#selectTime').append(options); //Disable
+                        $('#selectTime').append(options);
 
                     },
-                    error: function () {
-                        alert("failed");
-                    }
                 });
             })
         });
