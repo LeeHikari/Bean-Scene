@@ -51,7 +51,7 @@
                                     </div>
                                     @*CONTENT - CONTENT - CONTENT - CONTENT - CONTENT -*@
                                     <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded" id="Reservation">
-                                        <div class="form-group">
+                                        <div class="form-group" hidden>
                                             <label asp-for="Create.ResDate" class="control-label"></label>
                                             <input asp-for="Create.ResDate" value="@ViewData["FormDate"]" class="form-control" onload="setDate" />
                                             <span asp-validation-for="Create.ResDate" class="text-danger"></span>
@@ -238,10 +238,9 @@
                             var startTime = new Date(response[0]);
                             var endTime = new Date(response[1]);
 
-                            debugger;
                             for (var time = startTime; time < endTime; ) {
                                 options += "<option value='" + time.toLocaleTimeString() + "'>" + time.toLocaleTimeString() + "</option>";
-                                debugger;
+
                                 time = new Date(time.getTime() + 15 * 60000);
                             }
                         }
