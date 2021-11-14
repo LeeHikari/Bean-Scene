@@ -246,9 +246,9 @@ namespace ReservationProject.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetSittings(DateTime date)
+        public JsonResult GetSittings(string date)
         {
-            var sittingsList = _context.Sittings.Where(s => s.StartTime.Date == date.Date);
+            var sittingsList = _context.Sittings.Where(s => s.StartTime.Date == DateTime.Parse(date).Date);
 
             return Json(sittingsList);
         }
