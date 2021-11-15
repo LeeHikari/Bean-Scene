@@ -169,23 +169,28 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                   <div class="form-group p-2">
-                                     <label >Date and Time</label>
-                                     <label id="datetimeinfo"></label>
+                                <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
+                                    
+                                    <label >Date</label>
                                      <label >Sitting</label>
-                                     <label id="sittinginfo" ></label>
+                                     <p id="sittinginfo" ></p>
+                                     <p id="dateinfo"></p>
+                                     <label >Reservation Time</label>
+                                     <p id="timeinfo"></p>
+                                     <label >Duration</label>
+                                     <p id="durationinfo"></p>
                                      <label >Guests</label>
-                                     <label id="guestinfo" ></label>
+                                     <p id="guestinfo" ></p>
                                      <label >First Name</label>
-                                     <label id="firstnameinfo" ></label>
+                                     <p id="firstnameinfo" ></p>
                                      <label >Last Name</label>
-                                     <label id="lastnameinfo" ></label>
+                                     <p id="lastnameinfo" ></p>
                                      <label >Phone</label>
-                                     <label id="phoneinfo" ></label>
+                                     <p id="phoneinfo" ></p>
                                      <label >Email</label>
-                                     <label  id="emailinfo"></label>
+                                     <p  id="emailinfo"></p>
                                      <label >Note</label>
-                                     <label  id="noteinfo"></label>
+                                     <p  id="noteinfo"></p>
 
                                    </div>
                                     
@@ -229,10 +234,18 @@
                 $("#FormController").carousel("prev");
             });
             $(".next-control").click(function () {
-                if(document.getElementById("selectTime").value!=0&&document.getElementById("Create_Guests").value!=0){
-                                        //document.getElementById("datetimeinfo").value=document.getElementById("selectTime").value
-                                        //document.getElementById("sittinginfo").value=document.getElementById("selectTime").value
-                                        //document.getElementById("guestinfo").value=document.getElementById("Create_Guests").value
+                                    debugger
+
+                if(document.getElementById("selectTime").value!=0
+                &&document.getElementById("Create_Guests").value!=0){
+
+                                        let date = $('#calendarDate').val();
+                                        let sit=$( "#SittingsList option:selected" ).text()
+                                        document.getElementById("dateinfo").innerHTML=date.toString();
+                                        document.getElementById("timeinfo").innerHTML=document.getElementById("selectTime").value
+                                        document.getElementById("sittinginfo").innerHTML=sit
+                                        document.getElementById("durationinfo").innerHTML=document.getElementById("Create_Duration").value
+                                        document.getElementById("guestinfo").innerHTML=document.getElementById("Create_Guests").value
 
                                     $("#FormController").carousel("next");
 
@@ -245,11 +258,17 @@
                 &&document.getElementById("Create_FirstName").value!=""
                 &&document.getElementById("Create_Email").value!=""
                 &&document.getElementById("Create_Phone").value!=""){
-                                        //document.getElementById("firstnameinfo").value=document.getElementById("Create_FirstName").value
-                                        //document.getElementById("lastnameinfo").value=document.getElementById("Create_LastName").value
-                                        //document.getElementById("emailinfo").value=document.getElementById("Create_Email").value
-                                        // document.getElementById("phoneinfo").value=document.getElementById("Create_Phone").value
-                                        //document.getElementById("noteinfo").value=document.getElementById("Create_Note").value
+                                        document.getElementById("firstnameinfo").innerHTML =document.getElementById("Create_FirstName").value
+                                        document.getElementById("lastnameinfo").innerHTML =document.getElementById("Create_LastName").value
+                                        document.getElementById("emailinfo").innerHTML =document.getElementById("Create_Email").value
+                                        document.getElementById("phoneinfo").innerHTML =document.getElementById("Create_Phone").value
+                                        if(document.getElementById("Create_Note").value=""){
+                                             document.getElementById("noteinfo").innerHTML ="None"
+                                        }
+                                        else{
+                                            document.getElementById("noteinfo").innerHTML =document.getElementById("Create_Note").value
+
+                                        }
                                     $("#FormController").carousel("next");
 
                 }
