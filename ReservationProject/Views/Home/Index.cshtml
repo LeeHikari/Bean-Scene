@@ -37,7 +37,7 @@
                                 <div class="d-inline-block p-6">
                                     <div>
                                         <p class="fs-3">Select Time and Date</p>
-                                        <p>For bookings of 12+, please contact <a class="d-inline-block text-decoration-none email-link" href="mailto:reservations@beanscene.com.au">reservations@beanscene.com.au</a></p>
+                                        <p>For bookings of 9+, please contact <a class="d-inline-block text-decoration-none email-link" href="mailto:reservations@beanscene.com.au">reservations@beanscene.com.au</a></p>
 
                                     </div>
                                     <div class="progress" style="width: 500px;">
@@ -100,6 +100,7 @@
                                             </div>
                                             <div class="d-flex justify-content-end">
                                                 <div class="gap-2 p-3 d-md-block">
+
                                                     <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
                                                 </div>
                                             </div>
@@ -151,6 +152,11 @@
                                     </div>*@
                                     <div class="d-flex justify-content-end">
                                     <div class="gap-2 p-3 d-md-block">
+                                        <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Prev</a>
+
+                                    </div>  
+                                    <div class="gap-2 p-3 d-md-block">
+
                                         <a class="btn btn-primary fs-6 next-control1" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
                                     </div>
                                    </div>
@@ -172,9 +178,9 @@
                                 <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
                                     
                                     <label >Date</label>
+                                     <p id="dateinfo"></p>
                                      <label >Sitting</label>
                                      <p id="sittinginfo" ></p>
-                                     <p id="dateinfo"></p>
                                      <label >Reservation Time</label>
                                      <p id="timeinfo"></p>
                                      <label >Duration</label>
@@ -195,6 +201,8 @@
                                    </div>
                                     
                                     <div class="form-group p-2">
+                                        <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Prev</a>
+
                                         <input type="submit" class="btn btn-primary" />
                                     </div>
                                    
@@ -244,7 +252,7 @@
                                         document.getElementById("dateinfo").innerHTML=date.toString();
                                         document.getElementById("timeinfo").innerHTML=document.getElementById("selectTime").value
                                         document.getElementById("sittinginfo").innerHTML=sit
-                                        document.getElementById("durationinfo").innerHTML=document.getElementById("Create_Duration").value
+                                        document.getElementById("durationinfo").innerHTML=document.getElementById("Create_Duration").value+" minutes"
                                         document.getElementById("guestinfo").innerHTML=document.getElementById("Create_Guests").value
 
                                     $("#FormController").carousel("next");
@@ -262,11 +270,12 @@
                                         document.getElementById("lastnameinfo").innerHTML =document.getElementById("Create_LastName").value
                                         document.getElementById("emailinfo").innerHTML =document.getElementById("Create_Email").value
                                         document.getElementById("phoneinfo").innerHTML =document.getElementById("Create_Phone").value
-                                        if(document.getElementById("Create_Note").value=""){
-                                             document.getElementById("noteinfo").innerHTML ="None"
+                                        if(document.getElementById("Create_Note").value!=""){
+                                              document.getElementById("noteinfo").innerHTML =document.getElementById("Create_Note").value
+
                                         }
                                         else{
-                                            document.getElementById("noteinfo").innerHTML =document.getElementById("Create_Note").value
+                                             document.getElementById("noteinfo").innerHTML ="None"
 
                                         }
                                     $("#FormController").carousel("next");
