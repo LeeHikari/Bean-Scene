@@ -12,7 +12,7 @@
 <h1 class="text-center fw-bold m-3">View Employees</h1>
 <a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
-<h2>Admins</h2>
+<h2>Employees</h2>
 <table border="1" width="100%" class="table table-striped">
     <thead class="table-dark">
         <tr>
@@ -33,9 +33,9 @@
                 <td>Admin</td>
 
                 <td>
-                    <a asp-action="Details" asp-route-id="@admin.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@admin.Id">Delete</a> |
-                    <a asp-action="Update" asp-route-id="@admin.Id">Update</a>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@admin.Id">Details</a> |
+                    <a asp-action="Update" class="btn btn-warning" asp-route-id="@admin.Id">Update</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@admin.Id">Delete</a>
                 </td>
             </tr>
         }
@@ -47,9 +47,9 @@
                 <td>@staff.PhoneNumber</td>
                 <td>Staff</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@staff.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@staff.Id">Delete</a> |
-                    <a asp-action="Update" asp-route-id="@staff.Id">Update</a>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@staff.Id">Details</a> |
+                    <a asp-action="Update" class="btn btn-warning" asp-route-id="@staff.Id">Update</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@staff.Id">Delete</a>
                 </td>
             </tr>
         }
