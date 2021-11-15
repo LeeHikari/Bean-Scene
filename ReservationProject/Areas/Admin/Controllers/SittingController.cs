@@ -55,7 +55,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 {
                     var sitting = new Sitting();
                     {
-                        sitting.Name = model.Name;
+                        sitting.Name = model.Name+" "+model.StartTime.ToString("h:mm tt")+"-"+model.EndTime.ToString("h:mm tt");
                         sitting.StartTime = model.StartTime;
                         sitting.EndTime = model.EndTime;
                         sitting.Capacity = model.Capacity;
