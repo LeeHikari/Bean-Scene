@@ -30,13 +30,15 @@ namespace ReservationProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
-       options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
    );
 
             services.AddAutoMapper(cfg =>
             {
                 cfg.CreateMap<Models.Home.Index, Data.Reservation>();
-                cfg.CreateMap<Models.Home.Index, Data.Reservation>().ReverseMap();
+                cfg.CreateMap<Areas.Admin.Models.Reservation.Create, Data.Reservation>();
+                cfg.CreateMap<Areas.Admin.Models.Reservation.Update, Data.Reservation>();
+                cfg.CreateMap<Areas.Admin.Models.Reservation.Update, Data.Reservation>().ReverseMap();
             });
 
             services.AddScoped<PersonService>();

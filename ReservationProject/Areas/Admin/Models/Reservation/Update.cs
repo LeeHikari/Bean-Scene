@@ -1,33 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ReservationProject.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReservationProject.Areas.Admin.Models.Reservation
 {
-    public class Update : Create
+    public class Update
     {
-        public Update(Data.Reservation reservation)
-        {
-            ResDate = reservation.StartTime.Date;
-            ResTime = reservation.StartTime.ToLocalTime();
-            Duration = reservation.Duration;
-            Guests = reservation.Guests;
-            Note = reservation.Note;
-            ReservationStatusId = reservation.ReservationStatusId;
-            ReservationSourceId = reservation.ReservationSourceId;
-            SittingId = reservation.SittingId;
-            FirstName = reservation.Person.FirstName;
-            LastName = reservation.Person.LastName;
-            Phone = reservation.Person.Phone;
-            Email = reservation.Person.Email;
-            RestaurantId = reservation.Sitting.RestaurantId;
-            PersonId = reservation.PersonId;
-        }
+        [Required]
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        [Required]
+        [Display(Name = "Duration of Reservation")]
+        public int Duration { get; set; } //Minutes
+        [Required]
+        [Display(Name = "Number of Guests")]
+        public int Guests { get; set; }
+        [Display(Name = "Additional Notes")]
+        public string Note { get; set; }
+
+
+        //Relationships
+        [Display(Name = "Status of Reservation")]
+        public int ReservationStatusId { get; set; }
+        public ReservationStatus ReservationStatus { get; set; }
+        [Required]
+        [Display(Name = "Source of Reservation")]
+        public int ReservationSourceId { get; set; }
+        public ReservationSource ReservationSource { get; set; }
+        [Required]
+        [Display(Name = "Sitting of Reservation")]
+        public int SittingId { get; set; }
+        public Data.Sitting Sitting { get; set; }
+
         public int PersonId { get; set; }
+        public Person Person { get; set; }
+
+
+        [Display(Name = "Status of Reservation")]
         public SelectList ReservationStatuses { get; set; }
+        [Required]
+        [Display(Name = "Source of Reservation")]
+        public SelectList ReservationSources { get; set; }
+        [Required]
+        [Display(Name = "Sitting of Reservation")]
+        public SelectList Sittings { get; set; }
     }
 }

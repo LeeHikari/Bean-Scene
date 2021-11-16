@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SittingId" class="control-label"></label>
-                <select asp-for="SittingId" class="form-control" asp-items="Model.Sittings"></select>
+                <select asp-for="SittingId" class="form-control" asp-items="Model.Sitting"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ResTime" class="control-label"></label>
@@ -42,15 +42,7 @@
 
             <div class="form-group">
                 <label asp-for="ReservationSourceId" class="control-label"></label>
-                <select asp-for="ReservationSourceId" class="form-control" asp-items="Model.ReservationSources"></select>
-            </div> <div class="form-group">
-                <label asp-for="RestaurantId" class="control-label"></label>
-                <select asp-for="RestaurantId" class="form-control" asp-items="Model.Restaurants"></select>
-            </div>
-            @*<div class="form-group">
-            <label asp-for="Person" class="control-label"></label>
-            <select asp-for="Person" class="form-control" asp-items="PersonId"></select>
-        </div>*@
+                <select asp-for="ReservationSourceId" class="form-control" asp-items="Model.ReservationSource"></select>
             <div class="form-group">
                 <label asp-for="FirstName"></label>
                 <input asp-for="FirstName" class="form-control" />

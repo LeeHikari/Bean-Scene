@@ -43,11 +43,11 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         [Required]
         [Display(Name = "Source of Reservation")]
         public int ReservationSourceId { get; set; }
-        public SelectList ReservationSources { get; set; }
+        public SelectList ReservationSource { get; set; }
         [Required]
         [Display(Name = "Sitting of Reservation")]
         public int SittingId { get; set; }
-        public SelectList Sittings { get; set; }
+        public SelectList Sitting { get; set; }
 
         [Required]
         [Display(Name = "First Name")]
@@ -65,10 +65,5 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Restaurant")]
-        public int RestaurantId { get; set; }
-        public SelectList Restaurants { get; set; }
     }
 }
