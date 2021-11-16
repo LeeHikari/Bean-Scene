@@ -114,7 +114,7 @@
                                 <div class="d-inline-block p-6">
                                     <div>
                                         <p class="fs-3">Enter Details</p>
-                                        <p>Requested DateTime and Guest Number</p>
+                                        <p id="reservationandguest"></p>
 
                                     </div>
                                     <div class="progress" style="width: 500px;">
@@ -174,8 +174,7 @@
                                 </div>
                                 <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
                                     
-                                    <label >Date</label>
-                                     <p id="dateinfo"></p>
+                                 
                                      <label >Sitting</label>
                                      <p id="sittinginfo" ></p>
                                      <label >Reservation Time</label>
@@ -244,15 +243,15 @@
 
                 if(document.getElementById("selectTime").value!=0
                 &&document.getElementById("Create_Guests").value!=0){
-
-                                        let date = $('#calendarDate').val();
+                                        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                                        const weekdays=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+                                        let date = new Date($('#calendarDate').val());
                                         let sit=$( "#SittingsList option:selected" ).text()
-                                        document.getElementById("dateinfo").innerHTML=date.toString();
-                                        document.getElementById("timeinfo").innerHTML=document.getElementById("selectTime").value
+                                        document.getElementById("timeinfo").innerHTML=weekdays[date.getDay()]+" "+date.getDate()+" "+months[date.getMonth()]+" "+date.getFullYear()+"<br/>"+document.getElementById("selectTime").value
                                         document.getElementById("sittinginfo").innerHTML=sit
                                         document.getElementById("durationinfo").innerHTML=document.getElementById("Create_Duration").value+" minutes"
                                         document.getElementById("guestinfo").innerHTML=document.getElementById("Create_Guests").value
-
+                                         document.getElementById("reservationandguest").innerHTML=weekdays[date.getDay()]+" "+date.getDate()+" "+months[date.getMonth()]+" "+date.getFullYear()+"<br/>"+document.getElementById("selectTime").value+'<br/> Reservation for '+document.getElementById("Create_Guests").value+" guests"
                                     $("#FormController").carousel("next");
 
                 }
