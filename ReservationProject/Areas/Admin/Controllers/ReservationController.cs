@@ -38,7 +38,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 .OrderBy(reservation => reservation.Id)
                 .ToArrayAsync();
             Debug.Assert(reservation is not null, "Reservation is not null");
-            Debug.WriteLineIf(reservation is not null, "Reservation is not null");
+            Debug.WriteLineIf(reservation is  null, "Reservation is null");
             Trace.Close();
             
 
@@ -244,8 +244,10 @@ namespace ReservationProject.Areas.Admin.Controllers
                 return View(model);
 
             }
+            
             catch(Exception)
             {
+                _logger.LogError("Reservation Error");
                 return StatusCode(500);
             }
             //if (!id.HasValue)
