@@ -113,9 +113,10 @@
                             <div class="carousel-item">
                                 <div class="d-inline-block p-6">
                                     <div>
-                                        <p class="fs-3">Enter Details</p>
-                                        <p id="reservationandguest"></p>
-
+                                        <div class="col-sm-10 mb-3 shadow p-3 mb-2 ms-5 bg-body rounded">
+                                            <h4 class="font-weight-bold">Information Entered</h4>
+                                            <p id="reservationandguest"></p>
+                                        </div>
                                     </div>
                                     <div class="progress" style="width: 500px;">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
@@ -175,23 +176,23 @@
                                 <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
                                     
                                  
-                                     <label >Sitting</label>
+                                     <label class="fw-bold fs-5">Sitting</label>
                                      <p id="sittinginfo" ></p>
-                                     <label >Reservation Time</label>
+                                     <label class="fw-bold fs-5">Reservation Time</label>
                                      <p id="timeinfo"></p>
-                                     <label >Duration</label>
+                                     <label class="fw-bold fs-5">Duration</label>
                                      <p id="durationinfo"></p>
-                                     <label >Guests</label>
+                                     <label class="fw-bold fs-5">Guests</label>
                                      <p id="guestinfo" ></p>
-                                     <label >First Name</label>
+                                     <label class="fw-bold fs-5">First Name</label>
                                      <p id="firstnameinfo" ></p>
-                                     <label >Last Name</label>
+                                     <label class="fw-bold fs-5">Last Name</label>
                                      <p id="lastnameinfo" ></p>
-                                     <label >Phone</label>
+                                     <label class="fw-bold fs-5">Phone</label>
                                      <p id="phoneinfo" ></p>
-                                     <label >Email</label>
+                                     <label class="fw-bold fs-5">Email</label>
                                      <p  id="emailinfo"></p>
-                                     <label >Note</label>
+                                     <label class="fw-bold fs-5">Note</label>
                                      <p  id="noteinfo"></p>
 
                                     
@@ -251,7 +252,7 @@
                                         document.getElementById("sittinginfo").innerHTML=sit
                                         document.getElementById("durationinfo").innerHTML=document.getElementById("Create_Duration").value+" minutes"
                                         document.getElementById("guestinfo").innerHTML=document.getElementById("Create_Guests").value
-                                         document.getElementById("reservationandguest").innerHTML=weekdays[date.getDay()]+" "+date.getDate()+" "+months[date.getMonth()]+" "+date.getFullYear()+"<br/>"+document.getElementById("selectTime").value+'<br/> Reservation for '+document.getElementById("Create_Guests").value+" guests"
+                                         document.getElementById("reservationandguest").innerHTML=weekdays[date.getDay()]+", "+date.getDate()+" "+months[date.getMonth()]+" "+date.getFullYear()+"<br/>"+document.getElementById("selectTime").value+'<br/> Reservation for '+document.getElementById("Create_Guests").value+" guests"
                                     $("#FormController").carousel("next");
 
                 }

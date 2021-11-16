@@ -38,6 +38,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 .OrderBy(reservation => reservation.Id)
                 .ToArrayAsync();
             Debug.Assert(reservation is not null, "Reservation is not null");
+            Debug.WriteLineIf(reservation is not null, "Reservation is not null");
             Trace.Close();
             
 
