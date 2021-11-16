@@ -86,7 +86,7 @@
                                             <div class="form-group p-2">
                                                 <label asp-for="Create.Guests" class="control-label"></label>
                                                 <select asp-for="Create.Guests" class="form-select">
-                                                    <option value="">Please Select Number of Guest</option>
+                                                    <option value="0">Please Select Number of Guest</option>
                                                     <option value="1">1 Person</option>
                                                     <option value="2">2 Person</option>
                                                     <option value="3">3 Person</option>
@@ -226,6 +226,9 @@
     <script src="~/js~/js/regex.js"></script>
 
     <script>
+        const nameregex=/([A-Z]){2,}/i;
+        const emailregex=/^[\w-\.]+@@([\w-]+\.)+[\w-]{2,4}$/;
+        const phoneregex=/^\d{8,10}$/;
         $(document).ready(function () {
 
             if (window.location.href.indexOf("ObtainDate") > -1) {
@@ -238,10 +241,14 @@
                 $("#FormController").carousel("prev");
             });
             $(".next-control").click(function () {
-                                    debugger
+                                    
 
                 if(document.getElementById("selectTime").value!=0
                 &&document.getElementById("Create_Guests").value!=0){
+                                            document.getElementById("timeHelp").innerHTML=""
+                                            document.getElementById("guestHelp").innerHTML=""
+
+
                                         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                                         const weekdays=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
                                         let date = new Date($('#calendarDate').val());
@@ -254,14 +261,43 @@
                                     $("#FormController").carousel("next");
 
                 }
+                else{
+                  
+                    if(document.getElementById("selectTime").value==0)
+                    {
+                        document.getElementById("timeHelp").innerHTML="Please select a reservation time"
+                        
+                    }
+                    else{
+                        document.getElementById("timeHelp").innerHTML=""
+
+                    }
+                    if(document.getElementById("Create_Guests").value==0)
+                    {
+                        document.getElementById("guestHelp").innerHTML="Please select a number of guests"
+                        
+                    }
+                    else{
+                        document.getElementById("guestHelp").innerHTML=""
+
+                    }
+
+                }
                 
             });  
             $(".next-control1").click(function () {
+                
                 //regular expression to do
-                if(document.getElementById("Create_LastName").value!=""
-                &&document.getElementById("Create_FirstName").value!=""
-                &&document.getElementById("Create_Email").value!=""
-                &&document.getElementById("Create_Phone").value!=""){
+                if(nameregex.test(document.getElementById("Create_LastName").value)
+                &&nameregex.test(document.getElementById("Create_FirstName").value)
+                &&emailregex.test(document.getElementById("Create_Email").value)
+                &&phoneregex.test(document.getElementById("Create_Phone").value)){
+                    
+                                        document.getElementById("fnameHelp").innerHTML=""
+                                        document.getElementById("lnameHelp").innerHTML=""
+                                        document.getElementById("emailHelp").innerHTML=""
+                                        document.getElementById("phoneHelp").innerHTML=""
+
                                         document.getElementById("firstnameinfo").innerHTML =document.getElementById("Create_FirstName").value
                                         document.getElementById("lastnameinfo").innerHTML =document.getElementById("Create_LastName").value
                                         document.getElementById("emailinfo").innerHTML =document.getElementById("Create_Email").value
@@ -275,6 +311,38 @@
 
                                         }
                                     $("#FormController").carousel("next");
+
+                }
+                if(nameregex.test(document.getElementById("Create_LastName").value)){
+                                         document.getElementById("lnameHelp").innerHTML=""
+
+                }
+                else{
+                                          document.getElementById("lnameHelp").innerHTML="Last Name needs at least 2 characters"
+
+                }
+                if(nameregex.test(document.getElementById("Create_FirstName").value)){
+                                         document.getElementById("fnameHelp").innerHTML=""
+
+                }
+                else{
+                                          document.getElementById("fnameHelp").innerHTML="Last Name needs at least 2 characters"
+
+                }
+                if(emailregex.test(document.getElementById("Create_Email").value)){
+                                      document.getElementById("emailHelp").innerHTML=""
+
+                }
+                else{
+                                       document.getElementById("emailHelp").innerHTML="Pleazse enter valid Email"
+
+                }
+                if(phoneregex.test(document.getElementById("Create_Phone").value)){
+                                         document.getElementById("phoneHelp").innerHTML=""
+
+                }
+                else{
+                                         document.getElementById("phoneHelp").innerHTML="Please enter valid Phone Number (Numbers Only)"
 
                 }
                 
@@ -323,7 +391,7 @@
 
                         if (response.length > 0) {
                             $('#TimeDiv').show();
-                            options += "<option value='0'>--Select Date--</option>";
+                            options += "<option value='0'>Select Time</option>";
 
                             var startTime = new Date(response[0]);
                             var endTime = new Date(response[1]);
