@@ -155,7 +155,8 @@
                                     </div>
                                     <div class="form-group p-2">
                                         <label asp-for="Create.Note" class="control-label"></label>
-                                        <textarea asp-for="Create.Note" rows="5" class="form-control" value="" placeholder="eg Highchair, window seat and dietary restrictions Max 100 Characters"></textarea>
+                                        <textarea asp-for="Create.Note" rows="5" class="form-control" value="" placeholder="eg Highchair, window seat and dietary restrictions Max 100 Characters"  onkeyup="countChars(this);"></textarea>
+                                        <p id ="noteCount">0 out of 100 Characters</p>    
                                     </div>
                                     @*<div class="form-group p-2">
                                         <input type="submit" class="btn btn-primary" />
@@ -240,6 +241,16 @@
         const nameregex=/([A-Z]){2,}/i;
         const emailregex=/^[\w-\.]+@@([\w-]+\.)+[\w-]{2,4}$/;
         const phoneregex=/^\d{8,10}$/;
+          function countChars(obj){
+                var maxLength = 100;
+                var strLength = obj.value.length;
+    
+                if(strLength > maxLength){
+                    document.getElementById("noteCount").innerHTML = '<span style="color: red;">'+strLength+' out of '+maxLength+' characters</span>';
+                }else{
+                    document.getElementById("noteCount").innerHTML = strLength+' out of '+maxLength+' characters';
+            }
+}
         $(document).ready(function () {
 
             if (window.location.href.indexOf("ObtainDate") > -1) {

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Controllers
 {
@@ -15,9 +18,12 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         //TODO Report Controller
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var sitting = await _context.Sittings
+                        .Include(r => r.Restaurant)
+                        .OrderBy(sitting => sitting.StartTime).ToArrayAsync();
+            return View(sitting);
         }
     }
 }
