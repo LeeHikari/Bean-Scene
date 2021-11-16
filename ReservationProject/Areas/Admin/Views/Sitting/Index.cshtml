@@ -6,7 +6,6 @@
 }
 
 <h1 class="text-center fw-bold m-5">View Sittings</h1>
-<a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
 <table border="1" width="100%" class="table table-striped">
     <thead class="table-dark">
@@ -24,20 +23,23 @@
     <tbody class="table-light">
         @foreach (var r in Model)
         {
-        <tr>
-            <td>@r.Id</td>
-            <td>@r.Restaurant.Name</td>
-            <td>@r.Name</td>
-            <td>@r.StartTime</td>
-            <td>@r.EndTime</td>
-            <td>@r.Capacity</td>
-            <td>@r.IsClosed</td>
-            <td>
-                <a asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a> |
-                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@r.Id">Delete</a> |
-                <a asp-action="Update" class="btn btn-warning" asp-route-id="@r.Id">Update</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.Restaurant.Name</td>
+                <td>@r.Name</td>
+                <td>@r.StartTime</td>
+                <td>@r.EndTime</td>
+                <td>@r.Capacity</td>
+                <td>@r.IsClosed</td>
+                <td>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a> |
+                    <a asp-action="Update" class="btn btn-warning" asp-route-id="@r.Id">Update</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@r.Id">Delete</a>
+
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<a asp-action="Create" class="btn btn-primary">Create Sitting</a>
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary"> Return Dashboard</a>

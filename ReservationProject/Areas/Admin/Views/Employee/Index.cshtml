@@ -10,7 +10,6 @@
 }
 
 <h1 class="text-center fw-bold m-3">View Employees</h1>
-<a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
 <h2>Employees</h2>
 <table border="1" width="100%" class="table table-striped">
@@ -55,18 +54,5 @@
         }
     </tbody>
 </table>
-@*<h2>Staffs</h2>
-<table border="1" width="100%">
-    <thead>
-
-        <tr>
-            <td>Email</td>
-            <td>Full Name</td>
-            <td>Phone</td>
-            <td>Role</td>
-        </tr>
-    </thead>
-    <tbody>
-     
-    </tbody>
-</table>*@
+<a asp-action="Create" class="btn btn-primary">Create Employee</a>
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary"> Return Dashboard</a>

@@ -11,8 +11,6 @@
     ViewData["Title"] = "Index";
 
 }
-
-<a asp-action="Create" class="btn btn-primary">Create</a>
 <hr />
 <table border="1" width="100%" class="table table-striped">
     <thead class="table-dark">
@@ -33,21 +31,26 @@
     <tbody class="table-light">
         @foreach (var r in Model)
         {
-        <tr>
-            <td>@r.Id</td>
-            <td>@r.Sitting.Restaurant.Name</td>
-            <td>@r.Person.Fullname</td>
-            <td>@r.Sitting.Name</td>
-            <td>@r.ReservationSource.Name</td>
-            <td>@r.ReservationStatus.Name</td>
-            <td>@r.Guests</td>
-            <td>@r.StartTime</td>
-            <td>@r.EndTime</td>
-            <td>@r.Note</td>
-            <td>
-                <a asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.Sitting.Restaurant.Name</td>
+                <td>@r.Person.Fullname</td>
+                <td>@r.Sitting.Name</td>
+                <td>@r.ReservationSource.Name</td>
+                <td>@r.ReservationStatus.Name</td>
+                <td>@r.Guests</td>
+                <td>@r.StartTime</td>
+                <td>@r.EndTime</td>
+                <td>@r.Note</td>
+                <td>
+
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@r.Id">Details</a> |
+                    <a asp-action="Update" class="btn btn-warning" asp-route-id="@r.Id">Update</a>
+
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<a asp-action="Create" class="btn btn-primary">Create Reservation</a>
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary"> Return Dashboard</a>

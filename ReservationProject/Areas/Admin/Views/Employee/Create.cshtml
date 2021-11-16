@@ -50,22 +50,15 @@
                             <option value="">Select Role...</option>
                         </select>
                         <span asp-validation-for="Role" class="text-danger"></span>
-
                     </div>
-
-              
                     <div class="pt-2 form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
-
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
