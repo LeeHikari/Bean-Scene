@@ -313,7 +313,8 @@
                 if(nameregex.test(document.getElementById("Create_LastName").value)
                 &&nameregex.test(document.getElementById("Create_FirstName").value)
                 &&emailregex.test(document.getElementById("Create_Email").value)
-                &&phoneregex.test(document.getElementById("Create_Phone").value)){
+                &&phoneregex.test(document.getElementById("Create_Phone").value)
+                &&document.getElementById("Create_Note").value.length<=100){
                     
                                         document.getElementById("fnameHelp").innerHTML=""
                                         document.getElementById("lnameHelp").innerHTML=""
