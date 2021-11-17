@@ -242,10 +242,12 @@ namespace ReservationProject.Areas.Admin.Controllers
                 Display = $"{s.Name} {s.StartTime.ToString("h:mm tt")} - {s.EndTime.ToString("h:mm tt")}"
             }).ToArrayAsync();
 
+
             if (!ModelState.IsValid)
             {
                 return View(m);
             }
+
             try
             {
                 var r = _mapper.Map<Data.Reservation>(m);
@@ -257,12 +259,6 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 return StatusCode(500);
             }
-
-            m.ReservationSources = new SelectList(sourceList, "Value", "Display");
-            m.ReservationStatuses = new SelectList(reservationStatusOptions, "Value", "Display");
-            m.Sittings = new SelectList(sittingList, "Value", "Display");
-
-            return View(m);
         }
 
 
