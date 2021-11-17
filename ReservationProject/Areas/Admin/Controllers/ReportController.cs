@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReservationProject.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,10 +21,12 @@ namespace ReservationProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var sitting = await _context.Sittings
+            var sittings = await _context.Sittings
                         .Include(r => r.Restaurant)
+                        .Include(r=>r.Reservations)
                         .OrderBy(sitting => sitting.StartTime).ToArrayAsync();
-            return View(sitting);
+            var model = new Models.Report.Index();
+            return View(model);
         }
     }
 }

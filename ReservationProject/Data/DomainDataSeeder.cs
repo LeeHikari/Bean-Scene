@@ -70,8 +70,8 @@ namespace ReservationProject.Data
                     new ReservationStatus { Id = 1, Name = "Pending" },
                     new ReservationStatus { Id = 2, Name = "Confirmed" },
                     new ReservationStatus { Id = 3, Name = "Seated" },
-                    new ReservationStatus { Id = 5, Name = "Completed" },
-                    new ReservationStatus { Id = 6, Name = "Cancelled" }
+                    new ReservationStatus { Id = 4, Name = "Completed" },
+                    new ReservationStatus { Id = 5, Name = "Cancelled" }
                 );
         }
     }
