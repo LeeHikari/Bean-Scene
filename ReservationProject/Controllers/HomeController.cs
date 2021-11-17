@@ -155,7 +155,7 @@ namespace ReservationProject.Controllers
                     PersonId = person.Id,
                     Guests = model.Create.Guests,
                     ReservationSourceId = 1,
-                    ReservationStatusId = 2,
+                    ReservationStatusId = 1,
                     SittingId = model.Create.SittingId,
                     Note = model.Create.Note
 

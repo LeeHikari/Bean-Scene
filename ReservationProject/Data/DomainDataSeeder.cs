@@ -67,12 +67,11 @@ namespace ReservationProject.Data
 
             mb.Entity<ReservationStatus>()
                 .HasData(
-                    new ReservationStatus { Id = 1, Name = "New" },
-                    new ReservationStatus { Id = 2, Name = "Pending" },
-                    new ReservationStatus { Id = 3, Name = "Confirmed" },
-                    new ReservationStatus { Id = 4, Name = "Cancelled" },
-                    new ReservationStatus { Id = 5, Name = "Seated" },
-                    new ReservationStatus { Id = 6, Name = "Completed" }
+                    new ReservationStatus { Id = 1, Name = "Pending" },
+                    new ReservationStatus { Id = 2, Name = "Confirmed" },
+                    new ReservationStatus { Id = 3, Name = "Seated" },
+                    new ReservationStatus { Id = 5, Name = "Completed" },
+                    new ReservationStatus { Id = 6, Name = "Cancelled" }
                 );
         }
     }
