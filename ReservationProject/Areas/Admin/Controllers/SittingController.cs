@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,12 @@ namespace ReservationProject.Areas.Admin.Controllers
     [Area("Admin"), Authorize(Roles = "Admin")]
     public class SittingController : AdminAreaBaseController
     {
+        private IMapper _mapper;
 
-
-        public SittingController(ApplicationDbContext context)
+        public SittingController(IMapper mapper, ApplicationDbContext context)
            : base(context)
         {
-
+            _mapper=mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -157,17 +158,11 @@ namespace ReservationProject.Areas.Admin.Controllers
             }
             try
             {
-                var sitting = await _context.Sittings
-                .Include(r => r.Restaurant)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
+              
 
-                sitting.Name = model.Name;
-                sitting.StartTime= model.StartTime;
-                sitting.EndTime= model.EndTime;
-                sitting.Capacity = model.Capacity;
-                sitting.RestaurantId= model.RestaurantId;
-                sitting.IsClosed=model.IsClosed;
+       
+                var s = _mapper.Map<Data.Sitting>(model);
+                _context.Update<Sitting>(s);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

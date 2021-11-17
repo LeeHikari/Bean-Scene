@@ -39,6 +39,9 @@ namespace ReservationProject
                 cfg.CreateMap<Areas.Admin.Models.Reservation.Create, Data.Reservation>();
                 cfg.CreateMap<Areas.Admin.Models.Reservation.Update, Data.Reservation>();
                 cfg.CreateMap<Areas.Admin.Models.Reservation.Update, Data.Reservation>().ReverseMap();
+                cfg.CreateMap<Areas.Admin.Models.Sitting.Create, Data.Sitting>();
+                cfg.CreateMap<Areas.Admin.Models.Sitting.Update, Data.Sitting>().ReverseMap();
+
             });
 
             services.AddScoped<PersonService>();
