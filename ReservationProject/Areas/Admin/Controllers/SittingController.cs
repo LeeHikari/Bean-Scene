@@ -164,6 +164,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                 var s = _mapper.Map<Data.Sitting>(model);
                 _context.Update<Sitting>(s);
 
+                s.StartTime = model.SitStartTime;
+                s.EndTime = model.SitEndTime;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
