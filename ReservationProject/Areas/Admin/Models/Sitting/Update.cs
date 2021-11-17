@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ReservationProject.Areas.Admin.Models.Sitting
 {
-    public class Update
+    public class Update:Create
     {
-        //id
+        public int Id { get; set; }
     }
 }

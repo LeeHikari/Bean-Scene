@@ -55,7 +55,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 {
                     var sitting = new Sitting();
                     {
-                        sitting.Name = model.Name+" "+model.StartTime.ToString("h:mm tt")+"-"+model.EndTime.ToString("h:mm tt");
+                        sitting.Name = model.Name + " " + model.StartTime.ToString("h:mm tt") + "-" + model.EndTime.ToString("h:mm tt");
                         sitting.StartTime = model.StartTime;
                         sitting.EndTime = model.EndTime;
                         sitting.Capacity = model.Capacity;
@@ -74,10 +74,7 @@ namespace ReservationProject.Areas.Admin.Controllers
             return View(model);
 
         }
-        public IActionResult Delete()
-        {
-            return View();
-        }
+
 
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
@@ -113,15 +110,74 @@ namespace ReservationProject.Areas.Admin.Controllers
                 .Include(r => r.Restaurant)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(r => r.Id == id);
+            var restaurantlist = _context.Restaurants.Select(r => new
+            {
+                Value = r.Id,
+                Display = r.Name
+            }).ToArray();
 
             if (sitting == null)
             {
                 return NotFound();
             }
+            var model = new Models.Sitting.Update
 
-            return View(sitting);
+            { Id = sitting.Id,
+                Name = sitting.Name,
+                SitDate = sitting.StartTime,
+                SitStartTime = sitting.StartTime,
+                SitEndTime = sitting.EndTime,
+                Capacity = sitting.Capacity,
+                RestaurantId = sitting.RestaurantId,
+                IsClosed = sitting.IsClosed,
+
+                Restaurants = new SelectList(restaurantlist.ToList(), "Value", "Display")
+            };
+
+            return View(model);
         }
-    }
+        [HttpPost]
+
+        public async Task<IActionResult> Update(int id, Models.Sitting.Update model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+            var restaurantlist = _context.Restaurants.Select(r => new
+            {
+                Value = r.Id,
+                Display = r.Name
+            }).ToArray();
+
+            model.Restaurants =new SelectList( restaurantlist,"Value", "Display");
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var sitting = await _context.Sittings
+                .Include(r => r.Restaurant)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+                sitting.Name = model.Name;
+                sitting.StartTime= model.StartTime;
+                sitting.EndTime= model.EndTime;
+                sitting.Capacity = model.Capacity;
+                sitting.RestaurantId= model.RestaurantId;
+                sitting.IsClosed=model.IsClosed;
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+    } 
 } 
 
 
