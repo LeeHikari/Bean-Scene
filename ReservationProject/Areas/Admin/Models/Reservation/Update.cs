@@ -14,12 +14,12 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Reservation Date")]
-        public DateTime ResDate { get => StartTime; }
+        public DateTime ResDate { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Reservation Time")]
-        public DateTime ResTime { get => StartTime; }
+        public DateTime ResTime { get; set; }
 
         //properties to create reservation
         public DateTime StartTime { get => ResDate.AddHours(ResTime.Hour).AddMinutes(ResTime.Minute); }

@@ -198,6 +198,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                 
 
                 var m = _mapper.Map<Models.Reservation.Update>(selReservation);
+                m.ResDate = selReservation.StartTime;
+                m.ResTime = selReservation.StartTime;
                 m.ReservationSources = new SelectList(sourceList, "Value", "Display");
                 m.ReservationStatuses = new SelectList(reservationStatusOptions, "Value", "Display");
                 m.Sittings = new SelectList(sittingList, "Value", "Display");
@@ -246,7 +248,7 @@ namespace ReservationProject.Areas.Admin.Controllers
             }
             try
             {
-                var r = _mapper.Map<Data.Reservation>(m);      
+                var r = _mapper.Map<Data.Reservation>(m);
                 _context.Update<Reservation>(r);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
