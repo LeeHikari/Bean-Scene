@@ -34,7 +34,7 @@ namespace ReservationProject.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> Index(GetDate dateModel)
+        public async Task<IActionResult> Index()
         {
             ViewData["Title"] = "Home Page";
 
@@ -43,41 +43,8 @@ namespace ReservationProject.Controllers
                 return View();
             }
 
-            var m = new Models.MultiViewModel();
-            m.Create = new Models.Home.Index();
+            var m = new Models.Home.Index();
 
-            if (dateModel.ObtainDate != new DateTime())
-            {
-                ViewData["FormDate"] = dateModel.ObtainDate.ToString("yyyy-MM-dd");
-
-                m.Create.ResDate = dateModel.ObtainDate;
-
-                var date = dateModel.ObtainDate.Date;
-
-                var availableSittings = _context.Sittings.Where(s => s.StartTime.Date == date.Date);
-                if (availableSittings != null)
-                {
-                    m.Create.SittingTypes = new SelectList(availableSittings, "Id", "Name");
-                }
-                else
-                {
-                    var sittingTypeOptions = _context.Sittings.Select(s => new
-                    {
-                        Value = s.Id,
-                        Display =
-                    $"{s.Name} - " +
-                    $"Start: {s.StartTime.ToString("hh:mm")} - " +
-                    $"End: {s.EndTime.ToString("hh:mm")} - " +
-                    $"Spots left: {s.Vacancies}"
-                    }).ToArray();
-
-                    m.Create.SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display");
-                }
-
-
-            }
-            else
-            {
                 var sittingTypeOptions = _context.Sittings.Select(s => new
                 {
                     Value = s.Id,
@@ -88,9 +55,9 @@ namespace ReservationProject.Controllers
                     $"Spots left: {s.Vacancies}"
                 }).ToArray();
 
-                m.Create.SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display");
+                m.SittingTypes = new SelectList(sittingTypeOptions, "Value", "Display");
 
-            }
+            //}
             //TODO: check if member and not other type of user
             if (User.Identity.IsAuthenticated)
             {
@@ -100,28 +67,28 @@ namespace ReservationProject.Controllers
 
                 if(person != null)
                 {
-                    m.Create.FirstName = person.FirstName;
-                    m.Create.LastName = person.LastName;
-                    m.Create.Email = person.Email;
-                    m.Create.Phone = person.Phone;
+                    m.FirstName = person.FirstName;
+                    m.LastName = person.LastName;
+                    m.Email = person.Email;
+                    m.Phone = person.Phone;
 
                     return View(m);
                 }
                 else
                 {
-                    m.Create.FirstName = "";
-                    m.Create.LastName = "";
-                    m.Create.Email = "";
-                    m.Create.Phone = "";
+                    m.FirstName = "";
+                    m.LastName = "";
+                    m.Email = "";
+                    m.Phone = "";
 
                     return View(m);
                 }
             }
 
-            m.Create.FirstName = "";
-            m.Create.LastName = "";
-            m.Create.Email = "";
-            m.Create.Phone = "";
+            m.FirstName = "";
+            m.LastName = "";
+            m.Email = "";
+            m.Phone = "";
 
 
             return View(m);
@@ -129,10 +96,10 @@ namespace ReservationProject.Controllers
 
 
         [HttpPost, ActionName("Index")]
-        public async Task<IActionResult> CreateConfirmed(MultiViewModel model)
+        public async Task<IActionResult> CreateConfirmed(Models.Home.Index model)
         {
 
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Create.Email);
+            var person = await _context.People.FirstOrDefaultAsync(p => p.Email == model.Email);
 
             if (ModelState.IsValid)
             {
@@ -140,25 +107,24 @@ namespace ReservationProject.Controllers
                 
                     person = new Person
                     {
-                        Email = model.Create.Email,
-                        FirstName = model.Create.FirstName,
-                        LastName = model.Create.LastName,
-                        Phone = model.Create.Phone
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Phone = model.Phone
                     };
                     person = await _personService.UpsertPersonAsync(person,true);
                 
              
                 var reservation = new Reservation
                 {
-                    StartTime = model.Create.StartTime,
-                    Duration = model.Create.Duration,
+                    StartTime = model.StartTime,
+                    Duration = model.Duration,
                     PersonId = person.Id,
-                    Guests = model.Create.Guests,
-                    ReservationSourceId = 4,
-                    ReservationStatusId = 1,
-                    SittingId = model.Create.SittingId,
-                    Note = model.Create.Note
-
+                    Guests = model.Guests,
+                    ReservationSourceId = 1,
+                    ReservationStatusId = 2,
+                    SittingId = model.SittingId,
+                    Note = model.Note
 
                 };
 
@@ -179,51 +145,32 @@ namespace ReservationProject.Controllers
                 }
                 return View("Confirm", confirmReservation);
 
-             
-
             }
 
-            model.Create.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
+            model.SittingTypes = new SelectList(_context.Sittings.ToArray(), nameof(Sitting.Id), nameof(Sitting.Name));
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult FindSitting(Models.MultiViewModel m) //Requires MultiViewModel's - Create VM
-        {
-            GetDate getDate = new GetDate { ObtainDate = m.GetDate.ObtainDate };
-            return RedirectToAction("Index", "Home", getDate);
-        }
+        //[HttpPost]
+        //public IActionResult FindSitting(Models.MultiViewModel m) //Requires MultiViewModel's - Create VM
+        //{
+        //    GetDate getDate = new GetDate { ObtainDate = m.GetDate.ObtainDate };
+        //    return RedirectToAction("Index", "Home", getDate);
+        //}
 
         [HttpGet]
-        public async Task<IActionResult> Confirm(int? id)
+        public IActionResult Confirm(Reservation m)
         {
             try
             {
-                if (!id.HasValue)
+                if (m == null)
                 {
                     return NotFound();
                 }
-
-                var reservation = await _context.Reservations
-                    .Include(rs => rs.ReservationSource)
-                    .Include(rst => rst.ReservationStatus)
-                    .Include(sr => sr.Sitting.Restaurant)
-                    .Include(s => s.Sitting)
-                    .Include(p => p.Person)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(r => r.Id == id);
-
-                if (reservation == null)
-                {
-                    return NotFound();
-                }
-
-                return View(reservation);
+                return View(m);
             }
-            catch (Exception)
-            {
+            catch (Exception){ }
 
-            }
             return View();
 
         }
