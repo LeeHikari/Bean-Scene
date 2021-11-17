@@ -287,6 +287,31 @@ namespace ReservationProject.Areas.Admin.Controllers
 
             return View(reservation);
         }
+        [HttpGet]
+        public async Task<IActionResult> SittingIndex()
+        {
+            var sitting = await _context.Sittings
+                .Include(r => r.Restaurant)
+                .OrderBy(sitting => sitting.StartTime).ToArrayAsync();
+            return View(sitting);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ReservationViaSitting(int? id)
+        {
+            var reservation = await _context.Reservations
+             .Include(rs => rs.ReservationSource)
+             .Include(rst => rst.ReservationStatus)
+             .Include(sr => sr.Sitting.Restaurant)
+             .Include(s => s.Sitting)
+             .Include(p => p.Person)
+             .OrderBy(reservation => reservation.Id)
+             .Where(reservation => reservation.SittingId==id)
+             .ToArrayAsync();
+            return View(reservation);
+
+        }
+
+
     }
 }
 
