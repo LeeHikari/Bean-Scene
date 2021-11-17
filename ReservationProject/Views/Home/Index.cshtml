@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@model ReservationProject.Models.MultiViewModel
+@model ReservationProject.Models.Home.Index
 
 <div class="row">
     <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
@@ -9,7 +9,7 @@
         <div class="card-img-overlay d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
  @if (SignInManager.IsSignedIn(User))
              {           
-                <p class="text-light align-self-center">Welcome @Model.Create.FirstName </p>
+                <p class="text-light align-self-center">Welcome @Model.FirstName </p>
             }
             else
             {
@@ -31,13 +31,6 @@
     <div class="d-flex justify-content-center w-auto">
         <div class="row">
             <div class="col-md-4">
-                @*<form asp-action="FindSitting" id="calendarSubmit" hidden>
-                    <div class="form-group">
-                        <label asp-for="GetDate.ObtainDate" class="control-label"></label>
-                        <input asp-for="GetDate.ObtainDate" value="@ViewData["FormDate"]" id="calendarDate" class="form-control" onload="setDate" />
-                        <span asp-validation-for="GetDate.ObtainDate" class="text-danger"></span>
-                    </div>
-                </form>*@
                 <form asp-action="Index">
                     <div id="FormController" class="carousel slide" data-bs-ride="carousel" data-bs-interval='false' style="min-height:800px; width: 700px;">
                         <div class="carousel-inner d-block" style="min-height: 400px">
@@ -62,40 +55,39 @@
                                     @*CONTENT - CONTENT - CONTENT - CONTENT - CONTENT -*@
                                     <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded" id="Reservation">
                                         <div class="form-group" hidden>
-                                            <label asp-for="Create.ResDate" class="control-label"></label>
-                                            <input asp-for="Create.ResDate" value="" id="calendarDate" class="form-control" onload="setDate" />
-                                            <span asp-validation-for="Create.ResDate" class="text-danger"></span>
+                                            <label asp-for="ResDate" class="control-label"></label>
+                                            <input asp-for="ResDate" value="" id="calendarDate" class="form-control" onload="setDate" />
+                                            <span asp-validation-for="ResDate" class="text-danger"></span>
                                         </div>
                                        
                                         <div class="form-group p-2" id="SittingDiv">
                                             <label class="form-label">Sittings</label>
-                                            <select asp-for="Create.SittingId" id="SittingsList" class="form-select">
+                                            <select asp-for="SittingId" id="SittingsList" class="form-select">
                                                 <option value="">Please Select A Date</option>
                                             </select>
                                             <span id="sittingHelp" class="text-danger"></span>
                                         </div>
                                         <div id="TimeDiv">
                                             <div class="form-group p-2">
-                                                <label asp-for="Create.ResTime" class="control-label"></label>
+                                                <label asp-for="ResTime" class="control-label"></label>
                                                 @*<input asp-for="Create.ResTime" class="form-control" value="" />*@
-                                                <select asp-for="Create.ResTime" id="selectTime" class="form-select">
+                                                <select asp-for="ResTime" id="selectTime" class="form-select">
                                                     <option value="">Select</option>
                                                 </select>
                                                 <span id="timeHelp" class="text-danger"></span>
                                             </div>
                                             <div class="form-group p-2">
-                                                <label asp-for="Create.Duration" class="control-label"></label>
-                                                <select asp-for="Create.Duration" class="form-select">
+                                                <label asp-for="Duration" class="control-label"></label>
+                                                <select asp-for="Duration" id="Create_Duration" class="form-select">
                                                     <option value="75">75 Minutes</option>
                                                     <option value="90" selected>90 Minutes (Default)</option>
                                                     <option value="105">105 Minutes</option>
                                                     <option value="120">120 Minutes</option>
                                                 </select>
-                                                <span asp-validation-for="Create.Duration" class="text-danger"></span>
                                             </div>
                                             <div class="form-group p-2">
-                                                <label asp-for="Create.Guests" class="control-label"></label>
-                                                <select asp-for="Create.Guests" class="form-select">
+                                                <label asp-for="Guests" class="control-label"></label>
+                                                <select asp-for="Guests" id="Create_Guests" class="form-select">
                                                     <option value="0">Please Select Number of Guest</option>
                                                     <option value="1">1 Person</option>
                                                     <option value="2">2 Person</option>
@@ -110,8 +102,7 @@
                                             </div>
                                             <div class="d-flex justify-content-end">
                                                 <div class="gap-2 p-3 d-md-block">
-
-                                                    <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
+                                                    <a class="btn btn-primary fs-6 next-control" style="width: 100px;">Next</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,35 +126,32 @@
                                 <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
                                     <div class="form-group p-2">
                                         <label class="control-label">First Name</label>
-                                        <input asp-for="Create.FirstName" class="form-control" value="@Model.Create.FirstName" />
+                                        <input asp-for="FirstName" id="Create_FirstName" class="form-control" value="@Model.FirstName" />
                                         <span id="fnameHelp" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
                                         <label  class="control-label">Last Name</label>
-                                        <input asp-for="Create.LastName" class="form-control" value="@Model.Create.LastName" />
+                                        <input asp-for="LastName" id="Create_LastName" class="form-control" value="@Model.LastName" />
                                         <span id="lnameHelp" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="Create.Email" class="control-label"></label>
-                                        <input asp-for="Create.Email" class="form-control" value="@Model.Create.Email" />
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" id="Create_Email" class="form-control" value="@Model.Email" />
                                         <span id="emailHelp" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="Create.Phone" class="control-label"></label>
-                                        <input asp-for="Create.Phone" class="form-control" value="@Model.Create.Phone" />
+                                        <label asp-for="Phone" class="control-label"></label>
+                                        <input asp-for="Phone" id="Create_Phone" class="form-control" value="@Model.Phone" />
                                         <span id="phoneHelp" class="text-danger"></span>
                                     </div>
                                     <div class="form-group p-2">
-                                        <label asp-for="Create.Note" class="control-label"></label>
-                                        <textarea asp-for="Create.Note" rows="5" class="form-control" value="" placeholder="eg Highchair, window seat and dietary restrictions Max 100 Characters"  onkeyup="countChars(this);"></textarea>
+                                        <label asp-for="Note" class="control-label"></label>
+                                        <textarea asp-for="Note" id="Create_Note" rows="5" class="form-control" value="" placeholder="eg Highchair, window seat and dietary restrictions Max 100 Characters"  onkeyup="countChars(this);"></textarea>
                                         <p id ="noteCount">0 out of 100 Characters</p>    
                                     </div>
-                                    @*<div class="form-group p-2">
-                                        <input type="submit" class="btn btn-primary" />
-                                    </div>*@
                                     <div class="d-flex justify-content-between">
                                         <div class="gap-2 p-3 d-md-block">
-                                            <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Prev</a>
+                                            <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
                                         </div>  
                                         <div class="gap-2 p-3 d-md-block">
                                             <a class="btn btn-primary fs-6 next-control1" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
@@ -204,11 +192,9 @@
                                      <p  id="emailinfo"></p>
                                      <label class="fw-bold fs-5">Note</label>
                                      <p  id="noteinfo"></p>
-
                                     
                                     <div class="form-group p-2">
-                                        <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Prev</a>
-
+                                        <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
                                         <input type="submit" class="btn btn-primary" />
                                     </div>
                                    
@@ -266,7 +252,7 @@
                                     
 
                 if(document.getElementById("selectTime").value!=0
-                &&document.getElementById("Create_Guests").value!=0){
+                    && document.getElementById("Create_Guests").value != 0) {
                                             document.getElementById("timeHelp").innerHTML=""
                                             document.getElementById("guestHelp").innerHTML=""
 
@@ -283,7 +269,7 @@
                                     $("#FormController").carousel("next");
 
                 }
-                else{
+                else {
                   
                     if(document.getElementById("selectTime").value==0)
                     {

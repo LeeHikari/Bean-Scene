@@ -11,7 +11,18 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
         [Required]
         public int Id { get; set; }
 
-        public DateTime StartTime { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Reservation Date")]
+        public DateTime ResDate { get => StartTime; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Reservation Time")]
+        public DateTime ResTime { get => StartTime; }
+
+        //properties to create reservation
+        public DateTime StartTime { get => ResDate.AddHours(ResTime.Hour).AddMinutes(ResTime.Minute); }
 
         [Required]
         [Display(Name = "Duration of Reservation")]
