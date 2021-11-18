@@ -122,7 +122,7 @@ namespace ReservationProject.Controllers
                     PersonId = person.Id,
                     Guests = model.Guests,
                     ReservationSourceId = 1,
-                    ReservationStatusId = 2,
+                    ReservationStatusId = 1,
                     SittingId = model.SittingId,
                     Note = model.Note
 

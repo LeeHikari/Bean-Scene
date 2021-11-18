@@ -100,7 +100,8 @@ namespace ReservationProject.Areas.Admin.Controllers
                         person = await _personService.UpsertPersonAsync(person, true);
 
                         var r = _mapper.Map<Data.Reservation>(model);
-
+                        r.PersonId = person.Id;
+                        r.ReservationStatusId =2;
                         _context.Reservations.Add(r);
                         await _context.SaveChangesAsync();
                         _logger.LogInformation("Submit Reservation {time}", DateTime.UtcNow);
