@@ -14,15 +14,17 @@
     <header>
         <div class="row">
             <div class="col-12 card overflow-hidden border-0 navbar-dark m-sm-12">
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark bg-opacity-100">
+                <nav class="navbar navbar-expand-md navbar-toggleable-md bg-dark bg-opacity-100">
                     <div class="container p-3" id="nav-font">
+                        
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="container-fluid">
-                            <div class="navbar-collapse collapse  justify-content-between" id="navbar-collapse">
+                            <div class="navbar-collapse collapse" id="navbar-collapse">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                                     <li class="nav-item">
                                         <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
                                     </li>
@@ -41,7 +43,7 @@
 
                                 </ul>
 
-                                <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4 " asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
+                                <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4 d-none d-sm-block"  asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
                                 <partial name="_LoginPartial" />
                             </div>
                         </div>
