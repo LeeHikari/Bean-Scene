@@ -101,7 +101,7 @@ namespace ReservationProject.Areas.Admin.Controllers
 
                         var r = _mapper.Map<Data.Reservation>(model);
                         r.PersonId = person.Id;
-                        r.ReservationStatusId =2;
+                        r.ReservationStatusId =1;
                         _context.Reservations.Add(r);
                         await _context.SaveChangesAsync();
                         _logger.LogInformation("Submit Reservation {time}", DateTime.UtcNow);

@@ -188,12 +188,11 @@ namespace ReservationProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "New" },
-                    { 2, "Pending" },
-                    { 3, "Confirmed" },
-                    { 4, "Cancelled" },
-                    { 5, "Seated" },
-                    { 6, "Completed" }
+                    { 1, "Pending" },
+                    { 2, "Confirmed" },
+                    { 3, "Cancelled" },
+                    { 4, "Seated" },
+                    { 5, "Completed" }
                 });
 
             migrationBuilder.InsertData(
