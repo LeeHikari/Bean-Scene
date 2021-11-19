@@ -191,10 +191,10 @@ namespace ReservationProject.Areas.Admin.Controllers
                     Display = s.Name
                 }).ToArrayAsync();
 
-                var sittingList = await _context.Sittings.Select(r => new
+                var sittingList = await _context.Sittings.Where(s => s.StartTime.Date == selReservation.Sitting.StartTime.Date).Select(r => new
                 {
                     Value = r.Id,
-                    Display = $"{r.Name} {r.StartTime.ToString("h:mm tt")} - {r.EndTime.ToString("h:mm tt")}"
+                    Display = r.Name
                 }).ToArrayAsync();
 
                 

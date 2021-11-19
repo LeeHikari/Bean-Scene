@@ -12,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ResDate" class="control-label"></label>
-                <input asp-for="ResDate" id="calendarDate" value="@DateTime.Now.ToShortDateString();" onblur="return findSittings();" class="form-control" />
+                <input asp-for="ResDate" id="calendarDate" value="@DateTime.Now.ToShortDateString();" class="form-control" />
                 <span asp-validation-for="ResDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label asp-for="ResTime" class="control-label"></label>
                 <select asp-for="ResTime" id="selectTime" class="form-select">
-                    <option value="">Select </option>
+                    <option value="">Select Time</option>
                 </select>
                 @*<span asp-validation-for="ResTime" class="text-danger"></span>*@
 </div>
@@ -86,14 +86,10 @@
 
     <script>
 
-        findSittings(){
-            debugger;
-            alert("Hello");
-        }
-
         $(document).ready(function () {
             $('#calendarDate').on("change", function () {
-                debugger;
+                $('#selectTime').html('');
+                $('#selectTime').append("<option value='0'>Select Time</option>");
                 var date = $('#calendarDate').val();
                 $.ajax({
                     url: '@Url.Action("GetSittings")',
@@ -133,7 +129,6 @@
                         var options = '';
 
                         if (response.length > 0) {
-                            $('#TimeDiv').show();
                             options += "<option value='0'>Select Time</option>";
 
                             var startTime = new Date(response[0]);
@@ -147,7 +142,6 @@
                         }
                         else {
                             options += "<option value='0'>--Select Sitting First--</option>";
-                            $('#TimeDiv').hide();
                         }
                         $('#selectTime').append(options);
 
