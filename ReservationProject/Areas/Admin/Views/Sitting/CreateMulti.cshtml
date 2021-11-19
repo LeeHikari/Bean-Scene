@@ -1,0 +1,79 @@
+﻿@model ReservationProject.Areas.Admin.Models.Sitting.CreateMulti
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center fw-bold m-3">Create a New Sitting</h1>
+<div class="container-fluid">
+    <div class="ms-5 me-5 ps-5 pe-5">
+        <div class="card shadow">
+            <h5 class="card-header">Enter details for new sitting</h5>
+            <div class="card-body">
+                <form asp-action="CreateMulti">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" id="SittingName" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SitDate" class="control-label"></label>
+                        <input asp-for="SitDate" id="SittingDate" class="form-control" />
+                        <span asp-validation-for="SitDate" class="text-danger"></span>
+                    </div>
+                      <div class="form-group">
+                        <label asp-for="SitDate2" class="control-label"></label>
+                        <input asp-for="SitDate2" id="SittingDate2" class="form-control" />
+                        <span asp-validation-for="SitDate2" class="text-danger"></span>
+                    </div>
+                     <div class="form-group">
+                        <label asp-for="Recurrence" class="control-label"></label>
+                        <select asp-for="Recurrence" id="Recurrence" class="form-control">
+                         <option value="">Please Sitting Recurrence</option>
+                         <option value="1">All Days</option>
+                         <option value="2">Weekdays</option>
+                         <option value="3">Weekends</option>
+                     </select>
+                    <span asp-validation-for="Recurrence" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SitStartTime" class="control-label"></label>
+                        <input asp-for="SitStartTime" id="SittingStartTime" class="form-control" />
+                        <span asp-validation-for="SitStartTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SitEndTime" class="control-label"></label>
+                        <input asp-for="SitEndTime" id="SittingEndTime" class="form-control" />
+                        <span asp-validation-for="SitEndTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Capacity" class="control-label"></label>
+                        <input asp-for="Capacity" id="SittingCapcity" class="form-control" />
+                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RestaurantId" class="control-label"></label>
+                        <select asp-for="RestaurantId" id="RestaurantName" class="form-control" asp-items="Model.Restaurants"></select>
+                    </div>
+                    <div class="form-group form-check ps-4 pt-2">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsClosed" /> @Html.DisplayNameFor(model => model.IsClosed)
+                        </label>
+                    </div>
+                    <div class="form-group p-2">
+                        <input type="submit" value="Submit" id="CreateSittingSubmit" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
