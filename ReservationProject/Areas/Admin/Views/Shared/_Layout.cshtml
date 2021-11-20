@@ -11,117 +11,118 @@
     @await RenderSectionAsync("Styles", required: false)
 
 </head>
-<body>
-    <header>
-        <div class="row">
-            <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12">
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark bg-opacity-100">
-                    <div class="container p-3" id="nav-font">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="container-fluid">
-                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                                <ul class="navbar-nav flex-grow-1">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
+
+<body class="container-fluid p-0">
+    <div class="row w-100 m-0">
+        <div class="col-12 p-0">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark m-0">
+                <div class="container" id="nav-font">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="container-fluid">
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                </li>
+                            </ul>
+
+                            <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4" asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
+                            <partial name="_LoginPartial" />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container-fluid d-flex p-0">
+            <div>
+                <nav id="sidebar" class="pt-5">
+                    @*<img src="~/img/Bean-Scene-Logo-Circle.png" />*@
+                    <a class="w-100 justify-content-center" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <img class="d-block m-auto" src="~/img/Bean-Scene-Logo.png" title="Dashboard"/>
+                    </a>
+                    <div class="p-4 pt-5">
+                        <ul class="list-unstyled components mb-5">
+                            <li class="active">
+                                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
+                                <ul class="collapse list-unstyled" id="homeSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Employee" asp-action="Index">View Employees</a>
                                     </li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings" class="btn btn-primary btn-lg">Create Sittings</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Index" class="btn btn-primary btn-lg">View Sittings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Page 3</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reservations</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Create" class="btn btn-primary btn-lg">Create Reservation</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index" class="btn btn-primary btn-lg">View Reservation</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="SittingIndex" class="btn btn-primary btn-lg">View Reservations via Sittings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Report" asp-action="Index" class="btn btn-primary btn-lg">View Reports</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
 
-                                <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4" asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
-                                <partial name="_LoginPartial" />
-                            </div>
+                        <div class="footer">
+                            <p>Bean Scene Administration tools</p>
                         </div>
+
                     </div>
                 </nav>
             </div>
+            <div class="container-fluid">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
-    </header>
-    <div class="wrapper d-flex align-items-stretch">
-	    <nav id="sidebar">
-		    <div class="p-4 pt-5">
-		    <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(~/img/Bean-Scene-Logo);"></a>
-	    <ul class="list-unstyled components mb-5">
-	        <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
-	            <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
-                    </li>
-                    <li>
-                        <a asp-area="Admin" asp-controller="Employee" asp-action="Index">View Employees</a>
-                    </li>
-	            </ul>
-	        </li>
-	        <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings" class="btn btn-primary btn-lg">Create Sittings</a>
-                    </li>
-                    <li>
-                       <a asp-area="Admin" asp-controller="Sitting" asp-action="Index" class="btn btn-primary btn-lg">View Sittings</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-	        </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reservations</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Create" class="btn btn-primary btn-lg">Create Reservation</a>
-                    </li>
-                    <li>
-                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index" class="btn btn-primary btn-lg">View Reservation</a>
-                    </li>
-                    <li>
-                        <a asp-area="Admin" asp-controller="Reservation" asp-action="SittingIndex" class="btn btn-primary btn-lg">View Reservations via Sittings</a>
-                    </li>
-                </ul>
-	        </li>
-             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a asp-area="Admin" asp-controller="Report" asp-action="Index" class="btn btn-primary btn-lg">View Reports</a>
-                    </li>
-                </ul>
-	        </li>
-	    </ul>
+        <footer class="col-12 mt-5 border-top footer text-muted" style="height:10px">
+            <div class="container">
+                &copy; 2021 - ReservationProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy<br /></a>
+            </div>
+        </footer>
 
-	    <div class="footer">
-	        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
-					    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-	    </div>
-
-	    </div>
-        </nav>
+        <script src="~/js/calendar.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/main.js"></script>
+        <script src="~/js/popper.js"></script>
+        @await RenderSectionAsync("Scripts", required: false)
     </div>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ReservationProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy<br /></a>
-        </div>
-    </footer>
-
-    <script src="~/js/calendar.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/main.js"></script>
-    <script src="~/js/popper.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

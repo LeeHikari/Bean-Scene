@@ -121,7 +121,7 @@ namespace ReservationProject.Controllers
                     Duration = model.Duration,
                     PersonId = person.Id,
                     Guests = model.Guests,
-                    ReservationSourceId = 1,
+                    ReservationSourceId = 4,
                     ReservationStatusId = 1,
                     SittingId = model.SittingId,
                     Note = model.Note

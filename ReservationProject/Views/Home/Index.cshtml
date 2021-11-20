@@ -4,16 +4,16 @@
 @model ReservationProject.Models.Home.Index
 
 <div class="row">
-    <div class="col-12 card overflow-hidden border-0 bg-white m-sm-12 m-0 p-0">
+    <div class="col-12 card border-0 bg-white m-sm-12 m-0 p-0">
         <img class="card-img" src="/img/bean-scene-header.png" alt="Bean Scene Cafe Interior" data-image-dimensions="1920x854" data-image-focal-point="0.5,0.5" />
         <div class="card-img-overlay d-flex justify-content-center h-75 flex-column fw-bolder fs-1">
  @if (SignInManager.IsSignedIn(User))
              {           
-                <p class="text-light align-self-center">Welcome @Model.FirstName </p>
+                <p class="text-light align-self-center">- Welcome back - </p>
             }
             else
             {
-                 <p class="text-light align-self-center">Welcome to Bean Scene</p>
+                 <p class="text-light align-self-center">- Welcome to Bean Scene -</p>
             }          
             <a href="#Reservation-Form" class="btn btn-light btn-lg align-self-center" style="width: 200px;" id="BookingButton">Make Reservation</a>
             <img class="align-self-center" />
@@ -23,43 +23,43 @@
 
 
 <div class="text-center">
-    <h1 class="display-4 mt-3" id="Reservation-Form">Reservations</h1>
-    <p> Please fill in the information below</p>
+    <p class="fs-1 mt-3" id="Reservation-Form">Reservations</p>
+    <p class="fs-4 m-0"> Please fill in the information below</p>
 
     @* Carousel Section *@
 
-    <div class="container-md d-flex justify-content-center w-auto">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <form asp-action="Index">
-                    <div id="FormController" class="carousel slide w-auto h-auto" data-bs-ride="carousel" data-bs-interval='false'>
-                        <div class="carousel-inner d-block h-auto">
+
+                <div class="col-sm-1 col-md-2 col-lg-3 p-0"></div>
+                <form asp-action="Index" class="col-sm-10 col-md-8 col-lg-6 p-0">
+                    <div id="FormController" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval='false'>
+                        <div class="carousel-inner " style="min-width: 300px;">
 
                             @* ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - ITEM 1 - *@
                             <div class="carousel-item active ">
-                                <div class="d-inline-block p-6">
-                                    <div>
-                                        <p class="fs-3">Select Time and Date</p>
-                                        <p>For bookings of 9+, please contact <a class="d-inline-block text-decoration-none email-link" href="mailto:reservations@beanscene.com.au">reservations@beanscene.com.au</a></p>
-
+                                <div class="container-fluid">
+                                    <div class="p-6">
+                                        <div>
+                                            <p class="m-0">For bookings of 9+, please contact </p>
+                                            <a class="d-block text-decoration-none email-link mb-3" href="mailto:reservations@beanscene.com.au">reservations@beanscene.com.au</a>
+                                        </div>
+                                        <div class="progress w-100 mb-3">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>
+                                        </div>
                                     </div>
-                                    <div class="progress" style="width: 500px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    @* CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - *@
-                                    <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
+                                        @* CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - CALENDAR - *@
+                                    <div class="shadow p-3 mb-2 bg-body rounded">
                                         <div class="calendar-wrapper" id="calenderInput"> </div>
                                     </div>
                                     @*CONTENT - CONTENT - CONTENT - CONTENT - CONTENT -*@
-                                    <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded" id="Reservation">
+                                    <div class="shadow p-3 bg-body rounded" id="Reservation">
                                         <div class="form-group" hidden>
                                             <label asp-for="ResDate" class="control-label"></label>
                                             <input asp-for="ResDate" value="" id="calendarDate" class="form-control" onload="setDate" />
                                             <span asp-validation-for="ResDate" class="text-danger"></span>
                                         </div>
-                                       
+
                                         <div class="form-group p-2" id="SittingDiv">
                                             <label class="form-label">Sittings</label>
                                             <select asp-for="SittingId" id="SittingsList" class="form-select">
@@ -102,111 +102,109 @@
                                             </div>
                                             <div class="d-flex justify-content-end">
                                                 <div class="gap-2 p-3 d-md-block">
-                                                    <a class="btn btn-primary fs-6 next-control" style="width: 100px;">Next</a>
+                                                    <a class="btn btn-primary fs-6 next-control" href="#Reservation-Form" style="width: 100px;">Next</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             @* ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - ITEM 2 - *@
                             <div class="carousel-item">
-                                <div class="d-inline-block p-6">
-                                    <div>
-                                        <div class="col-sm-10 mb-3 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                            <h4 class="font-weight-bold">Reservation Selected</h4>
-                                            <p id="reservationandguest"></p>
+                                <div class="container-fluid">
+                                    <div class="p-6">
+                                        <div>
+                                            <div class="col-sm-10 mb-3 shadow p-3 mb-2 bg-body rounded">
+                                                <h4 class="font-weight-bold">Reservation Selected</h4>
+                                                <p id="reservationandguest"></p>
+                                            </div>
+                                        </div>
+                                        <div class="progress w-100 mb-3">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
                                         </div>
                                     </div>
-                                    <div class="progress" style="width: 500px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                    <div class="form-group p-2">
-                                        <label class="control-label">First Name</label>
-                                        <input asp-for="FirstName" id="Create_FirstName" class="form-control" value="@Model.FirstName" />
-                                        <span id="fnameHelp" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label  class="control-label">Last Name</label>
-                                        <input asp-for="LastName" id="Create_LastName" class="form-control" value="@Model.LastName" />
-                                        <span id="lnameHelp" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label asp-for="Email" class="control-label"></label>
-                                        <input asp-for="Email" id="Create_Email" class="form-control" value="@Model.Email" />
-                                        <span id="emailHelp" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label asp-for="Phone" class="control-label"></label>
-                                        <input asp-for="Phone" id="Create_Phone" class="form-control" value="@Model.Phone" />
-                                        <span id="phoneHelp" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group p-2">
-                                        <label asp-for="Note" class="control-label"></label>
-                                        <textarea asp-for="Note" id="Create_Note" rows="5" class="form-control" value="" placeholder="eg Highchair, window seat and dietary restrictions Max 100 Characters"  onkeyup="countChars(this);"></textarea>
-                                        <p id ="noteCount">0 out of 100 Characters</p>    
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="gap-2 p-3 d-md-block">
-                                            <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
-                                        </div>  
-                                        <div class="gap-2 p-3 d-md-block">
-                                            <a class="btn btn-primary fs-6 next-control1" href="#Reservation-Form" type="button" style="width: 100px;">Next</a>
+                                    <div class="shadow p-3 mb-2 bg-body rounded">
+                                        <div class="form-group p-2">
+                                            <label class="control-label">First Name</label>
+                                            <input asp-for="FirstName" id="Create_FirstName" class="form-control" value="@Model.FirstName" />
+                                            <span id="fnameHelp" class="text-danger"></span>
                                         </div>
-                                   </div>
+                                        <div class="form-group p-2">
+                                            <label class="control-label">Last Name</label>
+                                            <input asp-for="LastName" id="Create_LastName" class="form-control" value="@Model.LastName" />
+                                            <span id="lnameHelp" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group p-2">
+                                            <label asp-for="Email" class="control-label"></label>
+                                            <input asp-for="Email" id="Create_Email" class="form-control" value="@Model.Email" />
+                                            <span id="emailHelp" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group p-2">
+                                            <label asp-for="Phone" class="control-label"></label>
+                                            <input asp-for="Phone" id="Create_Phone" class="form-control" value="@Model.Phone" />
+                                            <span id="phoneHelp" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group p-2">
+                                            <label asp-for="Note" class="control-label"></label>
+                                            <textarea asp-for="Note" id="Create_Note" rows="5" class="form-control" value="" placeholder="eg Highchair, window seat and dietary restrictions Max 100 Characters" onkeyup="countChars(this);"></textarea>
+                                            <p id="noteCount">0 out of 100 Characters</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="gap-2 p-3 d-md-block">
+                                                <a class="btn btn-primary fs-6 prev-control ps-4 pe-4" href="#Reservation-Form" type="button" >Previous</a>
+                                            </div>
+                                            <div class="gap-2 p-3 d-md-block">
+                                                <a class="btn btn-primary fs-6 next-control1 ps-4 pe-4" href="#Reservation-Form" type="button">Next</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                             @* ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - *@
+                            @* ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - ITEM 3 - *@
                             <div class="carousel-item">
-                                <div class="d-inline-block p-6">
-                                    <div>
-                                        <p class="fs-3">Reservation Details</p>
-                                        <p>Confirm Details</p>
+                                <div class="container-fluid">
+                                    <div class="p-6">
+                                        <div>
+                                            <p class="fs-3">Reservation Details</p>
+                                            <p>Confirm Details</p>
 
+                                        </div>
+                                        <div class="progress w-100 mb-3">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                        </div>
                                     </div>
-                                    <div class="progress" style="width: 500px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                    <div class="shadow p-3 mb-2 bg-body rounded">
+                                        <label class="fw-bold fs-5">Sitting</label>
+                                        <p id="sittinginfo"></p>
+                                        <label class="fw-bold fs-5">Reservation Time</label>
+                                        <p id="timeinfo"></p>
+                                        <label class="fw-bold fs-5">Duration</label>
+                                        <p id="durationinfo"></p>
+                                        <label class="fw-bold fs-5">Guests</label>
+                                        <p id="guestinfo"></p>
+                                        <label class="fw-bold fs-5">First Name</label>
+                                        <p id="firstnameinfo"></p>
+                                        <label class="fw-bold fs-5">Last Name</label>
+                                        <p id="lastnameinfo"></p>
+                                        <label class="fw-bold fs-5">Phone</label>
+                                        <p id="phoneinfo"></p>
+                                        <label class="fw-bold fs-5">Email</label>
+                                        <p id="emailinfo"></p>
+                                        <label class="fw-bold fs-5">Note</label>
+                                        <p id="noteinfo"></p>
+
+                                        <div class="form-group p-2">
+                                            <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
+                                            <input type="submit" class="btn btn-primary" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-10 shadow p-3 mb-2 ms-5 bg-body rounded">
-                                    
-                                 
-                                     <label class="fw-bold fs-5">Sitting</label>
-                                     <p id="sittinginfo" ></p>
-                                     <label class="fw-bold fs-5">Reservation Time</label>
-                                     <p id="timeinfo"></p>
-                                     <label class="fw-bold fs-5">Duration</label>
-                                     <p id="durationinfo"></p>
-                                     <label class="fw-bold fs-5">Guests</label>
-                                     <p id="guestinfo" ></p>
-                                     <label class="fw-bold fs-5">First Name</label>
-                                     <p id="firstnameinfo" ></p>
-                                     <label class="fw-bold fs-5">Last Name</label>
-                                     <p id="lastnameinfo" ></p>
-                                     <label class="fw-bold fs-5">Phone</label>
-                                     <p id="phoneinfo" ></p>
-                                     <label class="fw-bold fs-5">Email</label>
-                                     <p  id="emailinfo"></p>
-                                     <label class="fw-bold fs-5">Note</label>
-                                     <p  id="noteinfo"></p>
-                                    
-                                    <div class="form-group p-2">
-                                        <a class="btn btn-primary fs-6 prev-control" href="#Reservation-Form" type="button" style="width: 100px;">Previous</a>
-                                        <input type="submit" class="btn btn-primary" />
-                                    </div>
-                                   
-                                   </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </form>
-            </div>
+                <div class="col-sm-1 col-md-2 col-lg-3 p-0"></div>
         </div>
-
-
     </div>
 </div>
 

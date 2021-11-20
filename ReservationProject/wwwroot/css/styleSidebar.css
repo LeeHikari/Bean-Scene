@@ -2099,7 +2099,7 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d; }
-  .btn-secondary:hover {
+  .btn-secondary:hover { 
     color: #fff;
     background-color: #5a6268;
     border-color: #545b62; }
@@ -8276,13 +8276,6 @@ a[data-toggle="collapse"] {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s; }
-
-.btn.btn-primary {
-  background: #f8b739;
-  border-color: #f8b739; }
-  .btn.btn-primary:hover, .btn.btn-primary:focus {
-    background: #f8b739 !important;
-    border-color: #f8b739 !important; }
 
 .footer p {
   color: rgba(255, 255, 255, 0.5); }
