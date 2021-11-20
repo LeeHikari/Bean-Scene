@@ -151,13 +151,6 @@ namespace ReservationProject.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public IActionResult FindSitting(Models.MultiViewModel m) //Requires MultiViewModel's - Create VM
-        //{
-        //    GetDate getDate = new GetDate { ObtainDate = m.GetDate.ObtainDate };
-        //    return RedirectToAction("Index", "Home", getDate);
-        //}
-
         [HttpGet]
         public IActionResult Confirm(Reservation m)
         {

@@ -12,18 +12,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ResDate" class="control-label"></label>
-                <input asp-for="ResDate" value="@DateTime.Now.ToShortDateString();" class="form-control" />
+                <input asp-for="ResDate" id="calendarDate" value="@DateTime.Now.ToShortDateString();" class="form-control" />
                 <span asp-validation-for="ResDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SittingId" class="control-label"></label>
-                <select asp-for="SittingId" class="form-control" asp-items="Model.Sitting"></select>
+                <select asp-for="SittingId" id="SittingsList" class="form-select">
+                    <option value=""> Please Select A Date</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="ResTime" class="control-label"></label>
-                <input asp-for="ResTime" class="form-control" />
-                <span asp-validation-for="ResTime" class="text-danger"></span>
-            </div>
+                <select asp-for="ResTime" id="selectTime" class="form-select">
+                    <option value="">Select Time</option>
+                </select>
+                @*<span asp-validation-for="ResTime" class="text-danger"></span>*@
+</div>
             <div class="form-group">
                 <label asp-for="Duration" class="control-label"></label>
                 <input asp-for="Duration" class="form-control" />
@@ -43,36 +47,107 @@
             <div class="form-group">
                 <label asp-for="ReservationSourceId" class="control-label"></label>
                 <select asp-for="ReservationSourceId" class="form-control" asp-items="Model.ReservationSource"></select>
-            <div class="form-group">
-                <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
 
 
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Phone"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <div class="form-group">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 
-            </div>
+                </div>
         </form>
     </div>
 </div>
 
+@section Scripts{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#calendarDate').on("change", function () {
+                $('#selectTime').html('');
+                $('#selectTime').append("<option value='0'>Select Time</option>");
+                var date = $('#calendarDate').val();
+                $.ajax({
+                    url: '@Url.Action("GetSittings")',
+                    data: { 'date': date },
+                    type: "POST",
+                    cache: false,
+                    success: function (response) {
+
+                        $('#SittingsList').html('');
+                        var options = '';
+
+                        if (response.length > 0) {
+                            options += "<option value='0'>Select Sitting</option>";
+
+                            for (var i = 0; i < response.length; i++) {
+                                options += "<option value='" + response[i].id + "'>" + response[i].name + "</option>";
+                            }
+                        }
+                        else {
+                            options += "<option value='0'>No Avaliable Sittings on Selected Date</option>";
+                        }
+                        $('#SittingsList').append(options);
+
+                    },
+                });
+            })
+            $('#SittingsList').on("change", function () {
+                var sitting = $('#SittingsList').val();
+                $.ajax({
+                    url: '@Url.Action("GetTimes")',
+                    data: { 'id': sitting },
+                    type: "POST",
+                    cache: false,
+                    success: function (response) {
+
+                        $('#selectTime').html('');
+                        var options = '';
+
+                        if (response.length > 0) {
+                            options += "<option value='0'>Select Time</option>";
+
+                            var startTime = new Date(response[0]);
+                            var endTime = new Date(response[1]);
+
+                            for (var time = startTime; time < endTime;) {
+                                options += "<option value='" + time.toLocaleTimeString() + "'>" + time.toLocaleTimeString() + "</option>";
+
+                                time = new Date(time.getTime() + 15 * 60000);
+                            }
+                        }
+                        else {
+                            options += "<option value='0'>--Select Sitting First--</option>";
+                        }
+                        $('#selectTime').append(options);
+
+                    },
+                });
+            })
+        });
+    </script>
+}

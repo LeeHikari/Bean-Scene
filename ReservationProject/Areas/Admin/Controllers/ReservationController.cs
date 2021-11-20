@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using ReservationProject.Data;
 using ReservationProject.Service;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -190,10 +191,10 @@ namespace ReservationProject.Areas.Admin.Controllers
                     Display = s.Name
                 }).ToArrayAsync();
 
-                var sittingList = await _context.Sittings.Select(r => new
+                var sittingList = await _context.Sittings.Where(s => s.StartTime.Date == selReservation.Sitting.StartTime.Date).Select(r => new
                 {
                     Value = r.Id,
-                    Display = $"{r.Name} {r.StartTime.ToString("h:mm tt")} - {r.EndTime.ToString("h:mm tt")}"
+                    Display = r.Name
                 }).ToArrayAsync();
 
                 
@@ -260,6 +261,31 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 return StatusCode(500);
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetTimes(int id)
+        {
+            Task<Sitting> SittingTimes = _context.Sittings.FirstOrDefaultAsync(s => s.Id == id);
+            SittingTimes.Wait();
+            var sitting = SittingTimes.Result;
+
+            List<DateTime> dates = new List<DateTime>();
+
+            if (sitting != null)
+            {
+                dates.Add(sitting.StartTime);
+                dates.Add(sitting.EndTime);
+            }
+            return Json(dates);
+        }
+
+        [HttpPost]
+        public JsonResult GetSittings(string date)
+        {
+            var sittingsList = _context.Sittings.Where(s => s.StartTime.Date == DateTime.Parse(date).Date);
+
+            return Json(sittingsList);
         }
 
 
