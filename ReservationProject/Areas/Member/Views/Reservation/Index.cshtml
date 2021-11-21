@@ -10,43 +10,41 @@
     ViewData["Title"] = "Index";
 
 }
+<div class="d-flex justify-content-center">
+    <div class="w-75 shadow">
+        <table width="100%" class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <td>Id</td>
+                    <td>Restaurant Name</td>
+                    <td>Person Name</td>
+                    <td>Sitting</td>
+                    <td>Source</td>
+                    <td>Status</td>
+                    <td>Guests</td>
+                    <td>Start Time</td>
+                    <td>End Time</td>
+                    <td>Note</td>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.Id</td>
+                        <td>@r.Sitting.Restaurant.Name</td>
+                        <td>@r.Person.Fullname</td>
+                        <td>@r.Sitting.Name</td>
+                        <td>@r.ReservationSource.Name</td>
+                        <td>@r.ReservationStatus.Name</td>
+                        <td>@r.Guests</td>
+                        <td>@r.StartTime</td>
+                        <td>@r.EndTime</td>
+                        <td>@r.Note</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<a asp-action="Create" class="btn btn-primary">Create</a>
-<hr />
-<table width="100%" class="table table-striped">
-    <thead class="table-dark">
-        <tr>
-            <td>Id</td>
-            <td>Restaurant Name</td>
-            <td>Person Name</td>
-            <td>Sitting</td>
-            <td>Source</td>
-            <td>Status</td>
-            <td>Guests</td>
-            <td>Start Time</td>
-            <td>End Time</td>
-            <td>Note</td>
-            <td>Action</td>
-        </tr>
-    </thead>
-    <tbody class="table-light">
-        @foreach (var r in Model)
-        {
-            <tr>
-                <td>@r.Id</td>
-                <td>@r.Sitting.Restaurant.Name</td>
-                <td>@r.Person.Fullname</td>
-                <td>@r.Sitting.Name</td>
-                <td>@r.ReservationSource.Name</td>
-                <td>@r.ReservationStatus.Name</td>
-                <td>@r.Guests</td>
-                <td>@r.StartTime</td>
-                <td>@r.EndTime</td>
-                <td>@r.Note</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@r.Id">Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
