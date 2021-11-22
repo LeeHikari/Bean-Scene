@@ -225,19 +225,14 @@ namespace ReservationProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var model = new Models.Sitting.Update
+            var model = _mapper.Map<Models.Sitting.Update>(sitting);
+            model.SitDate = sitting.StartTime;
+            model.SitEndTime=sitting.EndTime;
+            model.SitStartTime=sitting.StartTime;
 
-            { Id = sitting.Id,
-                Name = sitting.Name,
-                SitDate = sitting.StartTime,
-                SitStartTime = sitting.StartTime,
-                SitEndTime = sitting.EndTime,
-                Capacity = sitting.Capacity,
-                RestaurantId = sitting.RestaurantId,
-                IsClosed = sitting.IsClosed,
-
-                Restaurants = new SelectList(restaurantlist.ToList(), "Value", "Display")
-            };
+        
+            model.Restaurants = new SelectList(restaurantlist.ToList(), "Value", "Display");
+            
 
             return View(model);
         }
@@ -268,8 +263,7 @@ namespace ReservationProject.Areas.Admin.Controllers
                 var s = _mapper.Map<Data.Sitting>(model);
                 _context.Update<Sitting>(s);
 
-                s.StartTime = model.SitStartTime;
-                s.EndTime = model.SitEndTime;
+              
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
