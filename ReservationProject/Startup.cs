@@ -119,7 +119,7 @@ namespace ReservationProject
 
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = { "Member", "Staff", "Admin" };
+            string[] roleNames = { "Member", "Staff", "Admin","Deactivate" };
             foreach (string roleName in roleNames)
             {
                 Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
