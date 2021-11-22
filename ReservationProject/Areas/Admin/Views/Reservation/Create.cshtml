@@ -5,80 +5,83 @@
 }
 
 <h1 class="text-center fw-bold m-2">Create a Reservation</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ResDate" class="control-label"></label>
-                <input asp-for="ResDate" id="calendarDate" value="@DateTime.Now.ToShortDateString();" class="form-control" />
-                <span asp-validation-for="ResDate" class="text-danger"></span>
+<div class="container-fluid">
+    <div class="ms-5 me-5 ps-5 pe-5">
+        <div class="card shadow d-flex justify-content-center">
+            <h5 class="card-header">Enter details for a new reservation</h5>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ResDate" class="control-label"></label>
+                        <input asp-for="ResDate" id="calendarDate" value="@DateTime.Now.ToShortDateString();" class="form-control" />
+                        <span asp-validation-for="ResDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SittingId" class="control-label"></label>
+                        <select asp-for="SittingId" id="SittingsList" class="form-select">
+                            <option value=""> Please Select A Date</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ResTime" class="control-label"></label>
+                        <select asp-for="ResTime" id="selectTime" class="form-select">
+                            <option value="">Select Time</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Duration" class="control-label"></label>
+                        <input asp-for="Duration" class="form-control" />
+                        <span asp-validation-for="Duration" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Guests" class="control-label"></label>
+                        <input asp-for="Guests" class="form-control" />
+                        <span asp-validation-for="Guests" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Note" class="control-label"></label>
+                        <input asp-for="Note" class="form-control" />
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReservationSourceId" class="control-label"></label>
+                        <select asp-for="ReservationSourceId" class="form-control" asp-items="Model.ReservationSource"></select>
+                    </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Phone"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
             </div>
-            <div class="form-group">
-                <label asp-for="SittingId" class="control-label"></label>
-                <select asp-for="SittingId" id="SittingsList" class="form-select">
-                    <option value=""> Please Select A Date</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResTime" class="control-label"></label>
-                <select asp-for="ResTime" id="selectTime" class="form-select">
-                    <option value="">Select Time</option>
-                </select>
-                @*<span asp-validation-for="ResTime" class="text-danger"></span>*@
-</div>
-            <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Guests" class="control-label"></label>
-                <input asp-for="Guests" class="form-control" />
-                <span asp-validation-for="Guests" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ReservationSourceId" class="control-label"></label>
-                <select asp-for="ReservationSourceId" class="form-control" asp-items="Model.ReservationSource"></select>
-                <div class="form-group">
-                    <label asp-for="FirstName"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="LastName"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
-
-
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Phone"></label>
-                    <input asp-for="Phone" class="form-control" />
-                    <span asp-validation-for="Phone" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-
-                </div>
-        </form>
+        </div>
     </div>
 </div>
+
 
 @section Scripts{
 
