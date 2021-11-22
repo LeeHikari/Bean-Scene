@@ -49,8 +49,8 @@
                     <div class="p-4 pt-5">
                         <ul class="list-unstyled components mb-5">
                             <li class="active">
-                                <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
-                                <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
+                                <ul class="collapse list-unstyled" id="employeeSubmenu">
                                     <li>
                                         <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
                                     </li>
@@ -59,39 +59,39 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#pageSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
-                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li class="active">
+                                <a href="#sittingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
+                                <ul class="collapse list-unstyled" id="sittingSubmenu">
                                     <li>
-                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings" class="btn btn-primary btn-lg">Create Sittings</a>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings">Create Sitting </a>
                                     </li>
                                     <li>
-                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Index" class="btn btn-primary btn-lg">View Sittings</a>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="CreateMulti" id="CreateMultiSittings">Create Multiple Sittings </a>
                                     </li>
                                     <li>
-                                        <a href="#">Page 3</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#pageSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reservations</a>
-                                <ul class="collapse list-unstyled" id="pageSubmenu">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Create" class="btn btn-primary btn-lg">Create Reservation</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index" class="btn btn-primary btn-lg">View Reservation</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="SittingIndex" class="btn btn-primary btn-lg">View Reservations via Sittings</a>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Index">View Sittings</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#pageSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
-                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li class="active">
+                                <a href="#reservationSubmenu" data-bs-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">Reservations</a>
+                                <ul class="collapse list-unstyled" id="reservationSubmenu">
                                     <li>
-                                        <a asp-area="Admin" asp-controller="Report" asp-action="Index" class="btn btn-primary btn-lg">View Reports</a>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Create">Create Reservation</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index">View Reservations</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="SittingIndex">Sort Reservations by Sittings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Reports</a>
+                                <ul class="collapse list-unstyled" id="reportSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Report" asp-action="Index" >View Reports</a>
                                     </li>
                                 </ul>
                             </li>
