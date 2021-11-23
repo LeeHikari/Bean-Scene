@@ -16,38 +16,61 @@
     <div class="row w-100 m-0">
         <div class="col-12 p-0">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark m-0">
-                <div class="container" id="nav-font">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <div class="container-fluid" id="nav-font">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="container-fluid">
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
-                                </li>
-                            </ul>
+                    <div class="col-12">
+                        <div class="nav navbar-collapse collapse d-flex justify-content-md-between" id="navbar-collapse">
+                            <div class="col-md-5 col-lg-4 d-flex justify-content-center">
+                                <ul class="nav navbar-nav mb-2 flex-nowrap">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light fs-5 text-center" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light fs-5 text-center" asp-area="" asp-controller="Home" asp-action="Index">About Us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light fs-5 text-center" asp-area="" asp-controller="Home" asp-action="Index">Menus</a>
+                                    </li>
+                                    @if (User.IsInRole("Member"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-light fs-5 text-center" id="Reservations" asp-area="Member" asp-controller="Reservation" asp-action="Index">Reservations</a>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-light fs-5 text-center" id="Dashboard" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                        </li>
+                                    }
 
-                            <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4" asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
-                            <partial name="_LoginPartial" />
+                                </ul>
+
+                            </div>
+                            <div class="d-md-none d-lg-flex col-lg-4">
+                                <a class="fadeupText navbar-brand text-light fw-bold w-100 m-autow fs-1 fst-normal text-center display-4 d-none d-md-block" asp-area="" asp-controller="Home" asp-action="Index">BEAN SCENE</a>
+                            </div>
+                            <div class="col-md-5 d-lg-flex justify-content-lg-center align-content-md-end text-center col-lg-4">
+                                <partial name="_LoginPartial" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </nav>
         </div>
-        <div class="container-fluid d-flex p-0">
-            <div>
+        <div class="container-fluid d-flex p-0 pt-1" >
+            <div class="d-flex">
                 <nav id="sidebar" class="pt-5">
                     @*<img src="~/img/Bean-Scene-Logo-Circle.png" />*@
                     <a class="w-100 justify-content-center" asp-area="Admin" asp-controller="Home" asp-action="Index">
-                        <img class="d-block m-auto" src="~/img/Bean-Scene-Logo.png" title="Dashboard"/>
+                        <img class="d-block m-auto" src="~/img/Bean-Scene-Logo.png" title="Dashboard" />
                     </a>
                     <div class="p-4 pt-5">
                         <ul class="list-unstyled components mb-5">
+<<<<<<< Updated upstream
                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
                             {
                                 <li class="active">
@@ -98,9 +121,52 @@
                               
                                  <li class="active">
                                 <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Reports</a>
+=======
+                            <li class="active">
+                                <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
+                                <ul class="collapse list-unstyled" id="employeeSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Employee" asp-action="Index">View Employees</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="#sittingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
+                                <ul class="collapse list-unstyled" id="sittingSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings">Create Sitting </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="CreateMulti" id="CreateMultiSittings">Create Multiple Sittings </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Index">View Sittings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="#reservationSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reservations</a>
+                                <ul class="collapse list-unstyled" id="reservationSubmenu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Create">Create Reservation</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index">View Reservations</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="SittingIndex">Sort Reservations by Sittings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
+>>>>>>> Stashed changes
                                 <ul class="collapse list-unstyled" id="reportSubmenu">
                                     <li>
-                                        <a asp-area="Admin" asp-controller="Report" asp-action="Index" >View Reports</a>
+                                        <a asp-area="Admin" asp-controller="Report" asp-action="Index">View Reports</a>
                                     </li>
                                 </ul>
                             </li>
@@ -117,24 +183,23 @@
                     </div>
                 </nav>
             </div>
-            <div class="container-fluid">
+            <div class="container-fluid pe-0 ps-1">
                 <main role="main" class="pb-3">
                     @RenderBody()
                 </main>
             </div>
         </div>
-        <footer class="col-12 mt-5 border-top footer text-muted" style="height:10px">
+
+        <footer class="bg-dark footer text-center text-light fs-6 p-4">
             <div class="container">
-                &copy; 2021 - ReservationProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy<br /></a>
+                &copy; 2021 - ReservationProject - <a class="text-light fw-bold" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy<br /></a>
             </div>
         </footer>
 
         <script src="~/js/calendar.js"></script>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/js/main.js"></script>
-        <script src="~/js/popper.js"></script>
+
         @await RenderSectionAsync("Scripts", required: false)
     </div>
 </body>
