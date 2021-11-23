@@ -68,21 +68,7 @@
 
                             @if (User.IsInRole("Admin"))
                             {
-
-
-
-                                <li class="active">
-                                    <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
-                                    <ul class="collapse list-unstyled" id="employeeSubmenu">
-                                        <li>
-                                            <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
-                                        </li>
-                                        <li>
-                                            <a asp-area="Admin" asp-controller="Employee" asp-action="Index">View Employees</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="active">
+                                  <li class="active">
                                     <a href="#sittingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
                                     <ul class="collapse list-unstyled" id="sittingSubmenu">
                                         <li>
@@ -96,6 +82,20 @@
                                         </li>
                                     </ul>
                                 </li>
+
+
+                                <li class="active">
+                                    <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
+                                    <ul class="collapse list-unstyled" id="employeeSubmenu">
+                                        <li>
+                                            <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="Admin" asp-controller="Employee" asp-action="Index">View Employees</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                              
                                  <li class="active">
                                 <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Reports</a>
                                 <ul class="collapse list-unstyled" id="reportSubmenu">
