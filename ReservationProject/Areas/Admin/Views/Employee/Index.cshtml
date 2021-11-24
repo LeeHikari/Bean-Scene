@@ -50,6 +50,20 @@
                         <a asp-action="Delete" class="btn btn-danger" asp-route-id="@admin.Id">Delete</a>
                     </td>
                 </tr>
+            } @foreach (var admin in Model.Deactivate)
+            {
+                <tr>
+                    <td>@admin.Email</td>
+                    <td>@admin.Fullname </td>
+                    <td>@admin.PhoneNumber</td>
+                    <td>Deactivate</td>
+
+                    <td>
+                        <a asp-action="Details" class="btn btn-primary" asp-route-id="@admin.Id">Details</a> |
+                        <a asp-action="Update" class="btn btn-warning" asp-route-id="@admin.Id">Update</a> |
+                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@admin.Id">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

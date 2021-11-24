@@ -37,7 +37,9 @@ namespace ReservationProject.Areas.Admin.Controllers
             var model = new Models.Employee.Index
             {
                 Staff = await _userManager.GetUsersInRoleAsync("Staff"),
-                Admin = await _userManager.GetUsersInRoleAsync("Admin")
+                Admin = await _userManager.GetUsersInRoleAsync("Admin"),
+                Deactivate = await _userManager.GetUsersInRoleAsync("Deactivate")
+
             };
 
             return View(model);
