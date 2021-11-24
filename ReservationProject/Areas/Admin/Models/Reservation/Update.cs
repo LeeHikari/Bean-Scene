@@ -35,6 +35,7 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
 
 
         //Relationships
+        [Required]
         [Display(Name = "Status of Reservation")]
         public int ReservationStatusId { get; set; }
         public ReservationStatus ReservationStatus { get; set; }
@@ -53,10 +54,8 @@ namespace ReservationProject.Areas.Admin.Models.Reservation
 
         [Display(Name = "Status of Reservation")]
         public SelectList ReservationStatuses { get; set; }
-        [Required]
         [Display(Name = "Source of Reservation")]
         public SelectList ReservationSources { get; set; }
-        [Required]
         [Display(Name = "Sitting of Reservation")]
         public SelectList Sittings { get; set; }
     }

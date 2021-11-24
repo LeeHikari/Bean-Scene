@@ -72,8 +72,9 @@
                         <ul class="list-unstyled components mb-5">
                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
                             {
+
                                 <li class="active">
-                                    <a href="#reservationSubmenu" data-bs-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">Reservations</a>
+                                    <a href="#reservationSubmenu" data-toggle="collapse" data-bs-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">Reservations</a>
                                     <ul class="collapse list-unstyled" id="reservationSubmenu">
                                         <li>
                                             <a asp-area="Admin" asp-controller="Reservation" asp-action="Create">Create Reservation</a>
@@ -91,7 +92,7 @@
                             @if (User.IsInRole("Admin"))
                              {
                                 <li class="active">
-                                    <a href="#sittingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
+                                    <a href="#sittingSubmenu" data-toggle="collapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
                                     <ul class="collapse list-unstyled" id="sittingSubmenu">
                                         <li>
                                             <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings">Create Sitting </a>
@@ -105,7 +106,7 @@
                                     </ul>
                                 </li>
                                 <li class="active">
-                                    <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
+                                    <a href="#employeeSubmenu" data-toggle="collapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
                                     <ul class="collapse list-unstyled" id="employeeSubmenu">
                                         <li>
                                             <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
@@ -116,7 +117,7 @@
                                     </ul>
                                 </li>
                                 <li class="active">
-                                    <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
+                                    <a href="#reportSubmenu" data-toggle="collapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
                                     <ul class="collapse list-unstyled" id="reportSubmenu">
                                         <li>
                                             <a asp-area="Admin" asp-controller="Report" asp-action="Index">View Reports</a>
