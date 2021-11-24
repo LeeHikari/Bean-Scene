@@ -283,6 +283,7 @@ namespace ReservationProject.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetSittings(string date)
         {
+            var myDate = DateTime.Parse(date).Date;
             var sittingsList = _context.Sittings.Where(s => s.StartTime.Date == DateTime.Parse(date).Date);
 
             return Json(sittingsList);

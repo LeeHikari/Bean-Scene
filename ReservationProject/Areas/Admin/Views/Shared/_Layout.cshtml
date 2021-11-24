@@ -70,7 +70,6 @@
                     </a>
                     <div class="p-4 pt-5">
                         <ul class="list-unstyled components mb-5">
-<<<<<<< Updated upstream
                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
                             {
                                 <li class="active">
@@ -90,8 +89,8 @@
                             }
 
                             @if (User.IsInRole("Admin"))
-                            {
-                                  <li class="active">
+                             {
+                                <li class="active">
                                     <a href="#sittingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
                                     <ul class="collapse list-unstyled" id="sittingSubmenu">
                                         <li>
@@ -105,8 +104,6 @@
                                         </li>
                                     </ul>
                                 </li>
-
-
                                 <li class="active">
                                     <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
                                     <ul class="collapse list-unstyled" id="employeeSubmenu">
@@ -118,58 +115,14 @@
                                         </li>
                                     </ul>
                                 </li>
-                              
-                                 <li class="active">
-                                <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Reports</a>
-=======
-                            <li class="active">
-                                <a href="#employeeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employee</a>
-                                <ul class="collapse list-unstyled" id="employeeSubmenu">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Employee" asp-action="Create" id="CreateEmployee">Create Employee</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Employee" asp-action="Index">View Employees</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="active">
-                                <a href="#sittingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sittings</a>
-                                <ul class="collapse list-unstyled" id="sittingSubmenu">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Create" id="CreateSittings">Create Sitting </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="CreateMulti" id="CreateMultiSittings">Create Multiple Sittings </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Sitting" asp-action="Index">View Sittings</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="active">
-                                <a href="#reservationSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reservations</a>
-                                <ul class="collapse list-unstyled" id="reservationSubmenu">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Create">Create Reservation</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index">View Reservations</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="SittingIndex">Sort Reservations by Sittings</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="active">
-                                <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
->>>>>>> Stashed changes
-                                <ul class="collapse list-unstyled" id="reportSubmenu">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Report" asp-action="Index">View Reports</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li class="active">
+                                    <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
+                                    <ul class="collapse list-unstyled" id="reportSubmenu">
+                                        <li>
+                                            <a asp-area="Admin" asp-controller="Report" asp-action="Index">View Reports</a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             }
                            

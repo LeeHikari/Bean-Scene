@@ -112,8 +112,8 @@
             $('#calendarDate').on("change", function () {
                 $('#SittingsList').html('');
                 $('#selectTime').html('');
-                $('#selectTime').append("<option value='0'>Select Time</option>");
-                var date = $('#ResTime').val();
+                $('#selectTime').append("<option value='0'>Select Sitting</option>");
+                var date = $('#calendarDate').val();
                 $.ajax({
                     url: '@Url.Action("GetSittings")',
                     data: { 'date': date },
@@ -139,7 +139,7 @@
                     },
                 });
             })
-            $('#SittingsList').on("change", function myTimeFunction() {
+            $('#SittingsList').on("change", function () {
                 var sitting = $('#SittingsList').val();
                 $.ajax({
                     url: '@Url.Action("GetTimes")',
